@@ -1,231 +1,235 @@
-buildscript {
+    buildscript {
+
+        repositories {
+            maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+            mavenCentral()
+        }
+
+        dependencies {
+            classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+        }
+
+    }
+
+    plugins {
+
+        id "idea"
+        id "eclipse"
+        id "maven-publish"
+        id 'net.neoforged.moddev.legacyforge' version '2.0.91'
+        id 'com.diffplug.spotless' version '7.0.2'
+
+    }
+
+    sourceSets {
+
+        main.resources {
+            srcDir 'src/generated/resources'
+        }
+
+    }
 
     repositories {
-        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+
+        mavenLocal()
         mavenCentral()
+
+        maven {
+            name = 'GTCEu Maven'
+            url = 'https://maven.gtceu.com'
+            content {
+                includeGroup 'com.gregtechceu.gtceu'
+            }
+        }
+
+        maven {
+            name 'FirstDarkDev'
+            url "https://maven.firstdark.dev/snapshots/"
+        }
+
+        maven {
+            // Registrate
+            url = "https://maven.tterrag.com/"
+            content {
+                includeGroup("com.tterrag.registrate")
+            }
+        }
+
+        maven {
+            // Patchouli, JEI
+            name = "BlameJared"
+            url = "https://maven.blamejared.com/"
+        }
+
+        maven {
+            url = "https://maven.theillusivec4.top/"
+        }
+
+        maven {
+            // Curse Forge File
+            url "https://cursemaven.com/"
+            content {
+                includeGroup "curse.maven"
+            }
+        }
+
+        maven {
+            name = "TerraformersMC"
+            url = "https://maven.terraformersmc.com/"
+        }
+
+        maven {
+            url = "https://thedarkcolour.github.io/KotlinForForge/"
+        }
+
+        maven {
+            url = "https://api.modrinth.com/maven" }
+
+    }
+
+    version = mod_version
+    group = maven_group
+    base { archivesName = archives_base_name }
+    java { sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17 }
+
+    legacyForge {
+
+        version = project.minecraft_version + '-' + project.forge_version
+
+        parchment {
+            mappingsVersion = project.mapping_version
+            minecraftVersion = project.minecraft_version
+        }
+
+        runs {
+
+            configureEach {
+                systemProperty 'forge.logging.markers', 'REGISTRIES'
+                logLevel = org.slf4j.event.Level.DEBUG
+            }
+
+            client {
+                client()
+                sourceSet = sourceSets.main
+                programArguments.addAll('--refresh-dependencies')
+                systemProperty('forge.enabledGameTestNamespaces', project.mod_id)
+            }
+
+            server {
+                server()
+                sourceSet = sourceSets.main
+                systemProperty('forge.enabledGameTestNamespaces', project.mod_id)
+                programArguments.addAll('--nogui', '--world', 'world-extra')
+            }
+
+            data {
+                data()
+                sourceSet = sourceSets.main
+                programArguments.addAll('--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath())
+                programArguments.addAll('--existing-mod', 'gtceu')
+            }
+
+        }
+
+        mods {
+            "${mod_id}" {
+                sourceSet(sourceSets.main)
+            }
+        }
+
+    }
+
+    jar {
+        manifest.attributes([
+                "MixinConfigs": "extendedfeatures.mixin.json"
+        ])
     }
 
     dependencies {
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+
+        // Annotations
+        compileOnly("org.jetbrains:annotations:26.0.1")
+
+        // Mixins
+        annotationProcessor('org.spongepowered:mixin:0.8.5:processor')
+
+        // Jade
+        modCompileOnly("curse.maven:jade-324717:6855440")
+        modRuntimeOnly("curse.maven:jade-324717:6855440")
+
+        // GregTech and dependencies
+        modImplementation("com.gregtechceu.gtceu:gtceu-${minecraft_version}:${gtceu_version}:slim") { transitive = false }
+        modImplementation("com.lowdragmc.ldlib:ldlib-forge-${minecraft_version}:${ldlib_version}") { transitive = false }
+        modImplementation("com.tterrag.registrate:Registrate:${registrate_version}")
+        modImplementation("dev.toma.configuration:configuration-forge-${minecraft_version}:${configuration_version}")
+
+        // lombok
+        compileOnly 'org.projectlombok:lombok:1.18.24'
+        annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+        // ===================================
+        //       DEV INSTANCE MODS/QOL
+        // ===================================
+
+        // Emi
+        modRuntimeOnly("curse.maven:emi-580555:8081375")
+
+        // AE2
+        modRuntimeOnly("curse.maven:applied-energistics-2-223794:7148487")
+        modRuntimeOnly("curse.maven:guideme-1173950:8204776")
+
+        // Effortless Structure
+        modRuntimeOnly("curse.maven:effortless-676885:6251939")
+
+        // Spatial Tools (Copy pasting - Moving)
+        modRuntimeOnly("curse.maven:spatial-tools-compatible-1528726:8533862")
+
+        // KubeJS Aisle Tool
+        modRuntimeOnly("curse.maven:kubejs-aisle-tool-1236291:7543948")
+
+        // Forge-Energy (FE) Related mods (converters testing)
+        modRuntimeOnly("curse.maven:flux-networks-248020:5234697")
+        modRuntimeOnly("curse.maven:solar-flux-reborn-246974:6382702")
+        modRuntimeOnly("curse.maven:hammer-lib-247401:6337292")
+
     }
 
-}
-
-plugins {
-
-    id "idea"
-    id "eclipse"
-    id "maven-publish"
-    id 'net.neoforged.moddev.legacyforge' version '2.0.91'
-    id 'com.diffplug.spotless' version '7.0.2'
-
-}
-
-sourceSets {
-
-    main.resources {
-        srcDir 'src/generated/resources'
+    mixin {
+        add sourceSets.main, "mixin.${mod_id}.refmap.json"
+        config "${mod_id}.mixin.json"
     }
 
-}
+    tasks.named('processResources', ProcessResources).configure {
+        var properties = [
+                "mod_license": mod_license,
+                "mod_id": mod_id,
+                "version": version,
+                "mod_name": mod_name,
+                "mod_url": mod_url,
+                "mod_author": mod_author,
+                "forge_version": forge_version.split("\\.")[0],
+                "minecraft_version": minecraft_version,
+                "gtceu_version": gtceu_version,
+                "jade_version": jade_version
+        ]
+        inputs.properties(properties)
 
-repositories {
-
-    mavenLocal()
-    mavenCentral()
-
-    maven {
-        name = 'GTCEu Maven'
-        url = 'https://maven.gtceu.com'
-        content {
-            includeGroup 'com.gregtechceu.gtceu'
+        filesMatching("META-INF/mods.toml") {
+            expand properties + [project: project]
         }
     }
 
-    maven {
-        name 'FirstDarkDev'
-        url "https://maven.firstdark.dev/snapshots/"
+    tasks.named('jar', Jar).configure { finalizedBy 'reobfJar' }
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+        options.release.set(17)
+        options.compilerArgs << "-Aquiet=true"
     }
 
-    maven {
-        // Registrate
-        url = "https://maven.tterrag.com/"
-        content {
-            includeGroup("com.tterrag.registrate")
-        }
+    tasks.named('runClient') {
+        dependsOn 'runData'
     }
 
-    maven {
-        // Patchouli, JEI
-        name = "BlameJared"
-        url = "https://maven.blamejared.com/"
+    tasks.named('runData') {
+        outputs.upToDateWhen { false }
     }
-
-    maven {
-        url = "https://maven.theillusivec4.top/"
-    }
-
-    maven {
-        // Curse Forge File
-        url "https://cursemaven.com/"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
-
-    maven {
-		name = "TerraformersMC"
-		url = "https://maven.terraformersmc.com/"
-	}
-
-    maven {
-        url = "https://thedarkcolour.github.io/KotlinForForge/"
-    }
-
-    maven {
-        url = "https://api.modrinth.com/maven" }
-
-}
-
-version = mod_version
-group = maven_group
-base { archivesName = archives_base_name }
-java { sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17 }
-
-legacyForge {
-
-    version = project.minecraft_version + '-' + project.forge_version
-
-    parchment {
-        mappingsVersion = project.mapping_version
-        minecraftVersion = project.minecraft_version
-    }
-
-    runs {
-
-        configureEach {
-            systemProperty 'forge.logging.markers', 'REGISTRIES'
-            logLevel = org.slf4j.event.Level.DEBUG
-        }
-		
-        client {
-            client()
-            sourceSet = sourceSets.main
-            programArguments.addAll('--refresh-dependencies')
-            systemProperty('forge.enabledGameTestNamespaces', project.mod_id)
-        }
-		
-        server {
-            server()
-            sourceSet = sourceSets.main
-            systemProperty('forge.enabledGameTestNamespaces', project.mod_id)
-            programArguments.addAll('--nogui', '--world', 'world-extra')
-        }
-		
-        data {
-            data()
-            sourceSet = sourceSets.main
-            programArguments.addAll('--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath())
-            programArguments.addAll('--existing-mod', 'gtceu')
-        }
-
-    }
-
-    mods {
-
-        "${mod_id}" {
-            sourceSet(sourceSets.main)
-        }
-    }
-
-}
-
-jar {
-    manifest.attributes([
-            "MixinConfigs": "extendedfeatures.mixin.json"
-    ])
-}
-
-dependencies {
-
-    // Annotations
-    compileOnly("org.jetbrains:annotations:26.0.1")
-
-    // Mixins
-    annotationProcessor('org.spongepowered:mixin:0.8.5:processor')
-
-    // Jade
-    modCompileOnly("curse.maven:jade-324717:6855440")
-    modRuntimeOnly("curse.maven:jade-324717:6855440")
-
-    // GregTech and dependencies
-    modImplementation("com.gregtechceu.gtceu:gtceu-${minecraft_version}:${gtceu_version}:slim") { transitive = false }
-    modImplementation("com.lowdragmc.ldlib:ldlib-forge-${minecraft_version}:${ldlib_version}") { transitive = false }
-    modImplementation("com.tterrag.registrate:Registrate:${registrate_version}")
-    modImplementation("dev.toma.configuration:configuration-forge-${minecraft_version}:${configuration_version}")
-
-    // lombok
-    compileOnly 'org.projectlombok:lombok:1.18.24'
-    annotationProcessor 'org.projectlombok:lombok:1.18.24'
-
-    // ===================================
-    //       DEV INSTANCE MODS/QOL
-    // ===================================
-
-    // Emi
-    modRuntimeOnly("curse.maven:emi-580555:8081375")
-
-    // AE2
-    modRuntimeOnly("curse.maven:applied-energistics-2-223794:7148487")
-    modRuntimeOnly("curse.maven:guideme-1173950:8204776")
-
-    // Effortless Structure
-    modRuntimeOnly("curse.maven:effortless-676885:6251939")
-
-    // Spatial Tools (Copy pasting - Moving)
-    modRuntimeOnly("curse.maven:spatial-tools-compatible-1528726:8533862")
-
-    // KubeJS Aisle Tool
-    modRuntimeOnly("curse.maven:kubejs-aisle-tool-1236291:7543948")
-
-}
-
-mixin {
-    add sourceSets.main, "mixin.${mod_id}.refmap.json"
-    config "${mod_id}.mixin.json"
-}
-
-tasks.named('processResources', ProcessResources).configure {
-    var properties = [
-            "mod_license": mod_license,
-            "mod_id": mod_id,
-            "version": version,
-            "mod_name": mod_name,
-            "mod_url": mod_url,
-            "mod_author": mod_author,
-            "forge_version": forge_version.split("\\.")[0],
-            "minecraft_version": minecraft_version,
-            "gtceu_version": gtceu_version,
-            "jade_version": jade_version
-    ]
-    inputs.properties(properties)
-
-    filesMatching("META-INF/mods.toml") {
-        expand properties + [project: project]
-    }
-}
-
-tasks.named('jar', Jar).configure { finalizedBy 'reobfJar' }
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = "UTF-8"
-    options.release.set(17)
-    options.compilerArgs << "-Aquiet=true"
-}
-
-tasks.named('runClient') {
-    dependsOn 'runData'
-}
-
-tasks.named('runData') {
-    outputs.upToDateWhen { false }
-}
