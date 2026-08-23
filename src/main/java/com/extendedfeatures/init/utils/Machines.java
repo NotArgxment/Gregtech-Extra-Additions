@@ -3,12 +3,15 @@ package com.extendedfeatures.init.utils;
 import com.extendedfeatures.CreativeTabs;
 import com.extendedfeatures.client.integrations.Configuration.EFConfig;
 import com.extendedfeatures.init.utils.internal.ExtendedAbilities;
-import com.extendedfeatures.init.utils.internal.machines.*;
+import com.extendedfeatures.init.utils.internal.machines.ConfigurableCleanroomHatch;
+import com.extendedfeatures.init.utils.internal.machines.ExpandedDataAccessHatch;
+import com.extendedfeatures.init.utils.internal.machines.WirelessOpticalHatch;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
-import com.gregtechceu.gtceu.api.machine.multiblock.*;
+import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
+import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
 import com.gregtechceu.gtceu.api.registry.registrate.MachineBuilder;
 
 import net.minecraft.ChatFormatting;
@@ -16,7 +19,7 @@ import net.minecraft.network.chat.Component;
 
 import static com.extendedfeatures.ExtendedFeaturesCore.ExtendedFeaturesRegister;
 import static com.gregtechceu.gtceu.api.GTValues.*;
-import static com.gregtechceu.gtceu.api.machine.property.GTMachineModelProperties.*;
+import static com.gregtechceu.gtceu.api.machine.property.GTMachineModelProperties.IS_FORMED;
 
 public class Machines {
 
