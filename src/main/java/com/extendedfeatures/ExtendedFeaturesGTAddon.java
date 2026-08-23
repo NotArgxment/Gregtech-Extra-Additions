@@ -1,10 +1,10 @@
 package com.extendedfeatures;
 
 import com.extendedfeatures.client.LangHandler;
-import com.extendedfeatures.init.utils.Multiblocks;
 import com.extendedfeatures.init.utils.internal.recipes.*;
 
-import com.gregtechceu.gtceu.api.addon.*;
+import com.gregtechceu.gtceu.api.addon.GTAddon;
+import com.gregtechceu.gtceu.api.addon.IGTAddon;
 import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 
 import com.tterrag.registrate.providers.ProviderType;
