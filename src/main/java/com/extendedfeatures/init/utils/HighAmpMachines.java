@@ -9,15 +9,13 @@ import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
 import com.gregtechceu.gtceu.common.machine.electric.ConverterMachine;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.LaserHatchPartMachine;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import static com.extendedfeatures.CreativeTabs.HIGH_AMP_MACHINES;
-import static com.extendedfeatures.ExtendedFeaturesCore.*;
-import static com.extendedfeatures.init.utils.internal.StaticConverterOverlay.*;
-
+import static com.extendedfeatures.ExtendedFeaturesCore.ExtendedFeaturesRegister;
+import static com.extendedfeatures.init.utils.internal.StaticConverterOverlay.converterOverlay;
 import static com.gregtechceu.gtceu.api.GTValues.*;
 import static com.gregtechceu.gtceu.api.capability.recipe.IO.*;
 import static com.gregtechceu.gtceu.api.machine.property.GTMachineModelProperties.*;
