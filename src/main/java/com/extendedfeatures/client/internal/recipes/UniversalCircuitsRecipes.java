@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils.internal.recipes;
+package com.extendedfeatures.client.internal.recipes;
 
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.GTValues;
@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.ASSEMBLER_RECIPES;
 
-public class UniversalCircuits {
+public class UniversalCircuitsRecipes {
 
     public static void init(Consumer<FinishedRecipe> provider) {
         buildCircuitRecipe(provider, "ulv_universal_circuit", CustomTags.ULV_CIRCUITS, GTValues.ULV);

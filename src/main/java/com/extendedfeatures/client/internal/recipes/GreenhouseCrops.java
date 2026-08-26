@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils.internal.recipes;
+package com.extendedfeatures.client.internal.recipes;
 
 import com.extendedfeatures.client.RecipeTypes;
 import com.gregtechceu.gtceu.api.GTValues;
@@ -118,8 +118,7 @@ public class GreenhouseCrops {
                 new ItemStack(Items.BROWN_MUSHROOM, 32));
     }
 
-    private static void addCropRecipe(
-                                      Consumer<FinishedRecipe> provider,
+    private static void addCropRecipe(Consumer<FinishedRecipe> provider,
                                       String id, boolean boosted,
                                       ItemStack input, int waterMb,
                                       ItemStack output) {

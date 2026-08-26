@@ -13,7 +13,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.extendedfeatures.ExtendedFeaturesCore.ExtendedFeaturesRegister;
 

@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils.internal;
+package com.extendedfeatures.client.internal;
 
 import com.gregtechceu.gtceu.api.registry.registrate.MachineBuilder;
 import com.gregtechceu.gtceu.client.model.machine.overlays.EnergyIOOverlay;

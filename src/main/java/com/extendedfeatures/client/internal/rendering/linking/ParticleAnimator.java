@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils.internal.rendering.linking;
+package com.extendedfeatures.client.internal.rendering.linking;
 
 import com.gregtechceu.gtceu.api.machine.TickableSubscription;
 
@@ -26,7 +26,7 @@ public class ParticleAnimator {
     }
 
     private void tick() {
-        if (ticksElapsed >= durationTicks) {
+        if (durationTicks >= 0 && ticksElapsed >= durationTicks) {
             stop();
             return;
         }

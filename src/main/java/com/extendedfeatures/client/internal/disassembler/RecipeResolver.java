@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils.internal.disassembler;
+package com.extendedfeatures.client.internal.disassembler;
 
 import com.extendedfeatures.client.integrations.Configuration.EFConfig;
 import com.extendedfeatures.init.utils.UniversalCircuits;

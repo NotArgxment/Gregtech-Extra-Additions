@@ -1,7 +1,7 @@
 package com.extendedfeatures.client;
 
 import com.extendedfeatures.ExtendedFeaturesCore;
-import com.extendedfeatures.init.utils.internal.disassembler.DisassemblerRecipeLogic;
+import com.extendedfeatures.client.internal.disassembler.DisassemblerRecipeLogic;
 
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.gui.GuiTextures;
@@ -29,6 +29,7 @@ public class RecipeTypes {
     public static GTRecipeType AIR_COLLECTOR;
 
     public static void init() {
+
         ROCK_PROCESSING_RECIPES = register("rock_processing_plant", MULTIBLOCK)
                 .setEUIO(IO.IN)
                 .setMaxIOSize(1, 6, 1, 3)
@@ -55,10 +56,10 @@ public class RecipeTypes {
                 .addCustomRecipeLogic(DisassemblerRecipeLogic.INSTANCE);
 
         CHEMICAL_REDUCTION = register("chemical_skips", MULTIBLOCK)
-                 .setEUIO(IO.IN)
-                 .setMaxIOSize(6, 6, 6, 6)
-                 .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, ProgressTexture.FillDirection.LEFT_TO_RIGHT)
-                 .setSound(GTSoundEntries.CHEMICAL);
+                .setEUIO(IO.IN)
+                .setMaxIOSize(6, 6, 6, 6)
+                .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, ProgressTexture.FillDirection.LEFT_TO_RIGHT)
+                .setSound(GTSoundEntries.CHEMICAL);
 
         AIR_COLLECTOR = register("air_collection", MULTIBLOCK)
                 .setEUIO(IO.IN)

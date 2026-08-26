@@ -1,7 +1,7 @@
 package com.extendedfeatures.client.integrations.Jade;
 
 import com.extendedfeatures.ExtendedFeaturesCore;
-import com.extendedfeatures.init.utils.internal.machines.WirelessOpticalHatch;
+import com.extendedfeatures.client.internal.logic.WirelessOpticalHatch;
 
 import com.gregtechceu.gtceu.api.machine.*;
 

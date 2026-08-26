@@ -1,35 +1,42 @@
-package com.extendedfeatures.init.utils;
+package com.extendedfeatures.init.utils.electric;
 
-import com.extendedfeatures.*;
+import com.extendedfeatures.CreativeTabs;
+import com.extendedfeatures.ExtendedFeaturesCore;
 import com.extendedfeatures.client.integrations.Configuration.EFConfig;
-import com.extendedfeatures.init.utils.internal.ExtendedAbilities;
-import com.extendedfeatures.init.utils.internal.CustomShapeInfos;
-import com.extendedfeatures.init.utils.internal.disassembler.DisassemblerMachine;
-
+import com.extendedfeatures.client.internal.CustomShapeInfos;
+import com.extendedfeatures.client.internal.ExtendedAbilities;
+import com.extendedfeatures.client.internal.disassembler.DisassemblerMachine;
+import com.extendedfeatures.client.internal.logic.MatrixDataRelayMachine;
+import com.extendedfeatures.init.utils.CoilWorkableMultiblockLaser;
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
-import com.gregtechceu.gtceu.api.machine.multiblock.*;
-import com.gregtechceu.gtceu.api.pattern.*;
+import com.gregtechceu.gtceu.api.machine.multiblock.CoilWorkableElectricMultiblockMachine;
+import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
+import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
+import com.gregtechceu.gtceu.api.pattern.FactoryBlockPattern;
+import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.client.util.TooltipHelper;
-import com.gregtechceu.gtceu.common.data.*;
+import com.gregtechceu.gtceu.common.data.GTMaterialItems;
+import com.gregtechceu.gtceu.common.data.GTMaterials;
+import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
+import com.gregtechceu.gtceu.common.machine.multiblock.electric.ActiveTransformerMachine;
 import com.gregtechceu.gtceu.common.machine.multiblock.electric.research.DataBankMachine;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
-
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 
-import static com.extendedfeatures.ExtendedFeaturesCore.*;
+import static com.extendedfeatures.ExtendedFeaturesCore.ExtendedFeaturesRegister;
 import static com.extendedfeatures.client.RecipeTypes.*;
-import static com.extendedfeatures.init.utils.RecipeModifiers.*;
-
+import static com.extendedfeatures.init.utils.RecipeModifiers.MACHINE_PARALLEL;
 import static com.gregtechceu.gtceu.api.pattern.Predicates.*;
 import static com.gregtechceu.gtceu.common.data.GCYMBlocks.*;
-import static com.gregtechceu.gtceu.common.data.GCYMRecipeTypes.*;
+import static com.gregtechceu.gtceu.common.data.GCYMRecipeTypes.ALLOY_BLAST_RECIPES;
 import static com.gregtechceu.gtceu.common.data.GTBlocks.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeModifiers.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
@@ -66,11 +73,11 @@ public class Multiblocks {
                     )
                     .tooltipBuilder((stack, list) -> list.add(
                             Component.translatable("extendedfeatures.regular.tooltip.1")
-                            .append(Component.translatable("extendedfeatures.styled.tooltip.1")
-                                    .withStyle(TooltipHelper.RAINBOW_HSL_SLOW))
-                            .append(Component.translatable("extendedfeatures.regular.tooltip.2")
-                                .append(Component.translatable("extendedfeatures.styled.tooltip.2")
-                                    .withStyle(TooltipHelper.RAINBOW_HSL_SLOW))))
+                                    .append(Component.translatable("extendedfeatures.styled.tooltip.1")
+                                            .withStyle(TooltipHelper.RAINBOW_HSL_SLOW))
+                                    .append(Component.translatable("extendedfeatures.regular.tooltip.2")
+                                            .append(Component.translatable("extendedfeatures.styled.tooltip.2")
+                                                    .withStyle(TooltipHelper.RAINBOW_HSL_SLOW))))
                     )
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(ALLOY_BLAST_RECIPES)
@@ -108,7 +115,7 @@ public class Multiblocks {
                             .where('E', Predicates.blocks(HEAT_VENT.get()))
                             .where('L', ability(PartAbility.MUFFLER).setExactLimit(1))
                             .build())
-                    .recoveryItems(() -> new ItemLike[] {
+                    .recoveryItems(() -> new ItemLike[]{
                             GTMaterialItems.MATERIAL_ITEMS.get(TagPrefix.dustTiny, GTMaterials.Ash)
                     })
                     .workableCasingModel(
@@ -119,10 +126,10 @@ public class Multiblocks {
                         if (controller instanceof CoilWorkableElectricMultiblockMachine coilMachine && controller.isFormed()) {
                             components.add(
                                     Component.translatable("gtceu.multiblock.blast_furnace.max_temperature",
-                                    Component.translatable(
-                                            FormattingUtil
-                                                    .formatNumbers(coilMachine.getCoilType().getCoilTemperature() + 100L * Math.max(0, coilMachine.getTier() - GTValues.MV)) + "K")
-                                            .setStyle(Style.EMPTY.withColor(ChatFormatting.RED))));
+                                            Component.translatable(
+                                                            FormattingUtil
+                                                                    .formatNumbers(coilMachine.getCoilType().getCoilTemperature() + 100L * Math.max(0, coilMachine.getTier() - GTValues.MV)) + "K")
+                                                    .setStyle(Style.EMPTY.withColor(ChatFormatting.RED))));
                         }
                     })
                     .shapeInfos(CustomShapeInfos::RobustAlloyMaterializer)
@@ -140,8 +147,8 @@ public class Multiblocks {
                     )
                     .tooltipBuilder((stack, list) -> list.add(
                             Component.translatable("extendedfeatures.regular.tooltip.1")
-                            .append(Component.translatable("extendedfeatures.styled.tooltip.2")
-                                    .withStyle(TooltipHelper.RAINBOW_HSL_SLOW))))
+                                    .append(Component.translatable("extendedfeatures.styled.tooltip.2")
+                                            .withStyle(TooltipHelper.RAINBOW_HSL_SLOW))))
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(CRACKING_RECIPES)
                     .recipeModifiers(
@@ -171,7 +178,7 @@ public class Multiblocks {
                                     .or(Predicates.abilities(PartAbility.PARALLEL_HATCH).setMaxGlobalLimited(1)))
                             .where('Y', ability(PartAbility.MUFFLER).setExactLimit(1))
                             .build())
-                    .recoveryItems(() -> new ItemLike[] {
+                    .recoveryItems(() -> new ItemLike[]{
                             GTMaterialItems.MATERIAL_ITEMS.get(TagPrefix.dustTiny, GTMaterials.Ash)
                     })
                     .workableCasingModel(
@@ -241,8 +248,8 @@ public class Multiblocks {
                             Component.translatable("gtceu.machine.pyrolyse_oven.tooltip.1"))
                     .tooltipBuilder((stack, list) -> list.add(
                             Component.translatable("extendedfeatures.regular.tooltip.1")
-                            .append(Component.translatable("extendedfeatures.styled.tooltip.2")
-                                    .withStyle(TooltipHelper.RAINBOW_HSL_SLOW))))
+                                    .append(Component.translatable("extendedfeatures.styled.tooltip.2")
+                                            .withStyle(TooltipHelper.RAINBOW_HSL_SLOW))))
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(PYROLYSE_RECIPES)
                     .recipeModifiers(
@@ -276,7 +283,7 @@ public class Multiblocks {
                                     .or(Predicates.abilities(PartAbility.PARALLEL_HATCH).setMaxGlobalLimited(1)))
                             .where('Y', ability(PartAbility.MUFFLER).setExactLimit(1))
                             .build())
-                    .recoveryItems(() -> new ItemLike[] {
+                    .recoveryItems(() -> new ItemLike[]{
                             GTMaterialItems.MATERIAL_ITEMS.get(TagPrefix.dustTiny, GTMaterials.Ash)
                     })
                     .workableCasingModel(
@@ -305,8 +312,8 @@ public class Multiblocks {
                     )
                     .tooltipBuilder((stack, list) -> list.add(
                             Component.translatable("extendedfeatures.compact_assembly_line.tooltip.3")
-                            .append(Component.translatable("extendedfeatures.styled.tooltip.3")
-                                    .withStyle(TooltipHelper.RAINBOW_HSL_FAST))))
+                                    .append(Component.translatable("extendedfeatures.styled.tooltip.3")
+                                            .withStyle(TooltipHelper.RAINBOW_HSL_FAST))))
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(ASSEMBLY_LINE_RECIPES)
                     .recipeModifiers(
@@ -355,24 +362,24 @@ public class Multiblocks {
                     .recipeModifiers(OC_NON_PERFECT, BATCH_MODE)
                     .appearanceBlock(CASING_SECURE_MACERATION)
                     .pattern(definition -> FactoryBlockPattern.start()
-                    .aisle("  CCCCCCCCC  ", "  CCCCCCCCC  ", "  CCCCCCCCC  ", "  CCCCCCCCC  ", "             ")
-                    .aisle("  CCCCCCCCC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "             ")
-                    .aisle("  CCCCCCCCC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "             ")
-                    .aisle("  CCCCCCCCC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "             ")
-                    .aisle("  CCCCCCCCC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "             ")
-                    .aisle("  CCCCCCCCC  ", "  CCCTCTCCC  ", "  CCCCCCCCC  ", "  CCCCCCCCC  ", "             ")
-                    .aisle("             ", "     T T     ", "             ", "             ", "             ")
-                    .aisle("   BBBBBBB   ", "   BBTBTBB   ", "   BBBBBBB   ", "    BBBBB    ", "             ")
-                    .aisle(" BBBBBBBBBBB ", " BBBDDDDDBBB ", " BBBEEEEEBBB ", "  BB#####BB  ", "   BBBBBBB   ")
-                    .aisle("BBBBBBBBBBBBB", "BBDDD#D#DDDBB", "BEEEEEEEEEEBB", " B#########B ", "  BBFFFFFBB  ")
-                    .aisle("BBBBBBBBBBBBB", "BDD#D#D#D#DDB", "BEEEEEEEEEEEB", "B###########B", " BFFFFFFFFFB ")
-                    .aisle("BBBBBBBBBBBBB", "BDD#D#D#D#DDB", "BEEEEEEEEEEEB", "B###########B", "BBFFFFFFFFFBB")
-                    .aisle("BBBBBBBBBBBBB", "GDD#D#D#D#DDG", "BEEEEEEEEEEEB", "B###########B", "BBFFFFFFFFFBB")
-                    .aisle("BBBBBBBBBBBBB", "BDD#D#D#D#DDB", "BEEEEEEEEEEEB", "B###########B", "BBFFFFFFFFFBB")
-                    .aisle("BBBBBBBBBBBBB", "BDD#D#D#D#DDB", "BEEEEEEEEEEEB", "B###########B", " BFFFFFFFFFB ")
-                    .aisle("BBBBBBBBBBBBB", "BBDDD#D#DDDBB", "BBEEEEEEEEEBB", " B#########B ", " BBBFFFFFBBB ")
-                    .aisle(" BBBBBBBBBBB ", " BBBDDDDDBBB ", " BBBEEEEEBBB ", "  BB#####BB  ", "   BBBBBBB   ")
-                    .aisle("   BBBBBBB   ", "   BBB@BBB   ", "   BBBBBBB   ", "    BBBBB    ", "             ")
+                            .aisle("  CCCCCCCCC  ", "  CCCCCCCCC  ", "  CCCCCCCCC  ", "  CCCCCCCCC  ", "             ")
+                            .aisle("  CCCCCCCCC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "             ")
+                            .aisle("  CCCCCCCCC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "             ")
+                            .aisle("  CCCCCCCCC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "             ")
+                            .aisle("  CCCCCCCCC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "             ")
+                            .aisle("  CCCCCCCCC  ", "  CCCTCTCCC  ", "  CCCCCCCCC  ", "  CCCCCCCCC  ", "             ")
+                            .aisle("             ", "     T T     ", "             ", "             ", "             ")
+                            .aisle("   BBBBBBB   ", "   BBTBTBB   ", "   BBBBBBB   ", "    BBBBB    ", "             ")
+                            .aisle(" BBBBBBBBBBB ", " BBBDDDDDBBB ", " BBBEEEEEBBB ", "  BB#####BB  ", "   BBBBBBB   ")
+                            .aisle("BBBBBBBBBBBBB", "BBDDD#D#DDDBB", "BEEEEEEEEEEBB", " B#########B ", "  BBFFFFFBB  ")
+                            .aisle("BBBBBBBBBBBBB", "BDD#D#D#D#DDB", "BEEEEEEEEEEEB", "B###########B", " BFFFFFFFFFB ")
+                            .aisle("BBBBBBBBBBBBB", "BDD#D#D#D#DDB", "BEEEEEEEEEEEB", "B###########B", "BBFFFFFFFFFBB")
+                            .aisle("BBBBBBBBBBBBB", "GDD#D#D#D#DDG", "BEEEEEEEEEEEB", "B###########B", "BBFFFFFFFFFBB")
+                            .aisle("BBBBBBBBBBBBB", "BDD#D#D#D#DDB", "BEEEEEEEEEEEB", "B###########B", "BBFFFFFFFFFBB")
+                            .aisle("BBBBBBBBBBBBB", "BDD#D#D#D#DDB", "BEEEEEEEEEEEB", "B###########B", " BFFFFFFFFFB ")
+                            .aisle("BBBBBBBBBBBBB", "BBDDD#D#DDDBB", "BBEEEEEEEEEBB", " B#########B ", " BBBFFFFFBBB ")
+                            .aisle(" BBBBBBBBBBB ", " BBBDDDDDBBB ", " BBBEEEEEBBB ", "  BB#####BB  ", "   BBBBBBB   ")
+                            .aisle("   BBBBBBB   ", "   BBB@BBB   ", "   BBBBBBB   ", "    BBBBB    ", "             ")
                             .where('@', controller(blocks(definition.get())))
                             .where(' ', any())
                             .where('#', air())
@@ -461,8 +468,8 @@ public class Multiblocks {
                     )
                     .tooltipBuilder((stack, list) -> list.add(
                             Component.translatable("extendedfeatures.regular.tooltip.1")
-                            .append(Component.translatable("extendedfeatures.styled.tooltip.2")
-                                    .withStyle(TooltipHelper.RAINBOW_HSL_SLOW)))
+                                    .append(Component.translatable("extendedfeatures.styled.tooltip.2")
+                                            .withStyle(TooltipHelper.RAINBOW_HSL_SLOW)))
                     )
                     .recipeTypes(GREENHOUSE_CROPS, GREENHOUSE_WOOD)
                     .recipeModifiers(
@@ -629,7 +636,7 @@ public class Multiblocks {
     static {
         if (EFConfig.INSTANCE.Multiblocks.MatrixDataRelay || GTCEu.isDataGen()) {
             MATRIX_DATA_RELAY = ExtendedFeaturesRegister
-                    .multiblock("matrix_data_relay", DataBankMachine::new)
+                    .multiblock("matrix_data_relay", MatrixDataRelayMachine::new)
                     .tooltips(
                             Component.translatable("extendedfeatures.matrix_data_relay.tooltip.1")
                     )

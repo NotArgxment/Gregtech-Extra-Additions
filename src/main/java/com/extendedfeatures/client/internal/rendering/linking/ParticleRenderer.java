@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils.internal.rendering.linking;
+package com.extendedfeatures.client.internal.rendering.linking;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;

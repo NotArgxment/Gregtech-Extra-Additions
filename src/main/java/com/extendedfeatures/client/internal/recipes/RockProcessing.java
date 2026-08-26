@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils.internal.recipes;
+package com.extendedfeatures.client.internal.recipes;
 
 import com.gregtechceu.gtceu.api.GTValues;
 

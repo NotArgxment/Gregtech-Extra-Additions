@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils.internal.disassembler;
+package com.extendedfeatures.client.internal.disassembler;
 
 import com.extendedfeatures.client.RecipeTypes;
 import com.gregtechceu.gtceu.api.GTValues;

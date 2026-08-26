@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils.internal.machines;
+package com.extendedfeatures.client.internal.logic;
 
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.DataAccessHatchMachine;

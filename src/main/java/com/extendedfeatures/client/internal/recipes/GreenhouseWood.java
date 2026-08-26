@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils.internal.recipes;
+package com.extendedfeatures.client.internal.recipes;
 
 import com.extendedfeatures.client.RecipeTypes;
 
@@ -103,7 +103,11 @@ public class GreenhouseWood {
                 new ItemStack(Items.MANGROVE_PROPAGULE, 4));
     }
 
-    private static void addTreeRecipe(Consumer<FinishedRecipe> provider, String id, boolean boosted, ItemStack sapling, ItemStack... outputs) {
+    private static void addTreeRecipe(Consumer<FinishedRecipe> provider,
+                                      String id,
+                                      boolean boosted,
+                                      ItemStack sapling,
+                                      ItemStack... outputs) {
         var builder = RecipeTypes.GREENHOUSE_WOOD.recipeBuilder(id)
                 .circuitMeta(boosted ? 2 : 1) // If boosted, use 2, else 1
                 .notConsumable(sapling)

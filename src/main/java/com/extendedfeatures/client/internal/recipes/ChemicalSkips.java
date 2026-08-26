@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils.internal.recipes;
+package com.extendedfeatures.client.internal.recipes;
 
 import com.gregtechceu.gtceu.api.GTValues;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -46,7 +46,7 @@ public class ChemicalSkips {
                 .duration(2000)
                 .save(provider);
 
-        /* For 2.4.1, WIP
+        /* For 2.5.0, WIP
 
         // ======================================
         //          Miscellaneous Skips

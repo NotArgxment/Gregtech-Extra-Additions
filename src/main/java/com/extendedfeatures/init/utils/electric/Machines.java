@@ -1,11 +1,11 @@
-package com.extendedfeatures.init.utils;
+package com.extendedfeatures.init.utils.electric;
 
 import com.extendedfeatures.CreativeTabs;
 import com.extendedfeatures.client.integrations.Configuration.EFConfig;
-import com.extendedfeatures.init.utils.internal.ExtendedAbilities;
-import com.extendedfeatures.init.utils.internal.machines.ConfigurableCleanroomHatch;
-import com.extendedfeatures.init.utils.internal.machines.ExpandedDataAccessHatch;
-import com.extendedfeatures.init.utils.internal.machines.WirelessOpticalHatch;
+import com.extendedfeatures.client.internal.ExtendedAbilities;
+import com.extendedfeatures.client.internal.logic.ConfigurableCleanroomHatch;
+import com.extendedfeatures.client.internal.logic.ExpandedDataAccessHatch;
+import com.extendedfeatures.client.internal.logic.WirelessOpticalHatch;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.RotationState;
