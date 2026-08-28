@@ -25,7 +25,8 @@ public class LangManager {
         replace(provider, "block.extendedfeatures.disassembler", "Disassembler [DA]");
         replace(provider, "block.extendedfeatures.rock_processing_plant", "Rock Processing Plant [RPP]");
         replace(provider, "block.extendedfeatures.large_gas_collector", "Large Gas Collector [LGC]");
-        replace(provider, "block.extendedfeatures.expanded_databank", "Expanded Databank [EDb]");
+        /* Deprecated - Going to be removed on update 3.1.0
+        replace(provider, "block.extendedfeatures.expanded_databank", "Expanded Databank [EDb]"); */
         replace(provider, "block.extendedfeatures.matrix_data_relay", "Matrix Data Relay [MDR]");
 
         // Expanded Data Hatches
@@ -59,7 +60,9 @@ public class LangManager {
         replace(provider, "config.extendedfeatures.option.Disassembler", "§7Disassembler");
         replace(provider, "config.extendedfeatures.option.LargeGasCollector", "§7Large Gas Collector");
         replace(provider, "config.extendedfeatures.option.MatrixDataRelay", "§7Matrix Data Relay");
+        /* Deprecated - Will be removed on update 3.1.0
         replace(provider, "config.extendedfeatures.option.ExpandedDatabank", "§7Expanded Data Bank");
+         */
 
         replace(provider, "config.extendedfeatures.option.ExpandedDataAccessHatches", "§7Expanded Data Access Hatches");
         replace(provider, "config.extendedfeatures.option.WirelessOpticalHatches", "§7Wireless Optical Tranmisssors/Receptors");

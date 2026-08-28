@@ -99,12 +99,14 @@ public class ConfigClass {
         })
         public boolean LargeGasCollector = true;
 
+        /* Deprecated - Will be removed on update 3.1.0
         @Configurable
         @Configurable.Comment({
                 "Whether the Expanded Data Bank is Enabled",
                 "Default = True"
         })
         public boolean ExpandedDatabank = true;
+         */
 
         @Configurable
         @Configurable.Comment({
