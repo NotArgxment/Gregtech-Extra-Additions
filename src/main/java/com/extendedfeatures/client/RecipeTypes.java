@@ -26,7 +26,7 @@ public class RecipeTypes {
     public static GTRecipeType GREENHOUSE_WOOD;
     public static GTRecipeType GREENHOUSE_CROPS;
     public static GTRecipeType DISASSEMBLER_MACHINES;
-    public static GTRecipeType DISSASSEMBER_CASINGS;
+    public static GTRecipeType DISASSEMBER_CASINGS;
     public static GTRecipeType CHEMICAL_REDUCTION;
     public static GTRecipeType AIR_COLLECTOR;
 
@@ -57,9 +57,9 @@ public class RecipeTypes {
                 .setSound(GTSoundEntries.ASSEMBLER)
                 .addCustomRecipeLogic(DisassemblerRecipeLogic.INSTANCE);
 
-        DISSASSEMBER_CASINGS = register("casing_disassembly", MULTIBLOCK)
+        DISASSEMBER_CASINGS = register("casing_disassembly", MULTIBLOCK)
                 .setEUIO(IO.IN)
-                .setMaxIOSize(1, 9, 0, 0)
+                .setMaxIOSize(1, 9, 0, 1)
                 .setProgressBar(GuiTextures.PROGRESS_BAR_MIXER, ProgressTexture.FillDirection.LEFT_TO_RIGHT)
                 .setSound(GTSoundEntries.ASSEMBLER);
 
