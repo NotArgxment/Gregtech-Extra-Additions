@@ -282,9 +282,9 @@ public class Multiblocks {
                     .register();
         }
     }
-
+ /* Under Rework (Current logic is innapropiate for what an Assembly Line does)
     static {
-        if (EFConfig.INSTANCE.Multiblocks.CompactAssemblyLine || GTCEu.isDataGen()) {
+        if (ConfigClass.INSTANCE.Multiblocks.CompactAssemblyLine || GTCEu.isDataGen()) {
             COMPACT_ASSEMBLY_LINE = ExtendedFeaturesRegister
                     .multiblock("compact_assembly_line", WorkableElectricMultiblockMachine::new)
                     .tooltips(
@@ -298,10 +298,7 @@ public class Multiblocks {
                                             .withStyle(TooltipHelper.RAINBOW_HSL_FAST))))
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(ASSEMBLY_LINE_RECIPES)
-                    .recipeModifiers(
-                            MACHINE_PARALLEL(4),
-                            OC_NON_PERFECT
-                    )
+                    .recipeModifiers(MACHINE_PARALLEL(4), OC_NON_PERFECT)
                     .appearanceBlock(CASING_STEEL_SOLID)
                     .pattern(definition -> FactoryBlockPattern.start()
                             .aisle("ENE", "EKE", "EHE")
@@ -333,6 +330,7 @@ public class Multiblocks {
                     .register();
         }
     }
+  */
 
     static {
         if (ConfigClass.INSTANCE.Multiblocks.RockProcessingPlant || GTCEu.isDataGen()) {
@@ -565,8 +563,9 @@ public class Multiblocks {
         }
     }
 
+    /* Deprecated - Will be removed on update 3.1.0
     static {
-        if (EFConfig.INSTANCE.Multiblocks.ExpandedDatabank || GTCEu.isDataGen()) {
+        if (ConfigClass.INSTANCE.Multiblocks.ExpandedDatabank || GTCEu.isDataGen()) {
             EXPANDED_DATABANK = ExtendedFeaturesRegister
                     .multiblock("expanded_databank", DataBankMachine::new)
                     .tooltips(
@@ -600,6 +599,7 @@ public class Multiblocks {
                     .register();
         }
     }
+     */
 
     static {
         if (ConfigClass.INSTANCE.Multiblocks.MatrixDataRelay || GTCEu.isDataGen()) {
