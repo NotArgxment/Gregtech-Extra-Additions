@@ -4,7 +4,7 @@ import com.tterrag.registrate.providers.RegistrateLangProvider;
 
 import static com.gregtechceu.gtceu.data.lang.LangHandler.replace;
 
-public class LangHandler {
+public class LangManager {
 
     public static void init(RegistrateLangProvider provider) {
         Common(provider);
@@ -57,7 +57,7 @@ public class LangHandler {
         replace(provider, "config.extendedfeatures.option.IndustrialGreenhouse", "§7Industrial Greenhouse");
         replace(provider, "config.extendedfeatures.option.TreeGrowingChamber", "§7Tree Growing Chamber");
         replace(provider, "config.extendedfeatures.option.Disassembler", "§7Disassembler");
-        replace(provider, "config.extendedfeatures.option.LargeAirCollector", "§7Large Air Collector");
+        replace(provider, "config.extendedfeatures.option.LargeGasCollector", "§7Large Gas Collector");
         replace(provider, "config.extendedfeatures.option.MatrixDataRelay", "§7Matrix Data Relay");
         replace(provider, "config.extendedfeatures.option.ExpandedDatabank", "§7Expanded Data Bank");
 

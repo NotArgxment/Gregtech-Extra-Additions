@@ -1,4 +1,4 @@
-package com.extendedfeatures.client.internal;
+package com.extendedfeatures.init.contents.misc;
 
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
@@ -22,7 +22,7 @@ import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.machines.GCYMMachines.*;
 
 @MethodsReturnNonnullByDefault
-public class CustomShapeInfos {
+public class ExtendedShapeInfo {
 
     public static List<MultiblockShapeInfo> RobustAlloyMaterializer(MultiblockMachineDefinition definition) {
         List<MultiblockShapeInfo> shapeInfo = new ArrayList<>();

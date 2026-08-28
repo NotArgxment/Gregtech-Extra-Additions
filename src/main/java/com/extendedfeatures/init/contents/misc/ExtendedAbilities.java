@@ -1,4 +1,4 @@
-package com.extendedfeatures.client.internal;
+package com.extendedfeatures.init.contents.misc;
 
 import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
 

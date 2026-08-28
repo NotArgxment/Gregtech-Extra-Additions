@@ -1,6 +1,6 @@
 package com.extendedfeatures;
 
-import com.extendedfeatures.client.LangHandler;
+import com.extendedfeatures.client.LangManager;
 import com.extendedfeatures.init.contents.recipes.*;
 
 import com.gregtechceu.gtceu.api.addon.GTAddon;
@@ -24,7 +24,7 @@ public class ExtendedFeaturesGTAddon implements IGTAddon {
 
     @Override
     public void initializeAddon() {
-        ExtendedFeaturesCore.ExtendedFeaturesRegister.addDataGenerator(ProviderType.LANG, LangHandler::init);
+        ExtendedFeaturesCore.ExtendedFeaturesRegister.addDataGenerator(ProviderType.LANG, LangManager::init);
     }
 
     @Override
