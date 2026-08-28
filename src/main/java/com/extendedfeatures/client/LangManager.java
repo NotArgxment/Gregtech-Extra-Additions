@@ -74,13 +74,33 @@ public class LangManager {
         replace(provider, "extendedfeatures.machine.wireless_optical_hatch.range_shown", "Displaying current range of connections: %s blocks");
         replace(provider, "extendedfeatures.machine.wireless_optical_hatch.no_receptors_found", "§cNo new receptors or data hatches were found in range");
         replace(provider, "extendedfeatures.machine.wireless_optical_hatch.not_formed", "§cThe hatch is not placed on a valid strucure!");
+        replace(provider, "extendedfeatures.machine.wireless_optical_hatch.scan_cooldown", "§cLink scan is on cooldown, try again shortly");
+        replace(provider, "extendedfeatures.machine.wireless_optical_hatch.scan_required", "§cRun a scan first before showing current links");
+
+        // Wireless Hatch GUI
+        replace(provider, "gui.extendedfeatures.wireless_hatch.title", "Wireless Optical Transmissor");
+        replace(provider, "gui.extendedfeatures.wireless_hatch.show_range", "Show Max Distance:");
+        replace(provider, "gui.extendedfeatures.wireless_hatch.show_links", "Show current links:");
+        replace(provider, "gui.extendedfeatures.wireless_hatch.scan_link", "Link nearby Receptors & Data Hatches");
+        replace(provider, "gui.extendedfeatures.wireless_hatch.state_on", "§aON");
+        replace(provider, "gui.extendedfeatures.wireless_hatch.state_off", "§cOFF");
+        replace(provider, "gui.extendedfeatures.wireless_hatch.cooldown", "§fAvailable in %ss");
+        replace(provider, "gui.extendedfeatures.wireless_hatch.show_links_locked", "§7Run a scan first");
 
         // Jade integration
+
+        // Hatches
         replace(provider, "config.jade.plugin_extendedfeatures.wireless_optical_hatch", "Wireless Optical Info");
         replace(provider, "extendedfeatures.jade.wireless_optical_hatch.linked_data_hatches", "§fLinked Data Access Hatches: §6%s");
         replace(provider, "extendedfeatures.jade.wireless_optical_hatch.linked_receptors_header", "§fLinked Wireless Optical Receptors:");
         replace(provider, "extendedfeatures.jade.wireless_optical_hatch.receptors_entry", "    - Receptor %s: %s");
         replace(provider, "extendedfeatures.jade.wireless_optical_hatch.no_receptors", "§c    - No receptors found");
+
+        // MDR
+        replace(provider, "config.jade.plugin_extendedfeatures.matrix_data_relay", "Matrix Data Relay Info");
+        replace(provider, "extendedfeatures.jade.matrix_data_relay.coolant_usage", "§fPCB Coolant Upkeep: §b%s mB/s");
+        replace(provider, "extendedfeatures.jade.matrix_data_relay.coolant_supplied", "§a    - Coolant supply: OK");
+        replace(provider, "extendedfeatures.jade.matrix_data_relay.coolant_starved", "§c    - Insufficient PCB Coolant");
 
     }
 
@@ -106,6 +126,8 @@ public class LangManager {
 
         provider.add("extendedfeatures.matrix_data_relay.tooltip.1", "§fYour personal Data Center");
         provider.add("extendedfeatures.matrix_data_relay.tooltip.2", "§fOnly allows"); // followed by "extendedfeatures.styled.tooltip.4"
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.3", "§f");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.4", "§f");
 
         provider.add("extendedfeatures.large_air_collector.tooltip.0", "§fA Bigger Gas Collector");
 

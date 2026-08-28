@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils.internal.rendering.range;
+package com.extendedfeatures.client.internal.rendering.range;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -11,22 +11,22 @@ public class RangePackets {
 
     private final BlockPos position;
     private final int range;
-    private final int durationTicks;
+    private final boolean show;
 
-    public RangePackets(BlockPos position, int range, int durationTicks) {
+    public RangePackets(BlockPos position, int range, boolean show) {
         this.position = position;
         this.range = range;
-        this.durationTicks = durationTicks;
+        this.show = show;
     }
 
     public static void encode(RangePackets msg, FriendlyByteBuf buf) {
         buf.writeBlockPos(msg.position);
         buf.writeVarInt(msg.range);
-        buf.writeVarInt(msg.durationTicks);
+        buf.writeBoolean(msg.show);
     }
 
     public static RangePackets decode(FriendlyByteBuf buf) {
-        return new RangePackets(buf.readBlockPos(), buf.readVarInt(), buf.readVarInt());
+        return new RangePackets(buf.readBlockPos(), buf.readVarInt(), buf.readBoolean());
     }
 
     public static void handle(RangePackets msg, Supplier<NetworkEvent.Context> ctxSupplier) {
@@ -34,8 +34,11 @@ public class RangePackets {
         ctx.enqueueWork(() -> {
             if (ctx.getDirection().getReceptionSide() != LogicalSide.CLIENT)
                 return;
-            RangeRenderer
-                    .showBoxAtPositionWithRange(msg.position, msg.range, msg.durationTicks);
+            if (msg.show) {
+                RangeRenderer.showBoxAtPosition(msg.position, msg.range);
+            } else {
+                RangeRenderer.hideBoxAtPosition(msg.position);
+            }
         });
         ctx.setPacketHandled(true);
     }
