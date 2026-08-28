@@ -55,8 +55,8 @@ public enum DisassemblerRecipeLogic implements GTRecipeType.ICustomRecipeLogic {
     }
 
     private GTRecipe tryBuildRecipe(ServerLevel serverLevel, GTRecipeType recipeType,
-                                              ItemStack inputStack) {
-        Integer tier = MachineUtil.getMachineTier(inputStack).orElse(null);
+                                    ItemStack inputStack) {
+        Integer tier = RecipeResolver.getMachineTier(inputStack).orElse(null);
         if (tier == null)
             return null;
 

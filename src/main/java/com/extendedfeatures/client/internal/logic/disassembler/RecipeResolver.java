@@ -5,6 +5,8 @@ import com.extendedfeatures.init.contents.misc.UniversalCircuits;
 
 import com.gregtechceu.gtceu.api.*;
 import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
+import com.gregtechceu.gtceu.api.item.MetaMachineItem;
+import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.*;
 import com.gregtechceu.gtceu.api.recipe.content.Content;
 import com.gregtechceu.gtceu.api.recipe.ingredient.SizedIngredient;
@@ -34,6 +36,17 @@ public class RecipeResolver {
     // This piece of code will try to match any circuit tag in the recipe to convert them into Universal circuits
     // So avoids giving a bad/good circuit, instead gives all of them in just one
     public static final Map<TagKey<Item>, ItemStack> CIRCUIT_TAG_TO_UNIVERSAL = buildCircuitTagMap();
+
+    public static Optional<Integer> getMachineTier(ItemStack stack) {
+        return getMachineDefinition(stack).map(MachineDefinition::getTier);
+    }
+
+    public static Optional<MachineDefinition> getMachineDefinition(ItemStack stack) {
+        if (stack.getItem() instanceof MetaMachineItem machineItem) {
+            return Optional.of(machineItem.getDefinition());
+        }
+        return Optional.empty();
+    }
 
     private static Map<TagKey<Item>, ItemStack> buildCircuitTagMap() {
         Map<TagKey<Item>, ItemStack> map = new HashMap<>();
