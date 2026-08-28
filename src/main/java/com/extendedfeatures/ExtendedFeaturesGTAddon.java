@@ -1,7 +1,7 @@
 package com.extendedfeatures;
 
 import com.extendedfeatures.client.LangHandler;
-import com.extendedfeatures.init.utils.internal.recipes.*;
+import com.extendedfeatures.init.contents.recipes.*;
 
 import com.gregtechceu.gtceu.api.addon.GTAddon;
 import com.gregtechceu.gtceu.api.addon.IGTAddon;
@@ -34,13 +34,10 @@ public class ExtendedFeaturesGTAddon implements IGTAddon {
 
     @Override
     public void addRecipes(Consumer<FinishedRecipe> provider) {
-        MultiblockControllers.init(provider);
-        RockProcessing.init(provider);
-        UniversalCircuits.init(provider);
-        GreenhouseWood.init(provider);
-        GreenhouseCrops.init(provider);
-        ChemicalSkips.init(provider);
-        AirCollector.init(provider);
+        Greenhouse.init(provider);
+        SynthesisVessel.init(provider);
+        SolarPanels.init(provider);
+        Disassembler.init(provider);
     }
 
 }
