@@ -1,4 +1,4 @@
-package com.extendedfeatures.client.internal.disassembler;
+package com.extendedfeatures.client.internal.logic.disassembler;
 
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 
@@ -8,6 +8,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 
 import java.util.*;
+
+import static java.util.Objects.*;
 
 public class ComponentResolver {
 
@@ -32,11 +34,9 @@ public class ComponentResolver {
         // Assembly Line Recipes
         Optional<List<ItemStack>> assemblyLineResult = RecipeResolver.resolveFromGTRecipeType(
                 level, GTRecipeTypes.ASSEMBLY_LINE_RECIPES, targetStack);
-        if (assemblyLineResult.isPresent()) {
-            return mergeStacks(assemblyLineResult.get());
-        }
+            return assemblyLineResult.map(ComponentResolver::mergeStacks)
+                    .orElse(Collections.emptyList());
 
-        return Collections.emptyList();
     }
 
     private static List<ItemStack> mergeStacks(List<ItemStack> stacks) {
@@ -70,16 +70,17 @@ public class ComponentResolver {
             if (!(obj instanceof StackKey other))
                 return false;
 
-            return item == other.item && java.util.Objects.equals(tag, other.tag);
+            return item == other.item && Objects.equals(tag, other.tag);
         }
 
         @Override
         public int hashCode() {
-            return java.util.Objects.hash(item, tag);
+            return hash(item, tag);
         }
     }
 
     private static Optional<List<ItemStack>> resolveFromCraftingTable(ServerLevel level, ItemStack targetStack) {
+
         RegistryAccess registryAccess = level.registryAccess();
 
         for (CraftingRecipe recipe : level.getRecipeManager()
@@ -95,14 +96,13 @@ public class ComponentResolver {
                 if (ingredient.isEmpty())
                     continue;
 
-                // Skip recipes that require a tool (wrench, hammer, file, screwdriver, crowbar) as an
-                // ingredient. Tools aren't real components and shouldn't be produced/required by disassembly.
+                // Skip recipes that require a tool (wrench, hammer, file, screwdriver, crowbar) as an ingredient
                 if (RecipeResolver.requiresTool(ingredient)) {
                     requiresTool = true;
                     break;
                 }
 
-                Optional<ItemStack> circuitReplacement = RecipeResolver.findUniversalCircuitReplacement(ingredient);
+                Optional<ItemStack> circuitReplacement = RecipeResolver.findCircuitReplacement(ingredient);
                 if (circuitReplacement.isPresent()) {
                     components.add(circuitReplacement.get().copy());
                     continue;

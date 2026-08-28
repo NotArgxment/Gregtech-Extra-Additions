@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils;
+package com.extendedfeatures.init.contents.modifiers;
 
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
@@ -7,7 +7,7 @@ import com.gregtechceu.gtceu.api.recipe.modifier.ModifierFunction;
 import com.gregtechceu.gtceu.api.recipe.modifier.ParallelLogic;
 import com.gregtechceu.gtceu.api.recipe.modifier.RecipeModifier;
 
-public class RecipeModifiers {
+public class CustomRecipeModifiers {
 
     public static RecipeModifier MACHINE_PARALLEL(int parallels) {
 

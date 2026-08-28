@@ -1,4 +1,4 @@
-package com.extendedfeatures.client.internal.disassembler;
+package com.extendedfeatures.client.internal.logic.multiblock;
 
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;

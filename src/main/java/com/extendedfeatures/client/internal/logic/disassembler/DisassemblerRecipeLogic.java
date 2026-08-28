@@ -1,14 +1,17 @@
-package com.extendedfeatures.client.internal.disassembler;
+package com.extendedfeatures.client.internal.logic.disassembler;
 
 import com.extendedfeatures.client.RecipeTypes;
 import com.gregtechceu.gtceu.api.GTValues;
-import com.gregtechceu.gtceu.api.capability.recipe.*;
-import com.gregtechceu.gtceu.api.machine.*;
+import com.gregtechceu.gtceu.api.capability.recipe.IO;
+import com.gregtechceu.gtceu.api.capability.recipe.IRecipeCapabilityHolder;
+import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
+import com.gregtechceu.gtceu.api.machine.MachineDefinition;
+import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.feature.IRecipeLogicMachine;
-import com.gregtechceu.gtceu.api.recipe.*;
+import com.gregtechceu.gtceu.api.recipe.GTRecipe;
+import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.registry.GTRegistries;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
-
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 
@@ -22,8 +25,8 @@ public enum DisassemblerRecipeLogic implements GTRecipeType.ICustomRecipeLogic {
 
     INSTANCE;
 
-    private static final int BASE_DURATION = 20;
-    private static final int TICKS_PER_TIER = 30;
+    private static final int baseDuration = 20;
+    private static final int tickTier = 30;
 
     @Override
     public GTRecipe createCustomRecipe(IRecipeCapabilityHolder holder) {
@@ -64,7 +67,7 @@ public enum DisassemblerRecipeLogic implements GTRecipeType.ICustomRecipeLogic {
             return null;
 
         long euT = GTValues.VA[tier];
-        int duration = BASE_DURATION + (tier * TICKS_PER_TIER);
+        int duration = baseDuration + (tier * tickTier);
 
         assert recipeType != null;
         GTRecipeBuilder builder = recipeType
@@ -89,7 +92,7 @@ public enum DisassemblerRecipeLogic implements GTRecipeType.ICustomRecipeLogic {
 
     @Override
     public void buildRepresentativeRecipes() {
-        GTRecipeType recipeType = RecipeTypes.DISASSEMBLER_RECIPES;
+        GTRecipeType recipeType = RecipeTypes.DISASSEMBLER_MACHINES;
 
         ServerLevel serverLevel = getRepresentativeServerLevel();
 

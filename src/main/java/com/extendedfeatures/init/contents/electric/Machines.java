@@ -1,11 +1,11 @@
-package com.extendedfeatures.init.utils.electric;
+package com.extendedfeatures.init.contents.electric;
 
 import com.extendedfeatures.CreativeTabs;
-import com.extendedfeatures.client.integrations.Configuration.EFConfig;
+import com.extendedfeatures.client.internal.ConfigClass;
 import com.extendedfeatures.client.internal.ExtendedAbilities;
-import com.extendedfeatures.client.internal.logic.ConfigurableCleanroomHatch;
-import com.extendedfeatures.client.internal.logic.ExpandedDataAccessHatch;
-import com.extendedfeatures.client.internal.logic.WirelessOpticalHatch;
+import com.extendedfeatures.client.internal.logic.machine.ConfigurableCleanroomHatch;
+import com.extendedfeatures.client.internal.logic.machine.ExpandedDataAccessHatch;
+import com.extendedfeatures.client.internal.logic.machine.WirelessOpticalHatch;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.RotationState;
@@ -31,7 +31,7 @@ public class Machines {
     public static MachineDefinition CONFIGURABLE_CLEANING_MAINTENANCE_HATCH = null;
 
     static {
-        if (EFConfig.INSTANCE.RegularMachines.CCMHatch || GTCEu.isDataGen()) {
+        if (ConfigClass.INSTANCE.RegularMachines.CCMHatch || GTCEu.isDataGen()) {
             CONFIGURABLE_CLEANING_MAINTENANCE_HATCH = ExtendedFeaturesRegister
                     .machine("configurable_cleaning_maintenance_hatch", (holder) -> new ConfigurableCleanroomHatch(holder, CleanroomType.CLEANROOM))
                     .tooltips(
@@ -61,7 +61,7 @@ public class Machines {
     public static MachineDefinition UHV_DATA_ACCESS_HATCH = null;
 
     static {
-        if (EFConfig.INSTANCE.RegularMachines.ExpandedDataAccessHatches || GTCEu.isDataGen()) {
+        if (ConfigClass.INSTANCE.RegularMachines.ExpandedDataAccessHatches || GTCEu.isDataGen()) {
             ZPM_DATA_ACCESS_HATCH = ExtendedFeaturesRegister
                     .machine("zpm_data_access_hatch", (holder) -> new ExpandedDataAccessHatch(holder, ZPM, false) {
                                 @Override
@@ -131,7 +131,7 @@ public class Machines {
     public static MachineDefinition UV_WIRELESS_RECEPTOR = null;
 
     static {
-        if (EFConfig.INSTANCE.RegularMachines.WirelessOpticalHatches || GTCEu.isDataGen()) {
+        if (ConfigClass.INSTANCE.RegularMachines.WirelessOpticalHatches || GTCEu.isDataGen()) {
             LUV_WIRELESS_TRANSMISSOR = WirelessHatchRegister
                     ("luv_wireless_data_transmissor", "LuV Wireless Optical Transmissor", LuV, true)
                     .tooltips(

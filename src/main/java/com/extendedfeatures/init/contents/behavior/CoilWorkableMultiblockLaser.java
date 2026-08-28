@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils;
+package com.extendedfeatures.init.contents.behavior;
 
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;

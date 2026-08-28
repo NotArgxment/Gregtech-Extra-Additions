@@ -1,4 +1,4 @@
-package com.extendedfeatures.client.internal.logic;
+package com.extendedfeatures.client.internal.logic.machine;
 
 import com.gregtechceu.gtceu.api.capability.*;
 import com.gregtechceu.gtceu.api.machine.*;

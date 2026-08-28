@@ -1,4 +1,4 @@
-package com.extendedfeatures.client.internal.recipes;
+package com.extendedfeatures.init.contents.recipes;
 
 import com.gregtechceu.gtceu.api.GTValues;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -9,7 +9,7 @@ import static com.extendedfeatures.client.RecipeTypes.CHEMICAL_REDUCTION;
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 
-public class ChemicalSkips {
+public class SynthesisVessel {
 
     public static void init(Consumer<FinishedRecipe> provider) {
 

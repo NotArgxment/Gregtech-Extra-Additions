@@ -1,7 +1,7 @@
 package com.extendedfeatures.client;
 
 import com.extendedfeatures.ExtendedFeaturesCore;
-import com.extendedfeatures.client.internal.disassembler.DisassemblerRecipeLogic;
+import com.extendedfeatures.client.internal.logic.disassembler.DisassemblerRecipeLogic;
 
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.gui.GuiTextures;
@@ -19,12 +19,14 @@ import net.minecraft.world.item.crafting.RecipeType;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.MULTIBLOCK;
 
 @SuppressWarnings("deprecated")
+
 public class RecipeTypes {
 
     public static GTRecipeType ROCK_PROCESSING_RECIPES;
-    public static GTRecipeType DISASSEMBLER_RECIPES;
     public static GTRecipeType GREENHOUSE_WOOD;
     public static GTRecipeType GREENHOUSE_CROPS;
+    public static GTRecipeType DISASSEMBLER_MACHINES;
+    public static GTRecipeType DISSASSEMBER_CASINGS;
     public static GTRecipeType CHEMICAL_REDUCTION;
     public static GTRecipeType AIR_COLLECTOR;
 
@@ -48,12 +50,18 @@ public class RecipeTypes {
                 .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, ProgressTexture.FillDirection.LEFT_TO_RIGHT)
                 .setSound(GTSoundEntries.MIXER);
 
-        DISASSEMBLER_RECIPES = register("disassembler_machine", MULTIBLOCK)
+        DISASSEMBLER_MACHINES = register("machine_disassembly", MULTIBLOCK)
                 .setEUIO(IO.IN)
                 .setMaxIOSize(1, 9, 0, 0)
                 .setProgressBar(GuiTextures.PROGRESS_BAR_MIXER, ProgressTexture.FillDirection.LEFT_TO_RIGHT)
                 .setSound(GTSoundEntries.ASSEMBLER)
                 .addCustomRecipeLogic(DisassemblerRecipeLogic.INSTANCE);
+
+        DISSASSEMBER_CASINGS = register("casing_disassembly", MULTIBLOCK)
+                .setEUIO(IO.IN)
+                .setMaxIOSize(1, 9, 0, 0)
+                .setProgressBar(GuiTextures.PROGRESS_BAR_MIXER, ProgressTexture.FillDirection.LEFT_TO_RIGHT)
+                .setSound(GTSoundEntries.ASSEMBLER);
 
         CHEMICAL_REDUCTION = register("chemical_skips", MULTIBLOCK)
                 .setEUIO(IO.IN)

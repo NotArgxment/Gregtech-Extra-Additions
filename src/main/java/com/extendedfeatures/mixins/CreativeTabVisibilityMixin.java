@@ -1,4 +1,4 @@
-package com.extendedfeatures.client.mixins;
+package com.extendedfeatures.mixins;
 
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.CreativeModeTabRegistry;
@@ -11,10 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Mixin to move populated tabs into the gap left by an empty creative tab
-@Mixin(
-        value = CreativeModeTabRegistry.class,
-        remap = false
-)
+@Mixin(value = CreativeModeTabRegistry.class,remap = false)
 public class CreativeTabVisibilityMixin {
 
     @Inject(

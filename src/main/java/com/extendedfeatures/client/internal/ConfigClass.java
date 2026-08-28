@@ -1,4 +1,4 @@
-package com.extendedfeatures.client.integrations.Configuration;
+package com.extendedfeatures.client.internal;
 
 import com.extendedfeatures.ExtendedFeaturesCore;
 import dev.toma.configuration.Configuration;
@@ -6,13 +6,13 @@ import dev.toma.configuration.config.*;
 import dev.toma.configuration.config.format.ConfigFormats;
 
 @Config(id = ExtendedFeaturesCore.MOD_ID)
-public class EFConfig {
+public class ConfigClass {
 
-    public static EFConfig INSTANCE;
-    public static ConfigHolder<EFConfig> CONFIG_HOLDER;
+    public static ConfigClass INSTANCE;
+    public static ConfigHolder<ConfigClass> CONFIG_HOLDER;
 
     public static void init() {
-        CONFIG_HOLDER = Configuration.registerConfig(EFConfig.class, ConfigFormats.yaml());
+        CONFIG_HOLDER = Configuration.registerConfig(ConfigClass.class, ConfigFormats.yaml());
         INSTANCE = CONFIG_HOLDER.getConfigInstance();
     }
 
@@ -114,6 +114,13 @@ public class EFConfig {
         })
         public boolean MatrixDataRelay = true;
 
+        @Configurable
+        @Configurable.Comment({
+                "Whether the Energy Distribution Center is Enabled",
+                "Default = True"
+        })
+        public boolean EnergyDistributionCenter = true;
+
     }
 
     public static class MachineToggles {
@@ -142,7 +149,15 @@ public class EFConfig {
     }
 
     @Configurable
-    @Configurable.Comment({ "Whether the Universal Circuits are Enabled." })
+    @Configurable.Comment({ "Whether the Universal Circuits are Enabled" })
     public boolean UniversalCircuits = true;
+
+    @Configurable
+    @Configurable.Comment({ "Whether the 16kA and 65kA Laser Target/Source Hatches are Enabled" })
+    public boolean ExtraLaserHatches = false;
+
+    @Configurable
+    @Configurable.Comment({ "Whether 64A, 256A, 1024A and 4096A Energy Converters (FE -> EU) are Enabled" })
+    public boolean ExtraConverters = false;
 
 }

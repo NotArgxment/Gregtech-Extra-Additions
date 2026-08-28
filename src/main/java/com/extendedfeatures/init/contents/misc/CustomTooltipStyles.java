@@ -1,4 +1,4 @@
-package com.extendedfeatures.init.utils;
+package com.extendedfeatures.init.contents.misc;
 
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.utils.GradientUtil;
@@ -25,8 +25,8 @@ public class CustomTooltipStyles {
     private static final int UEV = 0xFF55FF55; // Dark Green
     private static final int UIV = 0xFF00AA00; // Green
     private static final int UXV = 0xFFFFFF55; // Yellow
-    private static final int OpV = IV; // OpV uses the same color as IV, but with Bold code
-    private static final int MAX = ZPM; // MAx uses the same color as ZPM, but with Bold Code
+    // private static final int OpV = IV; // OpV uses the same color as IV, but with Bold code
+    // private static final int MAX = ZPM; // MAx uses the same color as ZPM, but with Bold Code
 
     // Speed modifiers
     private static final double SPEED_SLOW = 0.1;
@@ -81,11 +81,12 @@ public class CustomTooltipStyles {
 
     public static final UnaryOperator<Style> UXV_GRADIENT = style -> style
             .withColor(movingGradient(SPEED_SLOW, UXV, WHITE));
-
+    /*
     public static final UnaryOperator<Style> OpV_GRADIENT = style -> style
             .withColor(movingGradient(SPEED_SLOW, OpV, WHITE));
 
     public static final UnaryOperator<Style> MAX_GRADIENT = style -> style
             .withColor(movingGradient(SPEED_SLOW, MAX, WHITE));
+     */
 
 }

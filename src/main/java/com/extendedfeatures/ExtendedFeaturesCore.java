@@ -1,12 +1,11 @@
 package com.extendedfeatures;
 
 import com.extendedfeatures.client.RecipeTypes;
-import com.extendedfeatures.client.integrations.Configuration.EFConfig;
-import com.extendedfeatures.init.utils.HighAmpMachines;
-import com.extendedfeatures.init.utils.Machines;
-import com.extendedfeatures.init.utils.Multiblocks;
-import com.extendedfeatures.init.utils.UniversalCircuits;
-import com.extendedfeatures.init.utils.internal.rendering.PacketManager;
+import com.extendedfeatures.client.internal.ConfigClass;
+import com.extendedfeatures.init.contents.electric.Machines;
+import com.extendedfeatures.init.contents.electric.Multiblocks;
+import com.extendedfeatures.init.contents.misc.UniversalCircuits;
+import com.extendedfeatures.client.internal.rendering.PacketManager;
 
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
@@ -36,7 +35,7 @@ public class ExtendedFeaturesCore {
 
     public ExtendedFeaturesCore() {
 
-        EFConfig.init();
+        ConfigClass.init();
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -83,7 +82,6 @@ public class ExtendedFeaturesCore {
     private void registerMachines(GTCEuAPI.RegisterEvent<ResourceLocation, MachineDefinition> event) {
         Multiblocks.init();
         Machines.init();
-        HighAmpMachines.init();
     }
 
 }
