@@ -187,11 +187,6 @@
         // KubeJS Aisle Tool
         modRuntimeOnly("curse.maven:kubejs-aisle-tool-1236291:7543948")
 
-        // Forge-Energy (FE) Related mods (converters testing)
-        modRuntimeOnly("curse.maven:flux-networks-248020:5234697")
-        modRuntimeOnly("curse.maven:solar-flux-reborn-246974:6382702")
-        modRuntimeOnly("curse.maven:hammer-lib-247401:6337292")
-
     }
 
     mixin {

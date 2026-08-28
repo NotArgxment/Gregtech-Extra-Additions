@@ -152,12 +152,4 @@ public class ConfigClass {
     @Configurable.Comment({ "Whether the Universal Circuits are Enabled" })
     public boolean UniversalCircuits = true;
 
-    @Configurable
-    @Configurable.Comment({ "Whether the 16kA and 65kA Laser Target/Source Hatches are Enabled" })
-    public boolean ExtraLaserHatches = false;
-
-    @Configurable
-    @Configurable.Comment({ "Whether 64A, 256A, 1024A and 4096A Energy Converters (FE -> EU) are Enabled" })
-    public boolean ExtraConverters = false;
-
 }
