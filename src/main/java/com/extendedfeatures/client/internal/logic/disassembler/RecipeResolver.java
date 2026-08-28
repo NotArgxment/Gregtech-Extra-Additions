@@ -1,7 +1,7 @@
-package com.extendedfeatures.client.internal.disassembler;
+package com.extendedfeatures.client.internal.logic.disassembler;
 
-import com.extendedfeatures.client.integrations.Configuration.EFConfig;
-import com.extendedfeatures.init.utils.UniversalCircuits;
+import com.extendedfeatures.client.internal.ConfigClass;
+import com.extendedfeatures.init.contents.misc.UniversalCircuits;
 
 import com.gregtechceu.gtceu.api.*;
 import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
@@ -32,13 +32,13 @@ public class RecipeResolver {
             CustomTags.CRAFTING_MALLETS);
 
     // This piece of code will try to match any circuit tag in the recipe to convert them into Universal circuits
-    // So avoids giving a bad/good circuit, instead gives all of them in just 1
+    // So avoids giving a bad/good circuit, instead gives all of them in just one
     public static final Map<TagKey<Item>, ItemStack> CIRCUIT_TAG_TO_UNIVERSAL = buildCircuitTagMap();
 
     private static Map<TagKey<Item>, ItemStack> buildCircuitTagMap() {
         Map<TagKey<Item>, ItemStack> map = new HashMap<>();
 
-        if (!EFConfig.INSTANCE.UniversalCircuits) {
+        if (!ConfigClass.INSTANCE.UniversalCircuits) {
             return Map.of();
         }
 
@@ -63,7 +63,8 @@ public class RecipeResolver {
         return Map.copyOf(map);
     }
 
-    private static void ifApplicable(Map<TagKey<Item>, ItemStack> map, TagKey<Item> tag, int tier) {
+    private static void ifApplicable(Map<TagKey<Item>, ItemStack> map,
+                                     TagKey<Item> tag, int tier) {
         ItemEntry<Item> entry = UniversalCircuits.UNIVERSAL_CIRCUITS[tier];
         if (entry != null) {
             map.put(tag, entry.asStack());
@@ -135,7 +136,7 @@ public class RecipeResolver {
             if (ingredient.isEmpty())
                 continue;
 
-            Optional<ItemStack> circuitReplacement = findUniversalCircuitReplacement(ingredient);
+            Optional<ItemStack> circuitReplacement = findCircuitReplacement(ingredient);
 
             if (circuitReplacement.isPresent()) {
                 components.add(circuitReplacement.get().copy());
@@ -159,7 +160,7 @@ public class RecipeResolver {
         return components;
     }
 
-    public static Optional<ItemStack> findUniversalCircuitReplacement(Ingredient ingredient) {
+    public static Optional<ItemStack> findCircuitReplacement(Ingredient ingredient) {
         for (ItemStack stack : ingredient.getItems()) {
             for (var entry : CIRCUIT_TAG_TO_UNIVERSAL.entrySet()) {
                 if (stack.is(entry.getKey())) {
