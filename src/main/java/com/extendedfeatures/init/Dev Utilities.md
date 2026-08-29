@@ -5,12 +5,12 @@
 Custom formation logic for multiblocks that can accept either Laser Hatches or Energy Hatches, available for both
 `Workable` and `CoilWorkable` multiblock types:
 
-| Laser | Energy Hatch |        Valid formation?         |
-|:-----:|:------------:|:-------------------------------:|
-|   0   |      0       |                ❌                |
-|   1   |      0       |                ✅                |
-|   0   |      1       |                ✅                |
-|   1   |      1       | ❌ (both at once isn't allowed)  |
+|   Laser    | Energy Hatch |              Valid formation?              |
+|:----------:|:------------:|:------------------------------------------:|
+| Not Placed |  Not Placed  |            Will not form (duh)             |
+| Placed One |  Not Placed  |    Only the laser hatch will be allowed    |
+| Not Placed |  Placed One  |   Only the energy hatch will be allowed    |
+| Placed One |  Placed One  | You cannot have both on the same structure |
 
 ```java
     public static MultiblockMachineDefinition TEST_MULTIBLOCK = REGISTER
@@ -38,9 +38,9 @@ duration is multiplied ×2 for each parallel achieved.
 
 ```javascript
 // KubeJS
-const ExtendedFeatures = Java.loadClass('com.extendedfeatures.init.utils.RecipeModifiers')
+const CustomModifier = Java.loadClass('com.extendedfeatures.init.contents.modifiers')
 
-.recipeModifiers(ExtendedFeatures.MACHINE_PARALLEL(int))
+.recipeModifiers(ExtendedFeatures.MACHINE_PARALLEL(n))
 ```
 
 ### Gradients based on the GTCEu Energy Tiers (LV -> MAX)
@@ -57,7 +57,7 @@ const ExtendedFeatures = Java.loadClass('com.extendedfeatures.init.utils.RecipeM
                     Component.translatable("extendedfeatures.styled.tooltip.1")
                         .withStyle(CustomTooltipStyles.HV_GRADIENT))
         // Where "HV_GRADIENT" can be replaced with other styles from CustomTooltipStyles or TooltipHelper from GTCEu
-        // Check https://github.com/NotArgxment/GTM-Extended-Features/blob/main/src/main/java/com/argxment/extendedfeatures/client/init/utils/CustomTooltipStyles.java for the tier you want to use as tooltip
+        // Check CustomTooltipStyles.java for the tier you want to use as tooltip
         );
     })
 ```
