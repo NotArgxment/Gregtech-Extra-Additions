@@ -154,4 +154,12 @@ public class ConfigClass {
     @Configurable.Comment({ "Whether the Universal Circuits are Enabled" })
     public boolean UniversalCircuits = true;
 
+    @Configurable
+    @Configurable.Comment({
+            "Whether Wireless Optical Hatches must link only to Data Access Hatches that are part of a Matrix Data Relay multiblock",
+            "If false, the linking behavior is reverted to connect to all and any Data Access Hatch in range (e.g. Data Banks & Variants)",
+            "Default = True"
+    })
+    public boolean DataHatchLinkingBehavior = true;
+
 }

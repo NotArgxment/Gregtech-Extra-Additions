@@ -7,10 +7,7 @@ import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
 import com.gregtechceu.gtceu.api.transfer.fluid.FluidHandlerList;
-import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.machine.multiblock.electric.research.DataBankMachine;
-
-import com.gregtechceu.gtceu.utils.GTTransferUtils;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMaps;
 import lombok.Getter;
@@ -23,13 +20,16 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.*;
+import static com.gregtechceu.gtceu.common.data.GTMaterials.PCBCoolant;
+import static com.gregtechceu.gtceu.utils.GTTransferUtils.drainFluidAccountNotifiableList;
+import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
+import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.SIMULATE;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class MatrixDataRelayMachine extends DataBankMachine {
 
-    public static final int hatchAmpUsage = 2;
+    public static final double hatchAmpUsage = 1;
 
     public static final int coolantAmount = 144;
     private static final int consuptionInterval = 20;
@@ -44,6 +44,7 @@ public class MatrixDataRelayMachine extends DataBankMachine {
         super(holder);
     }
 
+    // Checks for an avaiable input hatch and tried to gather PCB Coolant from it
     @Override
     public void onStructureFormed() {
         super.onStructureFormed();
@@ -102,15 +103,15 @@ public class MatrixDataRelayMachine extends DataBankMachine {
 
     // Passive PCB Coolant Draining WHILE working
     private boolean consumeCoolant() {
-        FluidStack required = GTMaterials.PCBCoolant.getFluid(coolantAmount);
-        FluidStack simulated = GTTransferUtils.drainFluidAccountNotifiableList(
-                coolantHandler, required, SIMULATE);
-        if (simulated.getAmount() < coolantAmount) return false;
-
-        GTTransferUtils.drainFluidAccountNotifiableList(coolantHandler, required, EXECUTE);
-        return true;
+        FluidStack required = PCBCoolant.getFluid(coolantAmount);
+        FluidStack simulated = drainFluidAccountNotifiableList(coolantHandler, required, SIMULATE);
+        if (simulated.getAmount() < coolantAmount)
+            return false;
+        drainFluidAccountNotifiableList(coolantHandler, required, EXECUTE);
+            return true;
     }
 
+    // Checks for the W.H tier, and applies an energy consuption of 1A of the next tier
     private long hatchAmpConsuption() {
         long fullConsuption = 0;
         for (IMultiPart part : getParts()) {
@@ -124,6 +125,7 @@ public class MatrixDataRelayMachine extends DataBankMachine {
         return fullConsuption;
     }
 
+    // Checks for the total energy usage
     @Override
     protected int calculateEnergyUsage() {
         int baseUsage = super.calculateEnergyUsage();

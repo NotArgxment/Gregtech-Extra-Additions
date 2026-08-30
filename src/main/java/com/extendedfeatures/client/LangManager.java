@@ -61,8 +61,8 @@ public class LangManager {
         replace(provider, "config.extendedfeatures.option.LargeGasCollector", "§7Large Gas Collector");
         replace(provider, "config.extendedfeatures.option.MatrixDataRelay", "§7Matrix Data Relay");
         /* Deprecated - Will be removed on update 3.1.0
-        replace(provider, "config.extendedfeatures.option.ExpandedDatabank", "§7Expanded Data Bank");
-         */
+        replace(provider, "config.extendedfeatures.option.ExpandedDatabank", "§7Expanded Data Bank"); */
+        replace(provider, "config.extendedfeatures.option.DataHatchLinkingBehavior", "§7Restrict Data Hatch Linking Behavior");
 
         replace(provider, "config.extendedfeatures.option.ExpandedDataAccessHatches", "§7Expanded Data Access Hatches");
         replace(provider, "config.extendedfeatures.option.WirelessOpticalHatches", "§7Wireless Optical Tranmisssors/Receptors");
@@ -102,19 +102,24 @@ public class LangManager {
         // MDR
         replace(provider, "config.jade.plugin_extendedfeatures.matrix_data_relay", "Matrix Data Relay Info");
         replace(provider, "extendedfeatures.jade.matrix_data_relay.coolant_usage", "§fPCB Coolant Upkeep: §b%s mB/s");
-        replace(provider, "extendedfeatures.jade.matrix_data_relay.coolant_supplied", "§a    - Coolant supply: OK");
+        replace(provider, "extendedfeatures.jade.matrix_data_relay.coolant_supplied", "§a    - Currently supplying PCB Coolant");
         replace(provider, "extendedfeatures.jade.matrix_data_relay.coolant_starved", "§c    - Insufficient PCB Coolant");
+        replace(provider, "extendedfeatures.jade.matrix_data_relay.wireless_hatch_tier", "§fWireless Hatch Tier: §b%s");
 
     }
 
     private static void Tooltips(RegistrateLangProvider provider) {
+
+        provider.add("extendedfeatures.separator_line_small", "§f----------------------------------");
+        provider.add("extendedfeatures.separator_line_large", "§f------------------------------------------------------------");
+        provider.add("extendedfeatures.empty_space", " ");
 
         provider.add("extendedfeatures.compact_assembly_line.tooltip.0", "§fThis machine performs the work of the Assembly Line without §9Ordered Inputs");
         provider.add("extendedfeatures.compact_assembly_line.tooltip.1", "§fAllows §bone §fenergy hatch");
         provider.add("extendedfeatures.compact_assembly_line.tooltip.2", "§fRuns §b4 §frecipes in parallel");
         provider.add("extendedfeatures.compact_assembly_line.tooltip.3", "§fOnly works using");
 
-        provider.add("extendedfeatures.synthesis_vessel.tooltip.0", "§fEven larger Black Box Reactor");
+        provider.add("extendedfeatures.synthesis_vessel.tooltip.0", "§fChemical plant but more LCR-ish");
         provider.add("extendedfeatures.synthesis_vessel.tooltip.1", "§fThis machine is an improved version of the Large Chemical reactor capable of performing whole chemical lines in just 1 step");
 
         provider.add("extendedfeatures.rock_processing_plant.tooltip.0", "§fAn all in one processing line, turns the rocks you normally get from the rock breaker into their direct processed outputs");
@@ -128,9 +133,13 @@ public class LangManager {
         provider.add("extendedfeatures.expanded_databank_tootip.1", "§fAllows 16 independent Optical Transmission Hatches");
 
         provider.add("extendedfeatures.matrix_data_relay.tooltip.1", "§fYour personal Data Center");
-        provider.add("extendedfeatures.matrix_data_relay.tooltip.2", "§fOnly allows"); // followed by "extendedfeatures.styled.tooltip.4"
-        provider.add("extendedfeatures.matrix_data_relay.tooltip.3", "§f");
-        provider.add("extendedfeatures.matrix_data_relay.tooltip.4", "§f");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.2", "§fThis structure allows a maximum of 6 Data Hatches,");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.3", "§fboth Normal and §6Expanded §fData Hatches");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.4", "§fEach tier of Wireless Transmissors has an energy usage from their next tier:");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.5", "   §dLuV §fWireless Transmissor: 1A of §cZPM");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.6", "   §cZPM §fWireless Transmissor: 1A of §3UV");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.7", "   §3UV §fWireless Transmissor: 1A of §4UHV");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.8", "§fWhile working, the Matrix Data Relay requires a constant supply of 144mB/t of §9PCB Coolant");
 
         provider.add("extendedfeatures.large_air_collector.tooltip.0", "§fA Bigger Gas Collector");
 

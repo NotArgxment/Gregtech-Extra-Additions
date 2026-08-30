@@ -1,6 +1,8 @@
 package com.extendedfeatures.client.internal.logic.machine;
 
 import com.extendedfeatures.client.gui.wireless_hatch.WirelessHatchScreen;
+import com.extendedfeatures.client.internal.ConfigClass;
+import com.extendedfeatures.client.internal.logic.multiblock.MatrixDataRelayMachine;
 import com.extendedfeatures.client.internal.rendering.network.StateSync;
 import com.extendedfeatures.client.internal.rendering.linking.ParticleAnimator;
 import com.extendedfeatures.client.internal.rendering.PacketManager;
@@ -11,6 +13,7 @@ import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.IDataAccessHatch;
 import com.gregtechceu.gtceu.api.machine.*;
 import com.gregtechceu.gtceu.api.machine.feature.*;
+import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
 import com.gregtechceu.gtceu.api.machine.multiblock.part.MultiblockPartMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.*;
@@ -492,18 +495,24 @@ public class WirelessOpticalHatch extends OpticalDataHatchMachine implements IMa
         return found;
     }
 
-    private List<DataAccessHatchMachine> findCandidateDataHatches(ServerLevel level,
-                                                                  BlockPos center,
-                                                                  int range) {
+    // Behavior Switch (See ConfigClass#159)
+    private List<DataAccessHatchMachine> findCandidateDataHatches(ServerLevel level, BlockPos center, int range) {
 
         List<DataAccessHatchMachine> found = new ArrayList<>();
 
         forEachBlockEntityInRange(level, center, range, (candidatePos, blockEntity) -> {
-            if (MetaMachine.getMachine(level, candidatePos) instanceof DataAccessHatchMachine dataHatch && dataHatch.isFormed()) {
+            if (MetaMachine.getMachine(level, candidatePos) instanceof DataAccessHatchMachine
+                    dataHatch && dataHatch.isFormed() && validTarget(dataHatch)) {
                 found.add(dataHatch);
             }
         });
         return found;
+    }
+
+    private boolean validTarget(DataAccessHatchMachine dataHatch) {
+        if (!ConfigClass.INSTANCE.DataHatchLinkingBehavior) return true;
+        return ((IMultiPart) dataHatch).getControllers().stream()
+                .anyMatch(controller -> controller instanceof MatrixDataRelayMachine);
     }
 
     private interface BlockEntityVisitor {
