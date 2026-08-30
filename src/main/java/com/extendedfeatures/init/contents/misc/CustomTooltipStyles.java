@@ -25,15 +25,13 @@ public class CustomTooltipStyles {
     private static final int UEV = 0xFF55FF55; // Dark Green
     private static final int UIV = 0xFF00AA00; // Green
     private static final int UXV = 0xFFFFFF55; // Yellow
-    // private static final int OpV = IV; // OpV uses the same color as IV, but with Bold code
-    // private static final int MAX = ZPM; // MAx uses the same color as ZPM, but with Bold Code
 
     // Speed modifiers
     private static final double SPEED_SLOW = 0.1;
     private static final double SPEED_MEDIUM = 0.2;
     private static final double SPEED_FAST = 0.3;
 
-    // Tries to replicate GTCEu Tooltip Helper
+    // Similar Tooltip Helper from GTCEu
     public static TextColor movingGradient(double speed, int colorA, int colorB) {
         float t = (float) (Math.sin(GTValues.CLIENT_TIME * speed) * 0.5 + 0.5);
         int blended = GradientUtil.blend(colorA, colorB, t);
@@ -42,7 +40,7 @@ public class CustomTooltipStyles {
 
     /**
      * Side note:
-     * Some of this gradients may already exist in GTCEu, look at TooltipHelper.class for reference.
+     * Some of this gradients may already exist in GTCEu, look at EFTooltipHelper.class for reference.
      * UV is "BLINKING_CYAN", ZPM is "BLINKING_RED", HV is "BLINKING_ORANGE", LV is "BLINKING_GRAY",
      */
 
@@ -81,12 +79,5 @@ public class CustomTooltipStyles {
 
     public static final UnaryOperator<Style> UXV_GRADIENT = style -> style
             .withColor(movingGradient(SPEED_SLOW, UXV, WHITE));
-    /*
-    public static final UnaryOperator<Style> OpV_GRADIENT = style -> style
-            .withColor(movingGradient(SPEED_SLOW, OpV, WHITE));
-
-    public static final UnaryOperator<Style> MAX_GRADIENT = style -> style
-            .withColor(movingGradient(SPEED_SLOW, MAX, WHITE));
-     */
 
 }
