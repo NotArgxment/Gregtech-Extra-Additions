@@ -16,15 +16,11 @@ import snownee.jade.api.config.IPluginConfig;
 
 import java.util.*;
 
-/**
- * Shows, for {@link WirelessOpticalHatch} transmitters, the linked physical
- * Data Access Hatches (count) and linked Wireless Optical Receptors (positions) in the Jade tooltip.
- */
 public class WirelessOpticalProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
 
-    private static final String TAG_IS_TRANSMISSOR = "IsTransmitter";
-    private static final String TAG_DATA_HATCH_COUNT = "DataHatchCount";
-    private static final String TAG_RECEPTORS = "Receptors";
+    private static final String tagTransmissor = "IsTransmitter";
+    private static final String tagHatchCount = "DataHatchCount";
+    private static final String tagReceptors = "Receptors";
 
     @Override
     public ResourceLocation getUid() {
@@ -40,27 +36,27 @@ public class WirelessOpticalProvider implements IBlockComponentProvider, IServer
         if (!(machine instanceof WirelessOpticalHatch hatch)) return;
         if (!hatch.isTransmitter()) return; // only transmitters expose this info
 
-        data.putBoolean(TAG_IS_TRANSMISSOR, true);
-        data.putInt(TAG_DATA_HATCH_COUNT, hatch.getLinkedDataHatchPositions().size());
+        data.putBoolean(tagTransmissor, true);
+        data.putInt(tagHatchCount, hatch.getLinkedDataHatchPositions().size());
 
         ListTag receptors = new ListTag();
         for (BlockPos pos : hatch.getLinkedReceptorPositions()) {
             receptors.add(new IntArrayTag(new int[] { pos.getX(), pos.getY(), pos.getZ() }));
         }
-        data.put(TAG_RECEPTORS, receptors);
+        data.put(tagReceptors, receptors);
     }
 
     // Client side: build the tooltip
     @Override
     public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig config) {
         CompoundTag data = blockAccessor.getServerData();
-        if (!data.getBoolean(TAG_IS_TRANSMISSOR)) return;
+        if (!data.getBoolean(tagTransmissor)) return;
 
-        int dataHatchCount = data.getInt(TAG_DATA_HATCH_COUNT);
+        int dataHatchCount = data.getInt(tagHatchCount);
         tooltip.add(Component.translatable("extendedfeatures.jade.wireless_optical_hatch.linked_data_hatches",
                 dataHatchCount).withStyle(ChatFormatting.GRAY));
 
-        List<BlockPos> receptors = readReceptors(data.getList(TAG_RECEPTORS, net.minecraft.nbt.Tag.TAG_INT_ARRAY));
+        List<BlockPos> receptors = readReceptors(data.getList(tagReceptors, net.minecraft.nbt.Tag.TAG_INT_ARRAY));
 
         if (receptors.isEmpty()) {
             tooltip.add(Component
@@ -86,8 +82,8 @@ public class WirelessOpticalProvider implements IBlockComponentProvider, IServer
 
     private List<BlockPos> readReceptors(ListTag list) {
         List<BlockPos> result = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            int[] coords = ((IntArrayTag) list.get(i)).getAsIntArray();
+        for (Tag tag : list) {
+            int[] coords = ((IntArrayTag) tag).getAsIntArray();
             if (coords.length == 3) {
                 result.add(new BlockPos(coords[0], coords[1], coords[2]));
             }
