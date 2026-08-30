@@ -1,15 +1,17 @@
 package com.extendedfeatures.init.contents.electric;
-
+// ------------------------------------------------------------------------------------------------
 import com.extendedfeatures.CreativeTabs;
 import com.extendedfeatures.ExtendedFeaturesCore;
+import com.extendedfeatures.client.EFDisplayHelper;
+import com.extendedfeatures.client.EFTooltipHelper;
 import com.extendedfeatures.client.internal.ConfigClass;
 import com.extendedfeatures.client.internal.logic.multiblock.DisassemblerMachine;
 import com.extendedfeatures.client.internal.logic.multiblock.MatrixDataRelayMachine;
 import com.extendedfeatures.init.contents.behavior.CoilWorkableMultiblockLaser;
 import com.extendedfeatures.init.contents.misc.ExtendedAbilities;
 import com.extendedfeatures.init.contents.misc.ExtendedShapeInfo;
+
 import com.gregtechceu.gtceu.GTCEu;
-import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
 import com.gregtechceu.gtceu.api.machine.multiblock.CoilWorkableElectricMultiblockMachine;
@@ -17,25 +19,23 @@ import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.pattern.FactoryBlockPattern;
 import com.gregtechceu.gtceu.api.pattern.Predicates;
-import com.gregtechceu.gtceu.client.util.TooltipHelper;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
-import com.gregtechceu.gtceu.utils.FormattingUtil;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
+
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
 import static com.extendedfeatures.ExtendedFeaturesCore.ExtendedFeaturesRegister;
+import static com.extendedfeatures.client.EFTooltipHelper.*;
 import static com.extendedfeatures.client.RecipeTypes.*;
 import static com.extendedfeatures.init.contents.modifiers.CustomRecipeModifiers.MACHINE_PARALLEL;
-import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.dustTiny;
+
+import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
 import static com.gregtechceu.gtceu.api.pattern.Predicates.*;
 import static com.gregtechceu.gtceu.common.data.GCYMBlocks.*;
-import static com.gregtechceu.gtceu.common.data.GCYMRecipeTypes.ALLOY_BLAST_RECIPES;
+import static com.gregtechceu.gtceu.common.data.GCYMRecipeTypes.*;
 import static com.gregtechceu.gtceu.common.data.GTBlocks.*;
-import static com.gregtechceu.gtceu.common.data.GTMaterialItems.MATERIAL_ITEMS;
+import static com.gregtechceu.gtceu.common.data.GTMaterialItems.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.Ash;
 import static com.gregtechceu.gtceu.common.data.GTRecipeModifiers.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
@@ -45,8 +45,6 @@ public class Multiblocks {
     static {
         ExtendedFeaturesRegister.creativeModeTab(() -> CreativeTabs.MULTIBLOCKS_TAB);
     }
-
-    // goodbye Advanced Fusion Reactors, the PITA of kubejs scripts...
 
     public static MultiblockMachineDefinition ROBUST_ALLOY_MATERIALIZER = null;
     public static MultiblockMachineDefinition LARGE_CRACKING_MACHINE = null;
@@ -66,19 +64,8 @@ public class Multiblocks {
         if (ConfigClass.INSTANCE.Multiblocks.RobustAlloyMaterializer || GTCEu.isDataGen()) {
             ROBUST_ALLOY_MATERIALIZER = ExtendedFeaturesRegister
                     .multiblock("robust_alloy_materializer", CoilWorkableMultiblockLaser::new)
-                    .tooltips(
-                            Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"),
-                            Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.1"),
-                            Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.2")
-                    )
-                    .tooltipBuilder((stack, list) -> list.add(
-                            Component.translatable("extendedfeatures.regular.tooltip.1")
-                                    .append(Component.translatable("extendedfeatures.styled.tooltip.1")
-                                            .withStyle(TooltipHelper.RAINBOW_HSL_SLOW))
-                                    .append(Component.translatable("extendedfeatures.regular.tooltip.2")
-                                            .append(Component.translatable("extendedfeatures.styled.tooltip.2")
-                                                    .withStyle(TooltipHelper.RAINBOW_HSL_SLOW))))
-                    )
+                    .tooltips(EFTooltipHelper.RAMTooltip)
+                    .tooltipBuilder(RAMTooltipExtra)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(ALLOY_BLAST_RECIPES)
                     .recipeModifiers(PARALLEL_HATCH, OC_NON_PERFECT, BATCH_MODE, GTRecipeModifiers::ebfOverclock)
@@ -115,16 +102,7 @@ public class Multiblocks {
                             GTCEu.id("block/casings/solid/machine_casing_robust_tungstensteel"),
                             GTCEu.id("block/multiblock/gcym/blast_alloy_smelter")
                     )
-                    .additionalDisplay((controller, components) -> {
-                        if (controller instanceof CoilWorkableElectricMultiblockMachine coilMachine && controller.isFormed()) {
-                            components.add(
-                                    Component.translatable("gtceu.multiblock.blast_furnace.max_temperature",
-                                            Component.translatable(
-                                                            FormattingUtil
-                                                                    .formatNumbers(coilMachine.getCoilType().getCoilTemperature() + 100L * Math.max(0, coilMachine.getTier() - GTValues.MV)) + "K")
-                                                    .setStyle(Style.EMPTY.withColor(ChatFormatting.RED))));
-                        }
-                    })
+                    .additionalDisplay(EFDisplayHelper.EBFDisplay)
                     .shapeInfos(ExtendedShapeInfo::RobustAlloyMaterializer)
                     .register();
         }
@@ -134,14 +112,8 @@ public class Multiblocks {
         if (ConfigClass.INSTANCE.Multiblocks.LargeCrackingMachine || GTCEu.isDataGen()) {
             LARGE_CRACKING_MACHINE = ExtendedFeaturesRegister
                     .multiblock("large_cracking_machine", CoilWorkableElectricMultiblockMachine::new)
-                    .tooltips(
-                            Component.translatable("gtceu.machine.cracker.tooltip"),
-                            Component.translatable("gtceu.machine.cracker.tooltip.1")
-                    )
-                    .tooltipBuilder((stack, list) -> list.add(
-                            Component.translatable("extendedfeatures.regular.tooltip.1")
-                                    .append(Component.translatable("extendedfeatures.styled.tooltip.2")
-                                            .withStyle(TooltipHelper.RAINBOW_HSL_SLOW))))
+                    .tooltips(EFTooltipHelper.LCMTooltip)
+                    .tooltipBuilder(LCMTooltipExtra)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(CRACKING_RECIPES)
                     .recipeModifiers(PARALLEL_HATCH, OC_NON_PERFECT, BATCH_MODE, GTRecipeModifiers::crackerOverclock)
@@ -172,12 +144,7 @@ public class Multiblocks {
                             GTCEu.id("block/casings/solid/machine_casing_robust_tungstensteel"),
                             GTCEu.id("block/multiblock/cracking_unit")
                     )
-                    .additionalDisplay((controller, components) -> {
-                        if (controller instanceof CoilWorkableElectricMultiblockMachine coilMachine && controller.isFormed()) {
-                            components.add(Component.translatable("gtceu.multiblock.cracking_unit.energy",
-                                    100 - 10 * coilMachine.getCoilTier()));
-                        }
-                    })
+                    .additionalDisplay(EFDisplayHelper.CrackerDisplay)
                     .shapeInfos(ExtendedShapeInfo::LargeCrackingMachine)
                     .register();
         }
@@ -187,10 +154,7 @@ public class Multiblocks {
         if (ConfigClass.INSTANCE.Multiblocks.SynthesisVessel || GTCEu.isDataGen()) {
             SYNTHESIS_VESSEL = ExtendedFeaturesRegister
                     .multiblock("synthesis_vessel", WorkableElectricMultiblockMachine::new)
-                    .tooltips(
-                            Component.translatable("extendedfeatures.synthesis_vessel.tooltip.0"),
-                            Component.translatable("extendedfeatures.synthesis_vessel.tooltip.1")
-                    )
+                    .tooltips(EFTooltipHelper.SVTooltip)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeTypes(CHEMICAL_REDUCTION)
                     .recipeModifiers(OC_PERFECT, BATCH_MODE)
@@ -229,13 +193,8 @@ public class Multiblocks {
         if (ConfigClass.INSTANCE.Multiblocks.LargePyrolysisOven || GTCEu.isDataGen()) {
             LARGE_PYROLYSE_OVEN = ExtendedFeaturesRegister
                     .multiblock("large_pyrolysis_oven", CoilWorkableElectricMultiblockMachine::new)
-                    .tooltips(
-                            Component.translatable("gtceu.machine.pyrolyse_oven.tooltip"),
-                            Component.translatable("gtceu.machine.pyrolyse_oven.tooltip.1"))
-                    .tooltipBuilder((stack, list) -> list.add(
-                            Component.translatable("extendedfeatures.regular.tooltip.1")
-                                    .append(Component.translatable("extendedfeatures.styled.tooltip.2")
-                                            .withStyle(TooltipHelper.RAINBOW_HSL_SLOW))))
+                    .tooltips(EFTooltipHelper.LPOTooltip)
+                    .tooltipBuilder(LPOTooltipExtra)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(PYROLYSE_RECIPES)
                     .recipeModifiers(PARALLEL_HATCH, OC_PERFECT, GTRecipeModifiers::pyrolyseOvenOverclock)
@@ -272,17 +231,13 @@ public class Multiblocks {
                             GTCEu.id("block/casings/solid/machine_casing_robust_tungstensteel"),
                             ExtendedFeaturesCore.id("block/multiblock/pyrolyse_oven")
                     )
-                    .additionalDisplay((controller, components) -> {
-                        if (controller instanceof CoilWorkableElectricMultiblockMachine coilMachine && controller.isFormed()) {
-                            components.add(Component.translatable("gtceu.multiblock.pyrolyse_oven.speed",
-                                    coilMachine.getCoilTier() == 0 ? 75 : 50 * (coilMachine.getCoilTier() + 1)));
-                        }
-                    })
+                    .additionalDisplay(EFDisplayHelper.PyroDisplay)
                     .shapeInfos(ExtendedShapeInfo::LargePyrolysisOven)
                     .register();
         }
     }
- /* Under Rework (Current logic is innapropiate for what an Assembly Line does)
+
+    /* Under Rework (Current logic is innapropiate for what an Assembly Line does)
     static {
         if (ConfigClass.INSTANCE.Multiblocks.CompactAssemblyLine || GTCEu.isDataGen()) {
             COMPACT_ASSEMBLY_LINE = ExtendedFeaturesRegister
@@ -295,7 +250,7 @@ public class Multiblocks {
                     .tooltipBuilder((stack, list) -> list.add(
                             Component.translatable("extendedfeatures.compact_assembly_line.tooltip.3")
                                     .append(Component.translatable("extendedfeatures.styled.tooltip.3")
-                                            .withStyle(TooltipHelper.RAINBOW_HSL_FAST))))
+                                            .withStyle(EFTooltipHelper.RAINBOW_HSL_FAST))))
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(ASSEMBLY_LINE_RECIPES)
                     .recipeModifiers(MACHINE_PARALLEL(4), OC_NON_PERFECT)
@@ -336,7 +291,7 @@ public class Multiblocks {
         if (ConfigClass.INSTANCE.Multiblocks.RockProcessingPlant || GTCEu.isDataGen()) {
             ROCK_PROCESSING_PLANT = ExtendedFeaturesRegister
                     .multiblock("rock_processing_plant", WorkableElectricMultiblockMachine::new)
-                    .tooltips(Component.translatable("extendedfeatures.rock_processing_plant.tooltip.0"))
+                    .tooltips(EFTooltipHelper.RPPTooltip)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeTypes(ROCK_PROCESSING_RECIPES)
                     .recipeModifiers(OC_NON_PERFECT, BATCH_MODE)
@@ -389,9 +344,7 @@ public class Multiblocks {
         if (ConfigClass.INSTANCE.Multiblocks.IndustrialGreenhouse || GTCEu.isDataGen()) {
             INDUSTRIAL_GREENHOUSE = ExtendedFeaturesRegister
                     .multiblock("industrial_greenhouse", WorkableElectricMultiblockMachine::new)
-                    .tooltips(
-                            Component.translatable("extendedfeatures.greenhouse.tooltip.0"),
-                            Component.translatable("extendedfeatures.greenhouse.tooltip.1"))
+                    .tooltips(EFTooltipHelper.IGTooltip)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeTypes(GREENHOUSE_CROPS, GREENHOUSE_WOOD)
                     .recipeModifiers(MACHINE_PARALLEL(8), OC_NON_PERFECT, BATCH_MODE)
@@ -435,14 +388,8 @@ public class Multiblocks {
             TREE_GROWING_CHAMBER = ExtendedFeaturesRegister
                     .multiblock("tree_growing_chamber", WorkableElectricMultiblockMachine::new)
                     .rotationState(RotationState.NON_Y_AXIS)
-                    .tooltips(
-                            Component.translatable("extendedfeatures.greenhouse.tooltip.0")
-                    )
-                    .tooltipBuilder((stack, list) -> list.add(
-                            Component.translatable("extendedfeatures.regular.tooltip.1")
-                                    .append(Component.translatable("extendedfeatures.styled.tooltip.2")
-                                            .withStyle(TooltipHelper.RAINBOW_HSL_SLOW)))
-                    )
+                    .tooltips(EFTooltipHelper.TGCTooltip)
+                    .tooltipBuilder(TGCTooltipExtra)
                     .recipeTypes(GREENHOUSE_CROPS, GREENHOUSE_WOOD)
                     .recipeModifiers(PARALLEL_HATCH, OC_NON_PERFECT, BATCH_MODE)
                     .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
@@ -486,9 +433,7 @@ public class Multiblocks {
         if (ConfigClass.INSTANCE.Multiblocks.Disassembler || GTCEu.isDataGen()) {
             DISASSEMBLER = ExtendedFeaturesRegister
                     .multiblock("disassembler", DisassemblerMachine::new)
-                    .tooltips(
-                            Component.translatable("extendedfeatures.disassembler.tooltip.0"),
-                            Component.translatable("extendedfeatures.disassembler.tooltip.1"))
+                    .tooltips(EFTooltipHelper.UDMTooltip)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeTypes(DISASSEMBLER_MACHINES, DISASSEMBER_CASINGS)
                     .recipeModifiers(OC_NON_PERFECT)
@@ -522,14 +467,8 @@ public class Multiblocks {
         if (ConfigClass.INSTANCE.Multiblocks.LargeGasCollector || GTCEu.isDataGen()) {
             LARGE_GAS_COLLECTOR = ExtendedFeaturesRegister
                     .multiblock("large_gas_collector", WorkableElectricMultiblockMachine::new)
-                    .tooltips(
-                            Component.translatable("extendedfeatures.large_air_collector.tooltip.0")
-                    )
-                    .tooltipBuilder((stack, list) -> list.add(
-                            Component.translatable("extendedfeatures.regular.tooltip.1")
-                                    .append(Component.translatable("extendedfeatures.styled.tooltip.2")
-                                            .withStyle(TooltipHelper.RAINBOW_HSL_SLOW)))
-                    )
+                    .tooltips(EFTooltipHelper.LGCTooltip)
+                    .tooltipBuilder(LGCTooltipExtra)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(AIR_COLLECTOR)
                     .recipeModifiers(PARALLEL_HATCH, OC_NON_PERFECT)
@@ -605,14 +544,7 @@ public class Multiblocks {
         if (ConfigClass.INSTANCE.Multiblocks.MatrixDataRelay || GTCEu.isDataGen()) {
             MATRIX_DATA_RELAY = ExtendedFeaturesRegister
                     .multiblock("matrix_data_relay", MatrixDataRelayMachine::new)
-                    .tooltips(
-                            Component.translatable("extendedfeatures.matrix_data_relay.tooltip.1")
-                    )
-                    .tooltipBuilder((stack, list) -> list.add(
-                            Component.translatable("extendedfeatures.matrix_data_relay.tooltip.2")
-                                    .append(Component.translatable("extendedfeatures.styled.tooltip.4")
-                                            .withStyle(TooltipHelper.RAINBOW_HSL_SLOW)))
-                    )
+                    .tooltips(EFTooltipHelper.MDRTooltip)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(DUMMY_RECIPES)
                     .appearanceBlock(HIGH_POWER_CASING)
