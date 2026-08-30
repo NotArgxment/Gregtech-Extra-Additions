@@ -19,7 +19,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.MULTIBLOCK;
 
 @SuppressWarnings("deprecated")
-
 public class RecipeTypes {
 
     public static GTRecipeType ROCK_PROCESSING_RECIPES;
