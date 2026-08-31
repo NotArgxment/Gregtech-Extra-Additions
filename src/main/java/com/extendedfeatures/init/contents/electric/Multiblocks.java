@@ -112,7 +112,7 @@ public class Multiblocks {
             LARGE_CRACKING_MACHINE = ExtendedFeaturesRegister
                     .multiblock("large_cracking_machine", CoilWorkableElectricMultiblockMachine::new)
                     .tooltips(EFTooltipHelper.LCMTooltip)
-                    .tooltipBuilder(EFTooltipHelper.LCMTooltipExtra)
+                    .tooltipBuilder(EFTooltipHelper.ParallelTooltip)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(GTRecipeTypes.CRACKING_RECIPES)
                     .recipeModifiers(
@@ -202,7 +202,7 @@ public class Multiblocks {
             LARGE_PYROLYSE_OVEN = ExtendedFeaturesRegister
                     .multiblock("large_pyrolysis_oven", CoilWorkableElectricMultiblockMachine::new)
                     .tooltips(EFTooltipHelper.LPOTooltip)
-                    .tooltipBuilder(EFTooltipHelper.LPOTooltipExtra)
+                    .tooltipBuilder(EFTooltipHelper.ParallelTooltip)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(GTRecipeTypes.PYROLYSE_RECIPES)
                     .recipeModifiers(
@@ -396,7 +396,7 @@ public class Multiblocks {
                     .multiblock("tree_growing_chamber", WorkableElectricMultiblockMachine::new)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .tooltips(EFTooltipHelper.TGCTooltip)
-                    .tooltipBuilder(EFTooltipHelper.TGCTooltipExtra)
+                    .tooltipBuilder(EFTooltipHelper.ParallelTooltip)
                     .recipeTypes(
                             EFRecipeTypes.GREENHOUSE_CROPS,
                             EFRecipeTypes.GREENHOUSE_WOOD)
@@ -482,7 +482,7 @@ public class Multiblocks {
             LARGE_GAS_COLLECTOR = ExtendedFeaturesRegister
                     .multiblock("large_gas_collector", WorkableElectricMultiblockMachine::new)
                     .tooltips(EFTooltipHelper.LGCTooltip)
-                    .tooltipBuilder(EFTooltipHelper.LGCTooltipExtra)
+                    .tooltipBuilder(EFTooltipHelper.ParallelTooltip)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(EFRecipeTypes.AIR_COLLECTOR)
                     .recipeModifiers(PARALLEL_HATCH, OC_NON_PERFECT)
@@ -516,16 +516,11 @@ public class Multiblocks {
         }
     }
 
-    /* Deprecated - Will be removed on update 3.1.0
+    /*
     static {
         if (ConfigClass.INSTANCE.Multiblocks.ExpandedDatabank || GTCEu.isDataGen()) {
             EXPANDED_DATABANK = ExtendedFeaturesRegister
                     .multiblock("expanded_databank", DataBankMachine::new)
-                    .tooltips(
-                            Component.translatable("gtceu.machine.data_bank.tooltip.0"),
-                            Component.translatable("gtceu.machine.data_bank.tooltip.1"),
-                            Component.translatable("extendedfeatures.expanded_databank_tootip.1")
-                    )
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(DUMMY_RECIPES)
                     .appearanceBlock(ADVANCED_COMPUTER_CASING)
