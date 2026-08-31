@@ -61,6 +61,7 @@ public class ExtendedFeaturesCore {
         return new ResourceLocation(ExtendedFeaturesCore.MOD_ID, path);
     }
 
+    // tracks "isHighTier" condition from GTCEu
     private void onBuildCreativeTab(BuildCreativeModeTabContentsEvent event) {
         if (!event.getTabKey().location().getNamespace().equals(ExtendedFeaturesCore.MOD_ID)) return;
         if (GTCEuAPI.isHighTier()) return;
