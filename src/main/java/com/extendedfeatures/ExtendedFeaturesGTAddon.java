@@ -36,8 +36,8 @@ public class ExtendedFeaturesGTAddon implements IGTAddon {
     public void addRecipes(Consumer<FinishedRecipe> provider) {
         Greenhouse.init(provider);
         SynthesisVessel.init(provider);
-        SolarPanels.init(provider);
         Disassembler.init(provider);
+        MiscRecipes.init(provider);
     }
 
 }
