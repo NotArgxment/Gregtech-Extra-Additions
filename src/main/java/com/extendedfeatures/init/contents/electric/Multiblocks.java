@@ -1,8 +1,9 @@
 package com.extendedfeatures.init.contents.electric;
-// ------------------------------------------------------------------------------------------------
+
 import com.extendedfeatures.CreativeTabs;
 import com.extendedfeatures.ExtendedFeaturesCore;
 import com.extendedfeatures.client.EFDisplayHelper;
+import com.extendedfeatures.client.EFRecipeTypes;
 import com.extendedfeatures.client.EFTooltipHelper;
 import com.extendedfeatures.client.internal.ConfigClass;
 import com.extendedfeatures.client.internal.logic.multiblock.DisassemblerMachine;
@@ -10,6 +11,7 @@ import com.extendedfeatures.client.internal.logic.multiblock.MatrixDataRelayMach
 import com.extendedfeatures.init.contents.behavior.CoilWorkableMultiblockLaser;
 import com.extendedfeatures.init.contents.misc.ExtendedAbilities;
 import com.extendedfeatures.init.contents.misc.ExtendedShapeInfo;
+import com.extendedfeatures.init.contents.modifiers.CustomRecipeModifiers;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.RotationState;
@@ -19,32 +21,21 @@ import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.pattern.FactoryBlockPattern;
 import com.gregtechceu.gtceu.api.pattern.Predicates;
-import com.gregtechceu.gtceu.common.data.GTMaterials;
-import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
+import com.gregtechceu.gtceu.common.data.*;
 
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
 import static com.extendedfeatures.ExtendedFeaturesCore.ExtendedFeaturesRegister;
-import static com.extendedfeatures.client.EFTooltipHelper.*;
-import static com.extendedfeatures.client.RecipeTypes.*;
-import static com.extendedfeatures.init.contents.modifiers.CustomRecipeModifiers.MACHINE_PARALLEL;
+import static com.extendedfeatures.client.EFRecipeTypes.*;
 
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
 import static com.gregtechceu.gtceu.api.pattern.Predicates.*;
-import static com.gregtechceu.gtceu.common.data.GCYMBlocks.*;
-import static com.gregtechceu.gtceu.common.data.GCYMRecipeTypes.*;
-import static com.gregtechceu.gtceu.common.data.GTBlocks.*;
-import static com.gregtechceu.gtceu.common.data.GTMaterialItems.*;
+import static com.gregtechceu.gtceu.common.data.GTMaterialItems.MATERIAL_ITEMS;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.Ash;
 import static com.gregtechceu.gtceu.common.data.GTRecipeModifiers.*;
-import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
 
 public class Multiblocks {
-
-    static {
-        ExtendedFeaturesRegister.creativeModeTab(() -> CreativeTabs.MULTIBLOCKS_TAB);
-    }
 
     public static MultiblockMachineDefinition ROBUST_ALLOY_MATERIALIZER = null;
     public static MultiblockMachineDefinition LARGE_CRACKING_MACHINE = null;
@@ -61,15 +52,23 @@ public class Multiblocks {
     public static MultiblockMachineDefinition EXPANDABLE_ACTIVE_TRANSFORMER = null;
 
     static {
+        ExtendedFeaturesRegister.creativeModeTab(() -> CreativeTabs.MULTIBLOCKS_TAB);
+    }
+
+    static {
         if (ConfigClass.INSTANCE.Multiblocks.RobustAlloyMaterializer || GTCEu.isDataGen()) {
             ROBUST_ALLOY_MATERIALIZER = ExtendedFeaturesRegister
                     .multiblock("robust_alloy_materializer", CoilWorkableMultiblockLaser::new)
                     .tooltips(EFTooltipHelper.RAMTooltip)
-                    .tooltipBuilder(RAMTooltipExtra)
+                    .tooltipBuilder(EFTooltipHelper.RAMTooltipExtra)
                     .rotationState(RotationState.NON_Y_AXIS)
-                    .recipeType(ALLOY_BLAST_RECIPES)
-                    .recipeModifiers(PARALLEL_HATCH, OC_NON_PERFECT, BATCH_MODE, GTRecipeModifiers::ebfOverclock)
-                    .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
+                    .recipeType(GCYMRecipeTypes.ALLOY_BLAST_RECIPES)
+                    .recipeModifiers(
+                            GTRecipeModifiers.PARALLEL_HATCH,
+                            GTRecipeModifiers.OC_NON_PERFECT,
+                            GTRecipeModifiers.BATCH_MODE,
+                            GTRecipeModifiers::ebfOverclock)
+                    .appearanceBlock(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST)
                     .pattern(definition -> FactoryBlockPattern.start()
                             .aisle("   CCC   ", "   XXX   ", "   XXX   ", "   EEE   ", "   XXX   ", "   XXX   ", "   CCC   ")
                             .aisle(" BBBCBBB ", " XXTTTXX ", " XXTTTXX ", " EETFTEE ", " XXTTTXX ", " XXTTTXX ", " BBBCBBB ")
@@ -84,15 +83,15 @@ public class Multiblocks {
                             .where('X', heatingCoils())
                             .where('T', air())
                             .where(' ', any())
-                            .where('C', blocks(CASING_TUNGSTENSTEEL_ROBUST.get())
+                            .where('C', blocks(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST.get())
                                     .or(Predicates.abilities(PartAbility.IMPORT_ITEMS, PartAbility.IMPORT_FLUIDS, PartAbility.EXPORT_FLUIDS))
                                     .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(1).setPreviewCount(1)
                                             .or(Predicates.abilities(PartAbility.INPUT_LASER).setMaxGlobalLimited(1).setPreviewCount(1)))
                                     .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1))
                                     .or(Predicates.abilities(PartAbility.PARALLEL_HATCH).setMaxGlobalLimited(1)))
-                            .where('B', Predicates.blocks(CASING_HIGH_TEMPERATURE_SMELTING.get()))
-                            .where('F', Predicates.blocks(CASING_TUNGSTENSTEEL_PIPE.get()))
-                            .where('E', Predicates.blocks(HEAT_VENT.get()))
+                            .where('B', Predicates.blocks(GCYMBlocks.CASING_HIGH_TEMPERATURE_SMELTING.get()))
+                            .where('F', Predicates.blocks(GTBlocks.CASING_TUNGSTENSTEEL_PIPE.get()))
+                            .where('E', Predicates.blocks(GCYMBlocks.HEAT_VENT.get()))
                             .where('L', ability(PartAbility.MUFFLER).setExactLimit(1))
                             .build())
                     .recoveryItems(() -> new ItemLike[]{
@@ -113,11 +112,15 @@ public class Multiblocks {
             LARGE_CRACKING_MACHINE = ExtendedFeaturesRegister
                     .multiblock("large_cracking_machine", CoilWorkableElectricMultiblockMachine::new)
                     .tooltips(EFTooltipHelper.LCMTooltip)
-                    .tooltipBuilder(LCMTooltipExtra)
+                    .tooltipBuilder(EFTooltipHelper.LCMTooltipExtra)
                     .rotationState(RotationState.NON_Y_AXIS)
-                    .recipeType(CRACKING_RECIPES)
-                    .recipeModifiers(PARALLEL_HATCH, OC_NON_PERFECT, BATCH_MODE, GTRecipeModifiers::crackerOverclock)
-                    .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
+                    .recipeType(GTRecipeTypes.CRACKING_RECIPES)
+                    .recipeModifiers(
+                            GTRecipeModifiers.PARALLEL_HATCH,
+                            GTRecipeModifiers.OC_NON_PERFECT,
+                            GTRecipeModifiers.BATCH_MODE,
+                            GTRecipeModifiers::crackerOverclock)
+                    .appearanceBlock(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST)
                     .pattern(definition -> FactoryBlockPattern.start()
                             .aisle("FIIFIIF", "FIIFIIF", "FFFYFFF", "FIIFIIF", "FIIFIIF")
                             .aisle("FIIFIIF", "FKKFKKF", "FKKDKKF", "FKKFKKF", "FIIFIIF")
@@ -128,10 +131,13 @@ public class Multiblocks {
                             .where('K', heatingCoils())
                             .where('#', air())
                             .where(' ', any())
-                            .where('I', blocks(CASING_LAMINATED_GLASS.get()))
-                            .where('D', blocks(CASING_TUNGSTENSTEEL_PIPE.get()))
-                            .where('F', blocks(CASING_TUNGSTENSTEEL_ROBUST.get())
-                                    .or(Predicates.abilities(PartAbility.IMPORT_ITEMS, PartAbility.IMPORT_FLUIDS, PartAbility.EXPORT_FLUIDS))
+                            .where('I', blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
+                            .where('D', blocks(GTBlocks.CASING_TUNGSTENSTEEL_PIPE.get()))
+                            .where('F', blocks(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST.get())
+                                    .or(Predicates.abilities(
+                                            PartAbility.IMPORT_ITEMS,
+                                            PartAbility.IMPORT_FLUIDS,
+                                            PartAbility.EXPORT_FLUIDS))
                                     .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
                                     .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1))
                                     .or(Predicates.abilities(PartAbility.PARALLEL_HATCH).setMaxGlobalLimited(1)))
@@ -156,9 +162,11 @@ public class Multiblocks {
                     .multiblock("synthesis_vessel", WorkableElectricMultiblockMachine::new)
                     .tooltips(EFTooltipHelper.SVTooltip)
                     .rotationState(RotationState.NON_Y_AXIS)
-                    .recipeTypes(CHEMICAL_REDUCTION)
-                    .recipeModifiers(OC_PERFECT, BATCH_MODE)
-                    .appearanceBlock(CASING_PTFE_INERT)
+                    .recipeTypes(EFRecipeTypes.CHEMICAL_REDUCTION)
+                    .recipeModifiers(
+                            GTRecipeModifiers.OC_PERFECT,
+                            GTRecipeModifiers.BATCH_MODE)
+                    .appearanceBlock(GTBlocks.CASING_PTFE_INERT)
                     .pattern(definition -> FactoryBlockPattern.start()
                             .aisle(" FDDDF ", " FDDDF ", " FDDDF ")
                             .aisle("FNDDDNF", "FCK#KCF", "FNDDDNF")
@@ -171,15 +179,15 @@ public class Multiblocks {
                             .where('#', air())
                             .where(' ', any())
                             .where('F', frames(GTMaterials.Polytetrafluoroethylene))
-                            .where('K', blocks(CASING_POLYTETRAFLUOROETHYLENE_PIPE.get()))
+                            .where('K', blocks(GTBlocks.CASING_POLYTETRAFLUOROETHYLENE_PIPE.get()))
                             .where('C', heatingCoils())
-                            .where('D', blocks(CASING_PTFE_INERT.get())
+                            .where('D', blocks(GTBlocks.CASING_PTFE_INERT.get())
                                     .or(Predicates.abilities(
                                             PartAbility.IMPORT_ITEMS, PartAbility.EXPORT_ITEMS,
                                             PartAbility.IMPORT_FLUIDS, PartAbility.EXPORT_FLUIDS))
                                     .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
                                     .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
-                            .where('N', blocks(HEAT_VENT.get()))
+                            .where('N', blocks(GCYMBlocks.HEAT_VENT.get()))
                             .build())
                     .workableCasingModel(
                             GTCEu.id("block/casings/solid/machine_casing_inert_ptfe"),
@@ -194,11 +202,14 @@ public class Multiblocks {
             LARGE_PYROLYSE_OVEN = ExtendedFeaturesRegister
                     .multiblock("large_pyrolysis_oven", CoilWorkableElectricMultiblockMachine::new)
                     .tooltips(EFTooltipHelper.LPOTooltip)
-                    .tooltipBuilder(LPOTooltipExtra)
+                    .tooltipBuilder(EFTooltipHelper.LPOTooltipExtra)
                     .rotationState(RotationState.NON_Y_AXIS)
-                    .recipeType(PYROLYSE_RECIPES)
-                    .recipeModifiers(PARALLEL_HATCH, OC_PERFECT, GTRecipeModifiers::pyrolyseOvenOverclock)
-                    .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
+                    .recipeType(GTRecipeTypes.PYROLYSE_RECIPES)
+                    .recipeModifiers(
+                            GTRecipeModifiers.PARALLEL_HATCH,
+                            GTRecipeModifiers.OC_PERFECT,
+                            GTRecipeModifiers::pyrolyseOvenOverclock)
+                    .appearanceBlock(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST)
                     .pattern(definition -> FactoryBlockPattern.start()
                             .aisle("  EEE  ", "  HHH  ", "  HHH  ", "  HHH  ", "  EEE  ")
                             .aisle(" FGGGF ", " GKKKG ", " GKKKG ", " GKKKG ", " FGGGF ")
@@ -211,11 +222,11 @@ public class Multiblocks {
                             .where('#', air())
                             .where(' ', any())
                             .where('K', heatingCoils())
-                            .where('G', blocks(CASING_HIGH_TEMPERATURE_SMELTING.get()))
-                            .where('F', blocks(HEAT_VENT.get()))
-                            .where('O', blocks(CASING_TUNGSTENSTEEL_PIPE.get()))
-                            .where('H', blocks(CASING_LAMINATED_GLASS.get()))
-                            .where('E', blocks(CASING_TUNGSTENSTEEL_ROBUST.get())
+                            .where('G', blocks(GCYMBlocks.CASING_HIGH_TEMPERATURE_SMELTING.get()))
+                            .where('F', blocks(GCYMBlocks.HEAT_VENT.get()))
+                            .where('O', blocks(GTBlocks.CASING_TUNGSTENSTEEL_PIPE.get()))
+                            .where('H', blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
+                            .where('E', blocks(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST.get())
                                     .or(Predicates.abilities(
                                             PartAbility.IMPORT_ITEMS, PartAbility.EXPORT_ITEMS,
                                             PartAbility.IMPORT_FLUIDS, PartAbility.EXPORT_FLUIDS))
@@ -242,15 +253,6 @@ public class Multiblocks {
         if (ConfigClass.INSTANCE.Multiblocks.CompactAssemblyLine || GTCEu.isDataGen()) {
             COMPACT_ASSEMBLY_LINE = ExtendedFeaturesRegister
                     .multiblock("compact_assembly_line", WorkableElectricMultiblockMachine::new)
-                    .tooltips(
-                            Component.translatable("extendedfeatures.compact_assembly_line.tooltip.0"),
-                            Component.translatable("extendedfeatures.compact_assembly_line.tooltip.1"),
-                            Component.translatable("extendedfeatures.compact_assembly_line.tooltip.2")
-                    )
-                    .tooltipBuilder((stack, list) -> list.add(
-                            Component.translatable("extendedfeatures.compact_assembly_line.tooltip.3")
-                                    .append(Component.translatable("extendedfeatures.styled.tooltip.3")
-                                            .withStyle(EFTooltipHelper.RAINBOW_HSL_FAST))))
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(ASSEMBLY_LINE_RECIPES)
                     .recipeModifiers(MACHINE_PARALLEL(4), OC_NON_PERFECT)
@@ -293,9 +295,11 @@ public class Multiblocks {
                     .multiblock("rock_processing_plant", WorkableElectricMultiblockMachine::new)
                     .tooltips(EFTooltipHelper.RPPTooltip)
                     .rotationState(RotationState.NON_Y_AXIS)
-                    .recipeTypes(ROCK_PROCESSING_RECIPES)
-                    .recipeModifiers(OC_NON_PERFECT, BATCH_MODE)
-                    .appearanceBlock(CASING_SECURE_MACERATION)
+                    .recipeTypes(EFRecipeTypes.ROCK_PROCESSING_RECIPES)
+                    .recipeModifiers(
+                            GTRecipeModifiers.OC_NON_PERFECT,
+                            GTRecipeModifiers.BATCH_MODE)
+                    .appearanceBlock(GCYMBlocks.CASING_SECURE_MACERATION)
                     .pattern(definition -> FactoryBlockPattern.start()
                             .aisle("  CCCCCCCCC  ", "  CCCCCCCCC  ", "  CCCCCCCCC  ", "  CCCCCCCCC  ", "             ")
                             .aisle("  CCCCCCCCC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "             ")
@@ -318,14 +322,14 @@ public class Multiblocks {
                             .where('@', controller(blocks(definition.get())))
                             .where(' ', any())
                             .where('#', air())
-                            .where('D', blocks(CASING_TUNGSTENSTEEL_GEARBOX.get()))
-                            .where('T', blocks(LD_ITEM_PIPE.get()))
-                            .where('C', blocks(CASING_NONCONDUCTING.get()))
-                            .where('Z', blocks(ELECTROLYTIC_CELL.get()))
-                            .where('E', blocks(CRUSHING_WHEELS.get()))
-                            .where('F', blocks(CASING_LAMINATED_GLASS.get()))
+                            .where('D', blocks(GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX.get()))
+                            .where('T', blocks(GTBlocks.LD_ITEM_PIPE.get()))
+                            .where('C', blocks(GCYMBlocks.CASING_NONCONDUCTING.get()))
+                            .where('Z', blocks(GCYMBlocks.ELECTROLYTIC_CELL.get()))
+                            .where('E', blocks(GCYMBlocks.CRUSHING_WHEELS.get()))
+                            .where('F', blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
                             .where('G', abilities(PartAbility.ROTOR_HOLDER))
-                            .where('B', blocks(CASING_SECURE_MACERATION.get())
+                            .where('B', blocks(GCYMBlocks.CASING_SECURE_MACERATION.get())
                                     .or(Predicates.abilities(
                                             PartAbility.IMPORT_ITEMS,
                                             PartAbility.EXPORT_FLUIDS,
@@ -347,8 +351,11 @@ public class Multiblocks {
                     .tooltips(EFTooltipHelper.IGTooltip)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeTypes(GREENHOUSE_CROPS, GREENHOUSE_WOOD)
-                    .recipeModifiers(MACHINE_PARALLEL(8), OC_NON_PERFECT, BATCH_MODE)
-                    .appearanceBlock(CASING_STEEL_SOLID)
+                    .recipeModifiers(
+                            CustomRecipeModifiers.MACHINE_PARALLEL(8),
+                            GTRecipeModifiers.OC_NON_PERFECT,
+                            GTRecipeModifiers.BATCH_MODE)
+                    .appearanceBlock(GTBlocks.CASING_STEEL_SOLID)
                     .pattern(definition -> FactoryBlockPattern.start()
                             .aisle("    BBB    ", "    DDD    ", "    EDE    ", "    EDE    ", "    EDE    ", "    EDE    ", "    EDE    ", "    EDE    ", "    EDE    ", "           ", "           ", "           ")
                             .aisle("  BBDDDBB  ", "  DDCCCDD  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "    EDE    ", "    EDE    ", "           ")
@@ -368,10 +375,10 @@ public class Multiblocks {
                             .where('G', blocks(Blocks.ROOTED_DIRT))
                             .where('I', blocks(Blocks.OAK_WOOD))
                             .where('H', blocks(Blocks.OAK_LEAVES))
-                            .where('B', blocks(FIREBOX_STEEL.get()))
-                            .where('E', blocks(CASING_TEMPERED_GLASS.get()))
+                            .where('B', blocks(GTBlocks.FIREBOX_STEEL.get()))
+                            .where('E', blocks(GTBlocks.CASING_TEMPERED_GLASS.get()))
                             .where('F', frames(GTMaterials.Steel))
-                            .where('D', blocks(CASING_STEEL_SOLID.get())
+                            .where('D', blocks(GTBlocks.CASING_STEEL_SOLID.get())
                                     .or(Predicates.abilities(PartAbility.IMPORT_ITEMS, PartAbility.IMPORT_FLUIDS, PartAbility.EXPORT_ITEMS))
                                     .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
                                     .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
@@ -389,10 +396,15 @@ public class Multiblocks {
                     .multiblock("tree_growing_chamber", WorkableElectricMultiblockMachine::new)
                     .rotationState(RotationState.NON_Y_AXIS)
                     .tooltips(EFTooltipHelper.TGCTooltip)
-                    .tooltipBuilder(TGCTooltipExtra)
-                    .recipeTypes(GREENHOUSE_CROPS, GREENHOUSE_WOOD)
-                    .recipeModifiers(PARALLEL_HATCH, OC_NON_PERFECT, BATCH_MODE)
-                    .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
+                    .tooltipBuilder(EFTooltipHelper.TGCTooltipExtra)
+                    .recipeTypes(
+                            EFRecipeTypes.GREENHOUSE_CROPS,
+                            EFRecipeTypes.GREENHOUSE_WOOD)
+                    .recipeModifiers(
+                            GTRecipeModifiers.PARALLEL_HATCH,
+                            GTRecipeModifiers.OC_NON_PERFECT,
+                            GTRecipeModifiers.BATCH_MODE)
+                    .appearanceBlock(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST)
                     .pattern(definition -> FactoryBlockPattern.start()
                             .aisle("    BBB    ", "    DDD    ", "    EDE    ", "    EDE    ", "    EKE    ", "    EKE    ", "    EKE    ", "    EDE    ", "    EDE    ", "           ", "           ", "           ")
                             .aisle("  BBDDDBB  ", "  DDCCCDD  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "    EDE    ", "    EDE    ", "           ")
@@ -412,11 +424,11 @@ public class Multiblocks {
                             .where('G', blocks(Blocks.ROOTED_DIRT))
                             .where('I', blocks(Blocks.OAK_WOOD))
                             .where('H', blocks(Blocks.OAK_LEAVES))
-                            .where('K', blocks(CASING_EXTREME_ENGINE_INTAKE.get()))
-                            .where('B', blocks(FIREBOX_TUNGSTENSTEEL.get()))
-                            .where('E', blocks(CASING_LAMINATED_GLASS.get()))
+                            .where('K', blocks(GTBlocks.CASING_EXTREME_ENGINE_INTAKE.get()))
+                            .where('B', blocks(GTBlocks.FIREBOX_TUNGSTENSTEEL.get()))
+                            .where('E', blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
                             .where('F', frames(GTMaterials.TungstenSteel))
-                            .where('D', blocks(CASING_TUNGSTENSTEEL_ROBUST.get())
+                            .where('D', blocks(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST.get())
                                     .or(Predicates.abilities(PartAbility.IMPORT_ITEMS, PartAbility.IMPORT_FLUIDS, PartAbility.EXPORT_ITEMS))
                                     .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
                                     .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1))
@@ -435,9 +447,11 @@ public class Multiblocks {
                     .multiblock("disassembler", DisassemblerMachine::new)
                     .tooltips(EFTooltipHelper.UDMTooltip)
                     .rotationState(RotationState.NON_Y_AXIS)
-                    .recipeTypes(DISASSEMBLER_MACHINES, DISASSEMBER_CASINGS)
+                    .recipeTypes(
+                            EFRecipeTypes.DISASSEMBLER_MACHINES,
+                            EFRecipeTypes.DISASSEMBER_CASINGS)
                     .recipeModifiers(OC_NON_PERFECT)
-                    .appearanceBlock(CASING_LARGE_SCALE_ASSEMBLING)
+                    .appearanceBlock(GCYMBlocks.CASING_LARGE_SCALE_ASSEMBLING)
                     .pattern(definition -> FactoryBlockPattern.start()
                             .aisle("OOOOOOO", "OOOOOOO", "OOOOOOO")
                             .aisle("OOOOOOO", "OKOKOKO", "ODODODO")
@@ -446,10 +460,10 @@ public class Multiblocks {
                             .aisle("  OOO  ", "  O@O  ", "  OOO  ")
                             .where('@', controller(blocks(definition.get())))
                             .where('#', air())
-                            .where('D', blocks(CASING_GRATE.get()))
-                            .where('G', blocks(CASING_TEMPERED_GLASS.get()))
-                            .where('K', blocks(CASING_TUNGSTENSTEEL_GEARBOX.get()))
-                            .where('O', blocks(CASING_LARGE_SCALE_ASSEMBLING.get())
+                            .where('D', blocks(GTBlocks.CASING_GRATE.get()))
+                            .where('G', blocks(GTBlocks.CASING_TEMPERED_GLASS.get()))
+                            .where('K', blocks(GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX.get()))
+                            .where('O', blocks(GCYMBlocks.CASING_LARGE_SCALE_ASSEMBLING.get())
                                     .or(Predicates.abilities(
                                             PartAbility.IMPORT_ITEMS, PartAbility.EXPORT_ITEMS,
                                             PartAbility.EXPORT_FLUIDS, PartAbility.INPUT_ENERGY,
@@ -468,11 +482,11 @@ public class Multiblocks {
             LARGE_GAS_COLLECTOR = ExtendedFeaturesRegister
                     .multiblock("large_gas_collector", WorkableElectricMultiblockMachine::new)
                     .tooltips(EFTooltipHelper.LGCTooltip)
-                    .tooltipBuilder(LGCTooltipExtra)
+                    .tooltipBuilder(EFTooltipHelper.LGCTooltipExtra)
                     .rotationState(RotationState.NON_Y_AXIS)
-                    .recipeType(AIR_COLLECTOR)
+                    .recipeType(EFRecipeTypes.AIR_COLLECTOR)
                     .recipeModifiers(PARALLEL_HATCH, OC_NON_PERFECT)
-                    .appearanceBlock(CASING_CORROSION_PROOF)
+                    .appearanceBlock(GCYMBlocks.CASING_CORROSION_PROOF)
                     .pattern(definition -> FactoryBlockPattern.start()
                             .aisle("ARRRA", " RPR ", "ARRRA")
                             .aisle("AAAAA", "ADEDA", "AFAFA")
@@ -481,19 +495,19 @@ public class Multiblocks {
                             .aisle("AAAAA", " A@A ", "AAAAA")
                             .where('@', controller(blocks(definition.get())))
                             .where(" ", any())
-                            .where("A", blocks(CASING_CORROSION_PROOF.get())
+                            .where("A", blocks(GCYMBlocks.CASING_CORROSION_PROOF.get())
                                     .or(abilities(PartAbility.IMPORT_ITEMS).setMaxGlobalLimited(1)) // required for circuit
                                     .or(abilities(PartAbility.EXPORT_FLUIDS).setMaxGlobalLimited(4))
                                     .or(abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
                                     .or(abilities(PartAbility.MAINTENANCE).setExactLimit(1))
                                     .or(abilities(PartAbility.PARALLEL_HATCH).setMaxGlobalLimited(1))
                             )
-                            .where('R', blocks(CASING_CORROSION_PROOF.get())) // Forces the rotor area to be clear, just visuals :)
-                            .where("B", blocks(MOLYBDENUM_DISILICIDE_COIL_BLOCK.get()))
+                            .where('R', blocks(GCYMBlocks.CASING_CORROSION_PROOF.get())) // Forces the rotor area to be clear, just visuals :)
+                            .where("B", blocks(GCYMBlocks.MOLYBDENUM_DISILICIDE_COIL_BLOCK.get()))
                             .where("P", abilities(PartAbility.ROTOR_HOLDER))
-                            .where("E", blocks(CASING_TUNGSTENSTEEL_PIPE.get()))
-                            .where("D", blocks(CASING_TUNGSTENSTEEL_GEARBOX.get()))
-                            .where("F", blocks(CASING_EXTREME_ENGINE_INTAKE.get()))
+                            .where("E", blocks(GTBlocks.CASING_TUNGSTENSTEEL_PIPE.get()))
+                            .where("D", blocks(GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX.get()))
+                            .where("F", blocks(GTBlocks.CASING_EXTREME_ENGINE_INTAKE.get()))
                             .build())
                     .workableCasingModel(
                             GTCEu.id("block/casings/gcym/corrosion_proof_casing"),
@@ -546,8 +560,8 @@ public class Multiblocks {
                     .multiblock("matrix_data_relay", MatrixDataRelayMachine::new)
                     .tooltips(EFTooltipHelper.MDRTooltip)
                     .rotationState(RotationState.NON_Y_AXIS)
-                    .recipeType(DUMMY_RECIPES)
-                    .appearanceBlock(HIGH_POWER_CASING)
+                    .recipeType(GTRecipeTypes.DUMMY_RECIPES)
+                    .appearanceBlock(GTBlocks.HIGH_POWER_CASING)
                     .pattern(definition -> FactoryBlockPattern.start()
                             .aisle("    CCCCC    ", "    C   C    ", "    C   C    ", "    C   C    ", "    CCCCC    ")
                             .aisle("  DDDDDDDDD  ", "  EEC   CEE  ", "  EEC   CEE  ", "  EEC   CEE  ", "  DDDDDDDDD  ")
@@ -565,14 +579,16 @@ public class Multiblocks {
                             .where('@', controller(blocks(definition.get())))
                             .where(' ', any())
                             .where('#', air())
-                            .where('D', blocks(ADVANCED_COMPUTER_CASING.get()))
-                            .where('C', blocks(COMPUTER_CASING.get()))
-                            .where('E', blocks(CASING_LAMINATED_GLASS.get()))
-                            .where('F', blocks(HIGH_POWER_CASING.get())
+                            .where('D', blocks(GTBlocks.ADVANCED_COMPUTER_CASING.get()))
+                            .where('C', blocks(GTBlocks.COMPUTER_CASING.get()))
+                            .where('E', blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
+                            .where('F', blocks(GTBlocks.HIGH_POWER_CASING.get())
+                                    .or(abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(1))
                                     .or(abilities(PartAbility.MAINTENANCE).setExactLimit(1))
                                     .or(abilities(PartAbility.INPUT_ENERGY).setMinGlobalLimited(1).setMaxGlobalLimited(2)))
                             .where('H', abilities(ExtendedAbilities.WIRELESS_OPTICAL_TRANSMISSOR).setExactLimit(1))
-                            .where('X', abilities(PartAbility.DATA_ACCESS))
+                            .where('X', blocks(GTBlocks.HIGH_POWER_CASING.get())
+                                    .or(abilities(PartAbility.DATA_ACCESS).setMinGlobalLimited(1).setMaxGlobalLimited(6)))
                             .build())
                     .workableCasingModel(
                             GTCEu.id("block/casings/hpca/high_power_casing"),
@@ -580,32 +596,7 @@ public class Multiblocks {
                     .register();
         }
     }
-    /* WIP
-    static {
-        if (ConfigClass.INSTANCE.Multiblocks.EnergyDistributionCenter || GTCEu.isDataGen()) {
-            EXPANDABLE_ACTIVE_TRANSFORMER = ExtendedFeaturesRegister
-                    .multiblock("expandable_active_transformer", ActiveTransformerMachine::new)
-                    .rotationState(RotationState.ALL)
-                    .recipeType(DUMMY_RECIPES)
-                    .appearanceBlock(HIGH_POWER_CASING)
-                    .pattern(definition -> FactoryBlockPattern.start()
-                            .aisle("AAA", "AAA", "AAA")
-                            .aisle("BAB", "BOB", "BAB").setRepeatable(2, 4)
-                            .aisle("AAA", "A@A", "AAA")
-                            .where('@', controller(blocks(definition.get())))
-                            .where('O', blocks(SUPERCONDUCTING_COIL.get()))
-                            .where('A', blocks(HIGH_POWER_CASING.get()).setMinGlobalLimited(10)
-                                    .or(abilities(PartAbility.MAINTENANCE).setExactLimit(1))
-                                    .or(abilities(PartAbility.OUTPUT_ENERGY, PartAbility.OUTPUT_LASER, PartAbility.SUBSTATION_OUTPUT_ENERGY).setMaxGlobalLimited(1)))
-                            .where('B', abilities(PartAbility.INPUT_ENERGY, PartAbility.INPUT_LASER, PartAbility.SUBSTATION_INPUT_ENERGY).setMinGlobalLimited(1))
-                            .build())
-                    .workableCasingModel(
-                            GTCEu.id("block/casings/hpca/high_power_casing"),
-                            GTCEu.id("block/multiblock/hpca"))
-                    .register();
-        }
-    }
-    */
 
-    public static void init() {}
+    public static void init() {
+    }
 }
