@@ -14,7 +14,8 @@ public class EFTooltipHelper {
     public static final List<Component> RAMTooltip = List.of(
             Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"),
             Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.1"),
-            Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.2")
+            Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.2"),
+            Component.translatable("extendedfeatures.separator_line_small")
     );
 
     public static final List<Component> LCMTooltip = List.of(
@@ -38,7 +39,7 @@ public class EFTooltipHelper {
 
     public static final List<Component> IGTooltip = List.of(
             Component.translatable("extendedfeatures.greenhouse.tooltip.0"),
-            Component.translatable("extendedfeatures.greenhouse.tooltip.1")
+            Component.translatable("extendedfeatures.industrial_greenhouse.tooltip.1")
     );
 
     public static final List<Component> TGCTooltip = List.of(
@@ -47,7 +48,11 @@ public class EFTooltipHelper {
 
     public static final List<Component> UDMTooltip = List.of(
             Component.translatable("extendedfeatures.disassembler.tooltip.0"),
-            Component.translatable("extendedfeatures.disassembler.tooltip.1")
+            Component.translatable("extendedfeatures.separator_line_small"),
+            Component.translatable("extendedfeatures.disassembler.tooltip.1"),
+            Component.translatable("extendedfeatures.disassembler.tooltip.2"),
+            Component.translatable("extendedfeatures.separator_line_small"),
+            Component.translatable("extendedfeatures.disassembler.tooltip.3")
     );
 
     public static final List<Component> LGCTooltip = List.of(
@@ -59,12 +64,13 @@ public class EFTooltipHelper {
             Component.translatable("extendedfeatures.matrix_data_relay.tooltip.2"),
             Component.translatable("extendedfeatures.matrix_data_relay.tooltip.3"),
             Component.translatable("extendedfeatures.separator_line_small"),
-            Component.translatable("extendedfeatures.matrix_data_relay.tooltip.3"),
             Component.translatable("extendedfeatures.matrix_data_relay.tooltip.4"),
             Component.translatable("extendedfeatures.matrix_data_relay.tooltip.5"),
             Component.translatable("extendedfeatures.matrix_data_relay.tooltip.6"),
+            Component.translatable("extendedfeatures.matrix_data_relay.tooltip.7"),
+            Component.translatable("extendedfeatures.matrix_data_relay.tooltip.8"),
             Component.translatable("extendedfeatures.separator_line_small"),
-            Component.translatable("extendedfeatures.matrix_data_relay.tooltip.7")
+            Component.translatable("extendedfeatures.matrix_data_relay.tooltip.9")
     );
 
     // Tooltip Builders
@@ -77,25 +83,7 @@ public class EFTooltipHelper {
                                     .append(Component.translatable("extendedfeatures.styled.tooltip.2")
                                             .withStyle(RAINBOW_HSL_SLOW))));
 
-    public static final BiConsumer<ItemStack, List<Component>> LCMTooltipExtra =
-            (stack, list) -> list.add(
-                    Component.translatable("extendedfeatures.regular.tooltip.1")
-                            .append(Component.translatable("extendedfeatures.styled.tooltip.2")
-                                    .withStyle(RAINBOW_HSL_SLOW)));
-
-    public static final BiConsumer<ItemStack, List<Component>> LPOTooltipExtra =
-            (stack, list) -> list.add(
-                    Component.translatable("extendedfeatures.regular.tooltip.1")
-                            .append(Component.translatable("extendedfeatures.styled.tooltip.2")
-                                    .withStyle(RAINBOW_HSL_SLOW)));
-
-    public static final BiConsumer<ItemStack, List<Component>> TGCTooltipExtra =
-            (stack, list) -> list.add(
-                    Component.translatable("extendedfeatures.regular.tooltip.1")
-                            .append(Component.translatable("extendedfeatures.styled.tooltip.2")
-                                    .withStyle(RAINBOW_HSL_SLOW)));
-
-    public static final BiConsumer<ItemStack, List<Component>> LGCTooltipExtra =
+    public static final BiConsumer<ItemStack, List<Component>> ParallelTooltip =
             (stack, list) -> list.add(
                     Component.translatable("extendedfeatures.regular.tooltip.1")
                             .append(Component.translatable("extendedfeatures.styled.tooltip.2")

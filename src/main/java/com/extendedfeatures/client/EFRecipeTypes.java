@@ -19,13 +19,13 @@ import net.minecraft.world.item.crafting.RecipeType;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.MULTIBLOCK;
 
 @SuppressWarnings("deprecated")
-public class RecipeTypes {
+public class EFRecipeTypes {
 
     public static GTRecipeType ROCK_PROCESSING_RECIPES;
     public static GTRecipeType GREENHOUSE_WOOD;
     public static GTRecipeType GREENHOUSE_CROPS;
     public static GTRecipeType DISASSEMBLER_MACHINES;
-    public static GTRecipeType DISASSEMBER_CASINGS;
+    public static GTRecipeType DISASSEMBER_COMPONENTS;
     public static GTRecipeType CHEMICAL_REDUCTION;
     public static GTRecipeType AIR_COLLECTOR;
 
@@ -56,7 +56,7 @@ public class RecipeTypes {
                 .setSound(GTSoundEntries.ASSEMBLER)
                 .addCustomRecipeLogic(DisassemblerRecipeLogic.INSTANCE);
 
-        DISASSEMBER_CASINGS = register("casing_disassembly", MULTIBLOCK)
+        DISASSEMBER_COMPONENTS = register("components_disassembly", MULTIBLOCK)
                 .setEUIO(IO.IN)
                 .setMaxIOSize(1, 9, 0, 1)
                 .setProgressBar(GuiTextures.PROGRESS_BAR_MIXER, ProgressTexture.FillDirection.LEFT_TO_RIGHT)

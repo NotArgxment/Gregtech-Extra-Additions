@@ -1,6 +1,6 @@
 package com.extendedfeatures.client.internal.logic.disassembler;
 
-import com.extendedfeatures.client.RecipeTypes;
+import com.extendedfeatures.client.EFRecipeTypes;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.capability.recipe.IRecipeCapabilityHolder;
@@ -92,7 +92,7 @@ public enum DisassemblerRecipeLogic implements GTRecipeType.ICustomRecipeLogic {
 
     @Override
     public void buildRepresentativeRecipes() {
-        GTRecipeType recipeType = RecipeTypes.DISASSEMBLER_MACHINES;
+        GTRecipeType recipeType = EFRecipeTypes.DISASSEMBLER_MACHINES;
 
         ServerLevel serverLevel = getRepresentativeServerLevel();
 

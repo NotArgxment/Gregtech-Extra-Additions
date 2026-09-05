@@ -22,7 +22,7 @@ import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.machines.GCYMMachines.*;
 
 @MethodsReturnNonnullByDefault
-public class ExtendedShapeInfo {
+public class EFShapeInfosHelper {
 
     public static List<MultiblockShapeInfo> RobustAlloyMaterializer(MultiblockMachineDefinition definition) {
         List<MultiblockShapeInfo> shapeInfo = new ArrayList<>();
