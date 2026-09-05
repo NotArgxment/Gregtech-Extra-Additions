@@ -24,7 +24,7 @@ import java.util.*;
 public class RecipeResolver {
 
     // Tools tags exceptions since it should never be returned in a normal disassembler recipe
-    public static final java.util.Set<TagKey<Item>> TOOL_TAGS = java.util.Set.of(
+    public static final Set<TagKey<Item>> TOOL_TAGS = Set.of(
             CustomTags.CRAFTING_WRENCHES,
             CustomTags.CRAFTING_HAMMERS,
             CustomTags.CRAFTING_FILES,
