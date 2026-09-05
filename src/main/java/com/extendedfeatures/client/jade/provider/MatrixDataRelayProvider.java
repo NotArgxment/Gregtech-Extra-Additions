@@ -1,9 +1,11 @@
 package com.extendedfeatures.client.jade.provider;
 
 import com.extendedfeatures.ExtendedFeaturesCore;
+import com.extendedfeatures.client.internal.logic.machine.WirelessOpticalHatch;
 import com.extendedfeatures.client.internal.logic.multiblock.MatrixDataRelayMachine;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
+import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -20,13 +22,13 @@ public class MatrixDataRelayProvider implements IBlockComponentProvider, IServer
     private static final String tagCoolantUsed = "CoolantPerSecond";
     private static final String tagSupplyCoolant = "CoolantStarved";
     private static final String tagFormed = "Formed";
+    private static final String tagHatchTier = "WirelessTier";
 
     @Override
     public ResourceLocation getUid() {
         return ExtendedFeaturesCore.id("matrix_data_relay");
     }
 
-    // Server side: gather data
     @Override
     public void appendServerData(CompoundTag data, BlockAccessor blockAccessor) {
         if (!(blockAccessor.getBlockEntity() instanceof IMachineBlockEntity be)) return;
@@ -38,9 +40,15 @@ public class MatrixDataRelayProvider implements IBlockComponentProvider, IServer
         data.putBoolean(tagFormed, relay.isFormed());
         data.putInt(tagCoolantUsed, MatrixDataRelayMachine.coolantAmount);
         data.putBoolean(tagSupplyCoolant, relay.isCoolantStarved());
+
+        for (IMultiPart part : relay.getParts()) {
+            if (part instanceof WirelessOpticalHatch hatch) {
+                data.putString(tagHatchTier, hatch.getWirelessTier().name());
+                break;
+            }
+        }
     }
 
-    // Client side: build the tooltip
     @Override
     public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig config) {
         CompoundTag data = blockAccessor.getServerData();
@@ -54,5 +62,11 @@ public class MatrixDataRelayProvider implements IBlockComponentProvider, IServer
                         ? "extendedfeatures.jade.matrix_data_relay.coolant_starved"
                         : "extendedfeatures.jade.matrix_data_relay.coolant_supplied")
                 .withStyle(starved ? ChatFormatting.RED : ChatFormatting.GREEN));
+
+        if (data.contains(tagHatchTier)) {
+            tooltip.add(Component.translatable("extendedfeatures.jade.matrix_data_relay.wireless_hatch_tier",
+                    data.getString(tagHatchTier)).withStyle(ChatFormatting.GRAY));
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 package com.extendedfeatures.client.internal.logic.multiblock;
 
+import com.extendedfeatures.client.internal.logic.machine.ExpandedDataAccessHatch;
 import com.extendedfeatures.client.internal.logic.machine.WirelessOpticalHatch;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
@@ -29,7 +30,8 @@ import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.SIM
 @ParametersAreNonnullByDefault
 public class MatrixDataRelayMachine extends DataBankMachine {
 
-    public static final double hatchAmpUsage = 1;
+    public static final int hatchAmpUsage = 1;
+    public static final int expandedDataHatchUsage = 8192;
 
     public static final int coolantAmount = 144;
     private static final int consuptionInterval = 20;
@@ -118,9 +120,19 @@ public class MatrixDataRelayMachine extends DataBankMachine {
             if (!(part instanceof WirelessOpticalHatch hatch)) continue;
 
             int energyTier = hatch.getWirelessTier().gtTier + 1;
-            if (energyTier >= GTValues.VA.length) continue;
+            if (energyTier >= GTValues.V.length) continue;
 
-            fullConsuption += (long) hatchAmpUsage * GTValues.VA[energyTier];
+            fullConsuption += (long) hatchAmpUsage * GTValues.V[energyTier];
+        }
+        return fullConsuption;
+    }
+
+    private long expandedDataHatchConsuption() {
+        long fullConsuption = 0;
+        for (IMultiPart part : getParts()) {
+            if (!(part instanceof ExpandedDataAccessHatch)) continue;
+
+            fullConsuption += expandedDataHatchUsage;
         }
         return fullConsuption;
     }
@@ -130,7 +142,7 @@ public class MatrixDataRelayMachine extends DataBankMachine {
     protected int calculateEnergyUsage() {
         int baseUsage = super.calculateEnergyUsage();
 
-        long surcharge = hatchAmpConsuption();
+        long surcharge = hatchAmpConsuption() + expandedDataHatchConsuption();
         if (surcharge == 0)
             return baseUsage;
 
