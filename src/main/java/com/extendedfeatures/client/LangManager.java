@@ -18,15 +18,13 @@ public class LangManager {
         replace(provider, "block.extendedfeatures.large_cracking_machine", "Large Cracking Machine [LCM]");
         replace(provider, "block.extendedfeatures.synthesis_vessel", "Synthesis Vessel [SyVe]");
         replace(provider, "block.extendedfeatures.large_pyrolysis_oven", "Large Pyrolysis Oven [LPO]");
-        replace(provider, "block.extendedfeatures.compact_assembly_line", "Compact Assembly Line [CAL]");
+        replace(provider, "block.extendedfeatures.expanded_assembly_line", "Expanded Assembly Line [EAL]");
         replace(provider, "block.extendedfeatures.rock_processing_plant", "Rock Processing Plant [RPP]");
         replace(provider, "block.extendedfeatures.industrial_greenhouse", "Industrial Greenhouse [IGh]");
         replace(provider, "block.extendedfeatures.tree_growing_chamber", "Tree Growing Chamber [TGCh]");
         replace(provider, "block.extendedfeatures.disassembler", "Disassembler [DA]");
         replace(provider, "block.extendedfeatures.rock_processing_plant", "Rock Processing Plant [RPP]");
         replace(provider, "block.extendedfeatures.large_gas_collector", "Large Gas Collector [LGC]");
-        /* Deprecated - Going to be removed on update 3.1.0
-        replace(provider, "block.extendedfeatures.expanded_databank", "Expanded Databank [EDb]"); */
         replace(provider, "block.extendedfeatures.matrix_data_relay", "Matrix Data Relay [MDR]");
 
         // Expanded Data Hatches
@@ -54,15 +52,13 @@ public class LangManager {
         replace(provider, "config.extendedfeatures.option.LargeCrackingMachine", "§7Large Cracking Machine");
         replace(provider, "config.extendedfeatures.option.SynthesisVessel", "§7Synthesis Vessel");
         replace(provider, "config.extendedfeatures.option.LargePyrolysisOven", "§7Large Pyrolysis Oven");
-        replace(provider, "config.extendedfeatures.option.ExpandedAssemblyLine", "§7Compact Assembly Line");
+        replace(provider, "config.extendedfeatures.option.ExpandedAssemblyLine", "§7Expanded Assembly Line");
         replace(provider, "config.extendedfeatures.option.RockProcessingPlant", "§7Rock Processing Plant");
         replace(provider, "config.extendedfeatures.option.IndustrialGreenhouse", "§7Industrial Greenhouse");
         replace(provider, "config.extendedfeatures.option.TreeGrowingChamber", "§7Tree Growing Chamber");
         replace(provider, "config.extendedfeatures.option.Disassembler", "§7Disassembler");
         replace(provider, "config.extendedfeatures.option.LargeGasCollector", "§7Large Gas Collector");
         replace(provider, "config.extendedfeatures.option.MatrixDataRelay", "§7Matrix Data Relay");
-        /* Deprecated - Will be removed on update 3.1.0
-        replace(provider, "config.extendedfeatures.option.ExpandedDatabank", "§7Expanded Data Bank"); */
         replace(provider, "config.extendedfeatures.option.DataHatchLinkingBehavior", "§7Restrict Data Hatch Linking Behavior");
 
         replace(provider, "config.extendedfeatures.option.ExpandedDataAccessHatches", "§7Expanded Data Access Hatches");
@@ -91,7 +87,9 @@ public class LangManager {
         replace(provider, "gui.extendedfeatures.wireless_hatch.cooldown", "§fAvailable in %ss");
         replace(provider, "gui.extendedfeatures.wireless_hatch.show_links_locked", "§7Run a scan first");
 
-        // Jade integration
+        // ========================
+        //     Jade integration
+        // ========================
 
         // Hatches
         replace(provider, "config.jade.plugin_extendedfeatures.wireless_optical_hatch", "Wireless Optical Info");
@@ -115,10 +113,10 @@ public class LangManager {
         provider.add("extendedfeatures.separator_line_large", "§8---------------------------------------------------------");
         provider.add("extendedfeatures.empty_space", " ");
 
-        provider.add("extendedfeatures.compact_assembly_line.tooltip.0", "§fAn Assembly Line that takes advantage of §9Stocking Hatches");
-        provider.add("extendedfeatures.compact_assembly_line.tooltip.1", "§fAllows §bone §fenergy hatch");
-        provider.add("extendedfeatures.compact_assembly_line.tooltip.2", "§fRuns §b4 §frecipes in parallel");
-        provider.add("extendedfeatures.compact_assembly_line.tooltip.3", "§fOnly works using §6Wireless Optical Receptors");
+        provider.add("extendedfeatures.expanded_assembly_line.tooltip.0", "§fAn Assembly Line that takes advantage of §9AE2 Stocking Hatches");
+        provider.add("extendedfeatures.expanded_assembly_line.tooltip.1", "§fAllows only §bone §fenergy hatch");
+        provider.add("extendedfeatures.expanded_assembly_line.tooltip.2", "§fRuns §c16 §frecipes in parallel");
+        provider.add("extendedfeatures.expanded_assembly_line.tooltip.3", "§fOnly works using Wireless Optical Receptors");
 
         provider.add("extendedfeatures.synthesis_vessel.tooltip.0", "§fA Chemical Plant variant based on the Large Chemical Reactor");
         provider.add("extendedfeatures.synthesis_vessel.tooltip.1", "§fPerforms entire chemical processing lines in 1 cycle");
@@ -133,9 +131,6 @@ public class LangManager {
         provider.add("extendedfeatures.disassembler.tooltip.1", "§7This machine can revert a §aMachine §7or §cComponent §7creation process in exchange of the components that were used to make it");
         provider.add("extendedfeatures.disassembler.tooltip.2", "§7If set to §fMachine Disassembly§7, every recipe requires the respective energy hatch of that tier");
         provider.add("extendedfeatures.disassembler.tooltip.3", "§7Allows §bone §7energy hatch");
-
-        /* Deprecated (3.1.0)
-        provider.add("extendedfeatures.expanded_databank_tootip.1", "§fAllows 16 independent Optical Transmission Hatches"); */
 
         provider.add("extendedfeatures.matrix_data_relay.tooltip.1", "§fYour personal Data Center");
         provider.add("extendedfeatures.matrix_data_relay.tooltip.2", "§fThis structure allows a maximum of 6 Data Hatches, both Normal and §6Expanded §fData Hatches");
