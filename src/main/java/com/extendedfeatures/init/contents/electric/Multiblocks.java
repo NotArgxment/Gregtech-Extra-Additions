@@ -12,6 +12,7 @@ import com.extendedfeatures.client.internal.logic.multiblock.MatrixDataRelayMach
 import com.extendedfeatures.init.contents.behavior.CoilWorkableMultiblockLaser;
 import com.extendedfeatures.init.contents.misc.EFShapeInfosHelper;
 import com.extendedfeatures.init.contents.misc.ExtendedAbilities;
+
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
@@ -26,15 +27,13 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
 import static com.extendedfeatures.ExtendedFeaturesCore.ExtendedFeaturesRegister;
-import static com.extendedfeatures.client.EFRecipeTypes.GREENHOUSE_CROPS;
-import static com.extendedfeatures.client.EFRecipeTypes.GREENHOUSE_WOOD;
+import static com.extendedfeatures.client.EFRecipeTypes.*;
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.dustTiny;
 import static com.gregtechceu.gtceu.api.pattern.Predicates.*;
-import static com.gregtechceu.gtceu.common.data.GTBlocks.CASING_STEEL_SOLID;
+import static com.gregtechceu.gtceu.common.data.GTBlocks.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterialItems.MATERIAL_ITEMS;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.Ash;
-import static com.gregtechceu.gtceu.common.data.GTRecipeModifiers.OC_NON_PERFECT;
-import static com.gregtechceu.gtceu.common.data.GTRecipeModifiers.PARALLEL_HATCH;
+import static com.gregtechceu.gtceu.common.data.GTRecipeModifiers.*;
 
 public class Multiblocks {
 
