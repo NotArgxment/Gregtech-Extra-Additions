@@ -6,12 +6,12 @@ import com.extendedfeatures.client.EFDisplayHelper;
 import com.extendedfeatures.client.EFRecipeTypes;
 import com.extendedfeatures.client.EFTooltipHelper;
 import com.extendedfeatures.client.internal.ConfigClass;
+import com.extendedfeatures.client.internal.logic.machine.ExpandedAssemblyLineMachine;
 import com.extendedfeatures.client.internal.logic.multiblock.DisassemblerMachine;
 import com.extendedfeatures.client.internal.logic.multiblock.MatrixDataRelayMachine;
 import com.extendedfeatures.init.contents.behavior.CoilWorkableMultiblockLaser;
+import com.extendedfeatures.init.contents.misc.EFShapeInfosHelper;
 import com.extendedfeatures.init.contents.misc.ExtendedAbilities;
-import com.extendedfeatures.init.contents.misc.ExtendedShapeInfo;
-import com.extendedfeatures.init.contents.modifiers.CustomRecipeModifiers;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.RotationState;
@@ -21,16 +21,17 @@ import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.pattern.FactoryBlockPattern;
 import com.gregtechceu.gtceu.api.pattern.Predicates;
+import com.gregtechceu.gtceu.api.pattern.util.RelativeDirection;
 import com.gregtechceu.gtceu.common.data.*;
-
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
 import static com.extendedfeatures.ExtendedFeaturesCore.ExtendedFeaturesRegister;
 import static com.extendedfeatures.client.EFRecipeTypes.*;
-
+import static com.extendedfeatures.init.contents.modifiers.CustomRecipeModifiers.MACHINE_PARALLEL;
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
 import static com.gregtechceu.gtceu.api.pattern.Predicates.*;
+import static com.gregtechceu.gtceu.common.data.GTBlocks.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterialItems.MATERIAL_ITEMS;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.Ash;
 import static com.gregtechceu.gtceu.common.data.GTRecipeModifiers.*;
@@ -41,13 +42,12 @@ public class Multiblocks {
     public static MultiblockMachineDefinition LARGE_CRACKING_MACHINE = null;
     public static MultiblockMachineDefinition SYNTHESIS_VESSEL = null;
     public static MultiblockMachineDefinition LARGE_PYROLYSE_OVEN = null;
-    public static MultiblockMachineDefinition COMPACT_ASSEMBLY_LINE = null;
+    public static MultiblockMachineDefinition EXPANDED_ASSEMBLY_LINE = null;
     public static MultiblockMachineDefinition ROCK_PROCESSING_PLANT = null;
     public static MultiblockMachineDefinition INDUSTRIAL_GREENHOUSE = null;
     public static MultiblockMachineDefinition TREE_GROWING_CHAMBER = null;
     public static MultiblockMachineDefinition DISASSEMBLER = null;
     public static MultiblockMachineDefinition LARGE_GAS_COLLECTOR = null;
-    public static MultiblockMachineDefinition EXPANDED_DATABANK = null;
     public static MultiblockMachineDefinition MATRIX_DATA_RELAY = null;
     public static MultiblockMachineDefinition EXPANDABLE_ACTIVE_TRANSFORMER = null;
 
