@@ -32,6 +32,17 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Whole purpose of this class:
+ * <p>
+ * - Removes "Ordering Index" that asks a regular assembly line to put items in order
+ * <p>
+ * - Allows fluids to be used in stocking hatches
+ * <p>
+ * - Allows slices to use stocking hatches (for parallelization)
+ * <p>
+ * This does not mean that you need only 1 input for items and fluids, layers for making recipes are still required
+ */
 public class ExpandedAssemblyLineMachine extends AssemblyLineMachine {
 
     public ExpandedAssemblyLineMachine(IMachineBlockEntity holder, boolean allowCircuitSlots) {
