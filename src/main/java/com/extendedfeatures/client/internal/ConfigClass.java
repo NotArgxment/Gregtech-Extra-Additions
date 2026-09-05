@@ -2,7 +2,9 @@ package com.extendedfeatures.client.internal;
 
 import com.extendedfeatures.ExtendedFeaturesCore;
 import dev.toma.configuration.Configuration;
-import dev.toma.configuration.config.*;
+import dev.toma.configuration.config.Config;
+import dev.toma.configuration.config.ConfigHolder;
+import dev.toma.configuration.config.Configurable;
 import dev.toma.configuration.config.format.ConfigFormats;
 
 @Config(id = ExtendedFeaturesCore.MOD_ID)
@@ -56,16 +58,15 @@ public class ConfigClass {
 
         @Configurable
         @Configurable.Comment({
-                "Whether the Compact Assembly Line is Enabled",
-                "Tip: Controller recipe should contain 4 Assembly Line controllers",
+                "Whether the Expanded Assembly Line is Enabled",
                 "Default = True"
         })
-        public boolean CompactAssemblyLine = true;
+        public boolean ExpandedAssemblyLine = true;
 
         @Configurable
         @Configurable.Comment({
                 "Whether the Rock Processing Plant is Enabled",
-                "Tip: Controller recipe should contain a large macerator, a large centrifuge and an large electrolyzer",
+                "§8Tip: Controller recipe should have a large macerator, large centrifuge and large electrolyzer",
                 "Default = True"
         })
         public boolean RockProcessingPlant = true;
