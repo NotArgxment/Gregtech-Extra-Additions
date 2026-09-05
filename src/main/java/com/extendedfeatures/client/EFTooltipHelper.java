@@ -20,17 +20,28 @@ public class EFTooltipHelper {
 
     public static final List<Component> LCMTooltip = List.of(
             Component.translatable("gtceu.machine.cracker.tooltip"),
+            Component.translatable("extendedfeatures.separator_line_small"),
             Component.translatable("gtceu.machine.cracker.tooltip.1")
     );
 
     public static final List<Component> SVTooltip = List.of(
             Component.translatable("extendedfeatures.synthesis_vessel.tooltip.0"),
-            Component.translatable("extendedfeatures.synthesis_vessel.tooltip.1")
+            Component.translatable("extendedfeatures.synthesis_vessel.tooltip.1"),
+            Component.translatable("extendedfeatures.separator_line_small")
     );
 
     public static final List<Component> LPOTooltip = List.of(
             Component.translatable("gtceu.machine.pyrolyse_oven.tooltip"),
+            Component.translatable("extendedfeatures.separator_line_small"),
             Component.translatable("gtceu.machine.pyrolyse_oven.tooltip.1")
+    );
+
+    public static final List<Component> EALTooltip = List.of(
+            Component.translatable("extendedfeatures.expanded_assembly_line.tooltip.0"),
+            Component.translatable("extendedfeatures.separator_line_small"),
+            Component.translatable("extendedfeatures.expanded_assembly_line.tooltip.1"),
+            Component.translatable("extendedfeatures.expanded_assembly_line.tooltip.2"),
+            Component.translatable("extendedfeatures.expanded_assembly_line.tooltip.3")
     );
 
     public static final List<Component> RPPTooltip = List.of(
@@ -39,6 +50,7 @@ public class EFTooltipHelper {
 
     public static final List<Component> IGTooltip = List.of(
             Component.translatable("extendedfeatures.greenhouse.tooltip.0"),
+            Component.translatable("extendedfeatures.separator_line_small"),
             Component.translatable("extendedfeatures.industrial_greenhouse.tooltip.1")
     );
 
@@ -78,10 +90,7 @@ public class EFTooltipHelper {
             (stack, list) -> list.add(
                     Component.translatable("extendedfeatures.regular.tooltip.1")
                             .append(Component.translatable("extendedfeatures.styled.tooltip.1")
-                                    .withStyle(RAINBOW_HSL_SLOW))
-                            .append(Component.translatable("extendedfeatures.regular.tooltip.2")
-                                    .append(Component.translatable("extendedfeatures.styled.tooltip.2")
-                                            .withStyle(RAINBOW_HSL_SLOW))));
+                                    .withStyle(RAINBOW_HSL_SLOW)));
 
     public static final BiConsumer<ItemStack, List<Component>> ParallelTooltip =
             (stack, list) -> list.add(
