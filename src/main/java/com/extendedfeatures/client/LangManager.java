@@ -35,12 +35,13 @@ public class LangManager {
         replace(provider, "block.extendedfeatures.uhv_data_access_hatch", "Epic Data Access Hatch");
 
         // RecipeTypes lang keys
-        replace(provider, "extendedfeatures.greenhouse_wood_recipes", "Tree Growing");
-        replace(provider, "extendedfeatures.greenhouse_crop_recipes", "Crop Growing ");
-        replace(provider, "extendedfeatures.disassembler_machine", "Disassembly");
+        replace(provider, "extendedfeatures.greenhouse_wood_recipes", "Greenhouse: Trees");
+        replace(provider, "extendedfeatures.greenhouse_crop_recipes", "Greenhouse: Crops");
+        replace(provider, "extendedfeatures.component_disassembly", "Component Disassembly");
+        replace(provider, "extendedfeatures.machine_disassembly", "Machine Disassembly");
         replace(provider, "extendedfeatures.rock_processing_plant", "Rock Processing");
         replace(provider, "extendedfeatures.chemical_skips", "Chemical Reduction");
-        replace(provider, "extendedfeatures.gas_collection", "Gas Collector");
+        replace(provider, "extendedfeatures.gas_collection", "Gas Collection");
 
         // Configuration lang
         replace(provider, "config.screen.extendedfeatures", "§7Mod Configuration §c(Restart to Apply Changes)");
@@ -53,7 +54,7 @@ public class LangManager {
         replace(provider, "config.extendedfeatures.option.LargeCrackingMachine", "§7Large Cracking Machine");
         replace(provider, "config.extendedfeatures.option.SynthesisVessel", "§7Synthesis Vessel");
         replace(provider, "config.extendedfeatures.option.LargePyrolysisOven", "§7Large Pyrolysis Oven");
-        replace(provider, "config.extendedfeatures.option.CompactAssemblyLine", "§7Compact Assembly Line");
+        replace(provider, "config.extendedfeatures.option.ExpandedAssemblyLine", "§7Compact Assembly Line");
         replace(provider, "config.extendedfeatures.option.RockProcessingPlant", "§7Rock Processing Plant");
         replace(provider, "config.extendedfeatures.option.IndustrialGreenhouse", "§7Industrial Greenhouse");
         replace(provider, "config.extendedfeatures.option.TreeGrowingChamber", "§7Tree Growing Chamber");
@@ -110,36 +111,41 @@ public class LangManager {
 
     private static void Tooltips(RegistrateLangProvider provider) {
 
-        provider.add("extendedfeatures.separator_line_small", "§f----------------------------------");
-        provider.add("extendedfeatures.separator_line_large", "§f------------------------------------------------------------");
+        provider.add("extendedfeatures.separator_line_small", "§8--------------------------------------");
+        provider.add("extendedfeatures.separator_line_large", "§8---------------------------------------------------------");
         provider.add("extendedfeatures.empty_space", " ");
 
-        provider.add("extendedfeatures.compact_assembly_line.tooltip.0", "§fThis machine performs the work of the Assembly Line without §9Ordered Inputs");
+        provider.add("extendedfeatures.compact_assembly_line.tooltip.0", "§fAn Assembly Line that takes advantage of §9Stocking Hatches");
         provider.add("extendedfeatures.compact_assembly_line.tooltip.1", "§fAllows §bone §fenergy hatch");
         provider.add("extendedfeatures.compact_assembly_line.tooltip.2", "§fRuns §b4 §frecipes in parallel");
-        provider.add("extendedfeatures.compact_assembly_line.tooltip.3", "§fOnly works using");
+        provider.add("extendedfeatures.compact_assembly_line.tooltip.3", "§fOnly works using §6Wireless Optical Receptors");
 
-        provider.add("extendedfeatures.synthesis_vessel.tooltip.0", "§fChemical plant but more LCR-ish");
-        provider.add("extendedfeatures.synthesis_vessel.tooltip.1", "§fThis machine is an improved version of the Large Chemical reactor capable of performing whole chemical lines in just 1 step");
+        provider.add("extendedfeatures.synthesis_vessel.tooltip.0", "§fA Chemical Plant variant based on the Large Chemical Reactor");
+        provider.add("extendedfeatures.synthesis_vessel.tooltip.1", "§fPerforms entire chemical processing lines in 1 cycle");
 
-        provider.add("extendedfeatures.rock_processing_plant.tooltip.0", "§fAn all in one processing line, turns the rocks you normally get from the rock breaker into their direct processed outputs");
+        provider.add("extendedfeatures.rock_processing_plant.tooltip.0", "§7All in One Processing Machine!");
+        provider.add("extendedfeatures.rock_processing_plant.tooltip.1", "§7Turns the rocks you normally get from the rock breaker into their direct processed outputs");
 
-        provider.add("extendedfeatures.greenhouse.tooltip.0", "§fDesigned to make wood generation easier");
-        provider.add("extendedfeatures.greenhouse.tooltip.1", "§fRuns §b8 Recipes §fin parallel");
+        provider.add("extendedfeatures.greenhouse.tooltip.0", "§fAllows an easier way to obtain natural resources");
+        provider.add("extendedfeatures.industrial_greenhouse.tooltip.1", "§fRuns §b8 Recipes §fin parallel");
 
-        provider.add("extendedfeatures.disassembler.tooltip.0", "§fAllows any type of §emachine/controller §fto be recycled, returning what was used for that recipe");
-        provider.add("extendedfeatures.disassembler.tooltip.1", "§fEach tier of machine needs the same energy hatch of that tier in order to work");
+        provider.add("extendedfeatures.disassembler.tooltip.0", "§7Available Machine Modes: §fComponent Disassembly, Machine Disassembly");
+        provider.add("extendedfeatures.disassembler.tooltip.1", "§7This machine can revert a §aMachine §7or §cComponent §7creation process in exchange of the components that were used to make it");
+        provider.add("extendedfeatures.disassembler.tooltip.2", "§7If set to §fMachine Disassembly§7, every recipe requires the respective energy hatch of that tier");
+        provider.add("extendedfeatures.disassembler.tooltip.3", "§7Allows §bone §7energy hatch");
 
-        provider.add("extendedfeatures.expanded_databank_tootip.1", "§fAllows 16 independent Optical Transmission Hatches");
+        /* Deprecated (3.1.0)
+        provider.add("extendedfeatures.expanded_databank_tootip.1", "§fAllows 16 independent Optical Transmission Hatches"); */
 
         provider.add("extendedfeatures.matrix_data_relay.tooltip.1", "§fYour personal Data Center");
-        provider.add("extendedfeatures.matrix_data_relay.tooltip.2", "§fThis structure allows a maximum of 6 Data Hatches,");
-        provider.add("extendedfeatures.matrix_data_relay.tooltip.3", "§fboth Normal and §6Expanded §fData Hatches");
-        provider.add("extendedfeatures.matrix_data_relay.tooltip.4", "§fEach tier of Wireless Transmissors has an energy usage from their next tier:");
-        provider.add("extendedfeatures.matrix_data_relay.tooltip.5", "   §dLuV §fWireless Transmissor: 1A of §cZPM");
-        provider.add("extendedfeatures.matrix_data_relay.tooltip.6", "   §cZPM §fWireless Transmissor: 1A of §3UV");
-        provider.add("extendedfeatures.matrix_data_relay.tooltip.7", "   §3UV §fWireless Transmissor: 1A of §4UHV");
-        provider.add("extendedfeatures.matrix_data_relay.tooltip.8", "§fWhile working, the Matrix Data Relay requires a constant supply of 144mB/t of §9PCB Coolant");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.2", "§fThis structure allows a maximum of 6 Data Hatches, both Normal and §6Expanded §fData Hatches");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.3", "§fEach tier of Wireless Transmissors has an energy usage of the next tier:");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.4", "   §dLuV §fWireless Transmissor: §c131.072 EU/t");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.5", "   §cZPM §fWireless Transmissor: §3524.288 EU/t");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.6", "   §3UV §fWireless Transmissor: §42.097.152 EU/t");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.7", "   §fUses §71920 EU/t §fper Data Hatch");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.8", "   §fUses §98192 EU/t §fper §6Expanded §fData Access Hatch");
+        provider.add("extendedfeatures.matrix_data_relay.tooltip.9", "§fWhile working, a constant supply of 144mB/t of PCB Coolant is required");
 
         provider.add("extendedfeatures.large_air_collector.tooltip.0", "§fA Bigger Gas Collector");
 
@@ -149,8 +155,6 @@ public class LangManager {
         provider.add("extendedfeatures.regular.tooltip.2", "§fand");
         provider.add("extendedfeatures.styled.tooltip.1", " Laser Hatches ");
         provider.add("extendedfeatures.styled.tooltip.2", " Parallel Hatches ");
-        provider.add("extendedfeatures.styled.tooltip.3", " Wireless Optical Receptors ");
-        provider.add("extendedfeatures.styled.tooltip.4", " Wireless Optical Transmissors ");
 
     }
 }
