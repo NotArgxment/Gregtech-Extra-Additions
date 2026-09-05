@@ -102,7 +102,7 @@ public class Multiblocks {
                             GTCEu.id("block/multiblock/gcym/blast_alloy_smelter")
                     )
                     .additionalDisplay(EFDisplayHelper.EBFDisplay)
-                    .shapeInfos(ExtendedShapeInfo::RobustAlloyMaterializer)
+                    .shapeInfos(EFShapeInfosHelper::RobustAlloyMaterializer)
                     .register();
         }
     }
@@ -151,7 +151,7 @@ public class Multiblocks {
                             GTCEu.id("block/multiblock/cracking_unit")
                     )
                     .additionalDisplay(EFDisplayHelper.CrackerDisplay)
-                    .shapeInfos(ExtendedShapeInfo::LargeCrackingMachine)
+                    .shapeInfos(EFShapeInfosHelper::LargeCrackingMachine)
                     .register();
         }
     }
@@ -192,7 +192,7 @@ public class Multiblocks {
                     .workableCasingModel(
                             GTCEu.id("block/casings/solid/machine_casing_inert_ptfe"),
                             GTCEu.id("block/multiblock/large_chemical_reactor"))
-                    .shapeInfos(ExtendedShapeInfo::SynthesisVessel)
+                    .shapeInfos(EFShapeInfosHelper::SynthesisVessel)
                     .register();
         }
     }
@@ -243,7 +243,7 @@ public class Multiblocks {
                             ExtendedFeaturesCore.id("block/multiblock/pyrolyse_oven")
                     )
                     .additionalDisplay(EFDisplayHelper.PyroDisplay)
-                    .shapeInfos(ExtendedShapeInfo::LargePyrolysisOven)
+                    .shapeInfos(EFShapeInfosHelper::LargePyrolysisOven)
                     .register();
         }
     }
@@ -283,7 +283,6 @@ public class Multiblocks {
                     .register();
         }
     }
-  */
 
     static {
         if (ConfigClass.INSTANCE.Multiblocks.RockProcessingPlant || GTCEu.isDataGen()) {
@@ -297,37 +296,35 @@ public class Multiblocks {
                             GTRecipeModifiers.BATCH_MODE)
                     .appearanceBlock(GCYMBlocks.CASING_SECURE_MACERATION)
                     .pattern(definition -> FactoryBlockPattern.start()
-                            .aisle("  CCCCCCCCC  ", "  CCCCCCCCC  ", "  CCCCCCCCC  ", "  CCCCCCCCC  ", "             ")
-                            .aisle("  CCCCCCCCC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "             ")
-                            .aisle("  CCCCCCCCC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "             ")
-                            .aisle("  CCCCCCCCC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "             ")
-                            .aisle("  CCCCCCCCC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "  CZCZCZCZC  ", "             ")
-                            .aisle("  CCCCCCCCC  ", "  CCCTCTCCC  ", "  CCCCCCCCC  ", "  CCCCCCCCC  ", "             ")
-                            .aisle("             ", "     T T     ", "             ", "             ", "             ")
-                            .aisle("   BBBBBBB   ", "   BBTBTBB   ", "   BBBBBBB   ", "    BBBBB    ", "             ")
-                            .aisle(" BBBBBBBBBBB ", " BBBDDDDDBBB ", " BBBEEEEEBBB ", "  BB#####BB  ", "   BBBBBBB   ")
-                            .aisle("BBBBBBBBBBBBB", "BBDDD#D#DDDBB", "BEEEEEEEEEEBB", " B#########B ", "  BBFFFFFBB  ")
-                            .aisle("BBBBBBBBBBBBB", "BDD#D#D#D#DDB", "BEEEEEEEEEEEB", "B###########B", " BFFFFFFFFFB ")
-                            .aisle("BBBBBBBBBBBBB", "BDD#D#D#D#DDB", "BEEEEEEEEEEEB", "B###########B", "BBFFFFFFFFFBB")
-                            .aisle("BBBBBBBBBBBBB", "GDD#D#D#D#DDG", "BEEEEEEEEEEEB", "B###########B", "BBFFFFFFFFFBB")
-                            .aisle("BBBBBBBBBBBBB", "BDD#D#D#D#DDB", "BEEEEEEEEEEEB", "B###########B", "BBFFFFFFFFFBB")
-                            .aisle("BBBBBBBBBBBBB", "BDD#D#D#D#DDB", "BEEEEEEEEEEEB", "B###########B", " BFFFFFFFFFB ")
-                            .aisle("BBBBBBBBBBBBB", "BBDDD#D#DDDBB", "BBEEEEEEEEEBB", " B#########B ", " BBBFFFFFBBB ")
-                            .aisle(" BBBBBBBBBBB ", " BBBDDDDDBBB ", " BBBEEEEEBBB ", "  BB#####BB  ", "   BBBBBBB   ")
-                            .aisle("   BBBBBBB   ", "   BBB@BBB   ", "   BBBBBBB   ", "    BBBBB    ", "             ")
+                            .aisle("DDDDDDD", "DDDDDDD", "DDDDDDD", "DDDDDDD", "       ")
+                            .aisle("DDDDDDD", "DJDJDJD", "DJDJDJD", "DJDJDJD", "       ")
+                            .aisle("DDDDDDD", "DJDJDJD", "DJDJDJD", "DJDJDJD", "       ")
+                            .aisle("DDDDDDD", "DJDJDJD", "DJDJDJD", "DJDJDJD", "       ")
+                            .aisle("DDDDDDD", "DDDIDDD", "DDDDDDD", "DDDDDDD", "       ")
+                            .aisle("       ", "   I   ", "       ", "       ", "       ")
+                            .aisle("  CCC  ", "  CIC  ", "  CCC  ", "  CCC  ", "  CCC  ")
+                            .aisle(" CCCCC ", " C#E#C ", " CFFFC ", " C###C ", " CGGGC ")
+                            .aisle(" CCCCC ", " CEEEC ", " CFFFC ", " C###C ", " CGGGC ")
+                            .aisle("CCCCCCC", "C##E##C", "CFFFFFC", "C#####C", "CGGGGGC")
+                            .aisle("CCCCCCC", "CEEEEEC", "HFFFFFH", "C#####C", "CGGGGGC")
+                            .aisle("CCCCCCC", "C##E##C", "CFFFFFC", "C#####C", "CGGGGGC")
+                            .aisle(" CCCCC ", " CEEEC ", " CFFFC ", " C###C ", " CGGGC ")
+                            .aisle(" CCCCC ", " C#E#C ", " CFFFC ", " C###C ", " CGGGC ")
+                            .aisle("  CCC  ", "  C@C  ", "  CCC  ", "  CCC  ", "  CCC  ")
                             .where('@', controller(blocks(definition.get())))
                             .where(' ', any())
                             .where('#', air())
-                            .where('D', blocks(GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX.get()))
-                            .where('T', blocks(GTBlocks.LD_ITEM_PIPE.get()))
-                            .where('C', blocks(GCYMBlocks.CASING_NONCONDUCTING.get()))
-                            .where('Z', blocks(GCYMBlocks.ELECTROLYTIC_CELL.get()))
-                            .where('E', blocks(GCYMBlocks.CRUSHING_WHEELS.get()))
-                            .where('F', blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
-                            .where('G', abilities(PartAbility.ROTOR_HOLDER))
-                            .where('B', blocks(GCYMBlocks.CASING_SECURE_MACERATION.get())
+                            .where('E', blocks(GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX.get()))
+                            .where('I', blocks(GTBlocks.LD_ITEM_PIPE.get()))
+                            .where('D', blocks(GCYMBlocks.CASING_NONCONDUCTING.get()))
+                            .where('J', blocks(GCYMBlocks.ELECTROLYTIC_CELL.get()))
+                            .where('F', blocks(GCYMBlocks.CRUSHING_WHEELS.get()))
+                            .where('G', blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
+                            .where('H', abilities(PartAbility.ROTOR_HOLDER))
+                            .where('C', blocks(GCYMBlocks.CASING_SECURE_MACERATION.get())
                                     .or(Predicates.abilities(
                                             PartAbility.IMPORT_ITEMS,
+                                            PartAbility.IMPORT_FLUIDS,
                                             PartAbility.EXPORT_FLUIDS,
                                             PartAbility.EXPORT_ITEMS))
                                     .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
@@ -348,10 +345,10 @@ public class Multiblocks {
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeTypes(GREENHOUSE_CROPS, GREENHOUSE_WOOD)
                     .recipeModifiers(
-                            CustomRecipeModifiers.MACHINE_PARALLEL(8),
+                            MACHINE_PARALLEL(8),
                             GTRecipeModifiers.OC_NON_PERFECT,
                             GTRecipeModifiers.BATCH_MODE)
-                    .appearanceBlock(GTBlocks.CASING_STEEL_SOLID)
+                    .appearanceBlock(CASING_STEEL_SOLID)
                     .pattern(definition -> FactoryBlockPattern.start()
                             .aisle("    BBB    ", "    DDD    ", "    EDE    ", "    EDE    ", "    EDE    ", "    EDE    ", "    EDE    ", "    EDE    ", "    EDE    ", "           ", "           ", "           ")
                             .aisle("  BBDDDBB  ", "  DDCCCDD  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "  DE###ED  ", "    EDE    ", "    EDE    ", "           ")
@@ -374,7 +371,7 @@ public class Multiblocks {
                             .where('B', blocks(GTBlocks.FIREBOX_STEEL.get()))
                             .where('E', blocks(GTBlocks.CASING_TEMPERED_GLASS.get()))
                             .where('F', frames(GTMaterials.Steel))
-                            .where('D', blocks(GTBlocks.CASING_STEEL_SOLID.get())
+                            .where('D', blocks(CASING_STEEL_SOLID.get())
                                     .or(Predicates.abilities(PartAbility.IMPORT_ITEMS, PartAbility.IMPORT_FLUIDS, PartAbility.EXPORT_ITEMS))
                                     .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
                                     .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
@@ -445,7 +442,7 @@ public class Multiblocks {
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeTypes(
                             EFRecipeTypes.DISASSEMBLER_MACHINES,
-                            EFRecipeTypes.DISASSEMBER_CASINGS)
+                            EFRecipeTypes.DISASSEMBER_COMPONENTS)
                     .recipeModifiers(OC_NON_PERFECT)
                     .appearanceBlock(GCYMBlocks.CASING_LARGE_SCALE_ASSEMBLING)
                     .pattern(definition -> FactoryBlockPattern.start()
