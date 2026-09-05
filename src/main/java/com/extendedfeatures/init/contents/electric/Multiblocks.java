@@ -248,37 +248,33 @@ public class Multiblocks {
         }
     }
 
-    /* Under Rework (Current logic is innapropiate for what an Assembly Line does)
     static {
-        if (ConfigClass.INSTANCE.Multiblocks.CompactAssemblyLine || GTCEu.isDataGen()) {
-            COMPACT_ASSEMBLY_LINE = ExtendedFeaturesRegister
-                    .multiblock("compact_assembly_line", WorkableElectricMultiblockMachine::new)
+        if (ConfigClass.INSTANCE.Multiblocks.ExpandedAssemblyLine || GTCEu.isDataGen()) {
+            EXPANDED_ASSEMBLY_LINE = ExtendedFeaturesRegister
+                    .multiblock("compact_assembly_line", ExpandedAssemblyLineMachine::new)
                     .rotationState(RotationState.NON_Y_AXIS)
-                    .recipeType(ASSEMBLY_LINE_RECIPES)
-                    .recipeModifiers(MACHINE_PARALLEL(4), OC_NON_PERFECT)
+                    .recipeType(GTRecipeTypes.ASSEMBLY_LINE_RECIPES)
+                    .recipeModifiers(
+                            GTRecipeModifiers.PARALLEL_HATCH,
+                            GTRecipeModifiers.OC_NON_PERFECT)
                     .appearanceBlock(CASING_STEEL_SOLID)
-                    .pattern(definition -> FactoryBlockPattern.start()
-                            .aisle("ENE", "EKE", "EHE")
-                            .aisle("EDE", "RLR", "EHE")
-                            .aisle("EDE", "RKR", "EHE")
-                            .aisle("EDE", "RLR", "EHE")
-                            .aisle("EDE", "RKR", "EHE")
-                            .aisle("EDE", "RLR", "EHE")
-                            .aisle("EDE", "RKR", "EHE")
-                            .aisle("EDE", "RLR", "EHE")
-                            .aisle("E@E", "EKE", "EHE")
+                    .pattern(definition -> FactoryBlockPattern.start(RelativeDirection.RIGHT, RelativeDirection.UP, RelativeDirection.BACK)
+                            .aisle("EE@EE", "RLKLR", "HHEHH")
+                            .aisle("EEDEE", "RLKLR", "HHEHH").setRepeatable(4, 16)
+                            .aisle("EENEE", "RLKLR", "HHEHH")
                             .where('@', controller(blocks(definition.get())))
-                            .where('E', blocks(CASING_STEEL_SOLID.get()))
-                            .where('L', blocks(CASING_ASSEMBLY_CONTROL.get()))
-                            .where('K', blocks(CASING_ASSEMBLY_LINE.get()))
-                            .where('H', blocks(CASING_GRATE.get()))
-                            .where('R', blocks(CASING_LAMINATED_GLASS.get()))
-                            .where('D', blocks(CASING_STEEL_SOLID.get())
-                                    .or(Predicates.abilities(PartAbility.IMPORT_ITEMS))
-                                    .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS))
-                                    .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(1))
-                                    .or(Predicates.abilities(ExtendedAbilities.WIRELESS_OPTICAL_RECEPTOR).setMaxGlobalLimited(1))
+                            .where('E', blocks(GTBlocks.CASING_STEEL_SOLID.get())
+                                    .or(Predicates.abilities(PartAbility.INPUT_ENERGY))
+                                    .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS, PartAbility.IMPORT_FLUIDS_4X))
+                                    .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1))
+                                    .or(Predicates.abilities(PartAbility.PARALLEL_HATCH).setMaxGlobalLimited(1))
+                                    .or(dataHatchPredicate(blocks(GTBlocks.CASING_STEEL_SOLID.get())))
                             )
+                            .where('L', blocks(GTBlocks.CASING_ASSEMBLY_CONTROL.get()))
+                            .where('K', blocks(GTBlocks.CASING_ASSEMBLY_LINE.get()))
+                            .where('H', blocks(GTBlocks.CASING_GRATE.get()))
+                            .where('R', blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
+                            .where('D', Predicates.abilities(PartAbility.IMPORT_ITEMS))
                             .where('N', Predicates.abilities(PartAbility.EXPORT_ITEMS))
                             .build())
                     .workableCasingModel(
