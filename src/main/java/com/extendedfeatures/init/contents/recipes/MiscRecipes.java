@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.Blocks;
 
 import java.util.function.Consumer;
 
-import static com.extendedfeatures.client.RecipeTypes.*;
+import static com.extendedfeatures.client.EFRecipeTypes.*;
 import static com.extendedfeatures.init.contents.electric.Multiblocks.LARGE_GAS_COLLECTOR;
 import static com.gregtechceu.gtceu.api.GTValues.*;
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;

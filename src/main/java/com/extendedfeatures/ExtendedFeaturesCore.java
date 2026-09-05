@@ -1,6 +1,6 @@
 package com.extendedfeatures;
 
-import com.extendedfeatures.client.RecipeTypes;
+import com.extendedfeatures.client.EFRecipeTypes;
 import com.extendedfeatures.client.internal.ConfigClass;
 import com.extendedfeatures.init.contents.electric.Machines;
 import com.extendedfeatures.init.contents.electric.Multiblocks;
@@ -77,7 +77,7 @@ public class ExtendedFeaturesCore {
     }
 
     private void registerRecipeTypes(GTCEuAPI.RegisterEvent<ResourceLocation, GTRecipeType> event) {
-        RecipeTypes.init();
+        EFRecipeTypes.init();
     }
 
     private void registerMachines(GTCEuAPI.RegisterEvent<ResourceLocation, MachineDefinition> event) {

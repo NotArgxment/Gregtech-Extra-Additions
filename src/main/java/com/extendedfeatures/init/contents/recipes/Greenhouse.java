@@ -9,8 +9,8 @@ import net.minecraft.world.item.Items;
 
 import java.util.function.Consumer;
 
-import static com.extendedfeatures.client.RecipeTypes.GREENHOUSE_CROPS;
-import static com.extendedfeatures.client.RecipeTypes.GREENHOUSE_WOOD;
+import static com.extendedfeatures.client.EFRecipeTypes.GREENHOUSE_CROPS;
+import static com.extendedfeatures.client.EFRecipeTypes.GREENHOUSE_WOOD;
 import static com.gregtechceu.gtceu.common.data.GTItems.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 

@@ -5,7 +5,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 
 import java.util.function.Consumer;
 
-import static com.extendedfeatures.client.RecipeTypes.CHEMICAL_REDUCTION;
+import static com.extendedfeatures.client.EFRecipeTypes.CHEMICAL_REDUCTION;
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 
@@ -46,7 +46,7 @@ public class SynthesisVessel {
                 .duration(2000)
                 .save(provider);
 
-        /* For 2.5.0, WIP
+        /* For 3.1.0, WIP
 
         // ======================================
         //          Miscellaneous Skips
