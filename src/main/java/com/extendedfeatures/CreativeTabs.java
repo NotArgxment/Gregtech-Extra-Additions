@@ -23,7 +23,7 @@ public class CreativeTabs {
                             )
                             .title(ExtendedFeaturesRegister.addLang(
                                     "itemGroup", ExtendedFeaturesCore.id("creative_tab_1"),
-                                    "Ext. Features: Multiblocks")
+                                    "GTEF: Multiblocks")
                             )
                             .icon(GCYMMachines.LARGE_ASSEMBLER::asStack)
                             .build()
@@ -40,7 +40,7 @@ public class CreativeTabs {
                             )
                             .title(ExtendedFeaturesRegister.addLang(
                                     "itemGroup", ExtendedFeaturesCore.id("creative_tab_2"),
-                                    "Ext. Features: Universal Circuits"))
+                                    "GTEF: Universal Circuits"))
                             .icon(GTItems.CRYSTAL_ASSEMBLY_LuV::asStack)
                             .build()
             )
@@ -55,7 +55,7 @@ public class CreativeTabs {
                                             ExtendedFeaturesRegister))
                             .title(ExtendedFeaturesRegister.addLang(
                                     "itemGroup", ExtendedFeaturesCore.id("creative_tab_3"),
-                                    "Ext. Features: Machines")
+                                    "GTEF: Machines")
                             )
                             .icon(GTResearchMachines.ADVANCED_DATA_ACCESS_HATCH::asStack)
                             .build()
