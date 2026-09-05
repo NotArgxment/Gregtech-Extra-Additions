@@ -1,14 +1,13 @@
 package com.extendedfeatures;
 
 import com.gregtechceu.gtceu.common.data.GTCreativeModeTabs;
+import com.gregtechceu.gtceu.common.data.GTItems;
 import com.gregtechceu.gtceu.common.data.machines.GCYMMachines;
+import com.gregtechceu.gtceu.common.data.machines.GTResearchMachines;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.world.item.CreativeModeTab;
 
 import static com.extendedfeatures.ExtendedFeaturesCore.ExtendedFeaturesRegister;
-import static com.extendedfeatures.init.contents.electric.Machines.UV_DATA_ACCESS_HATCH;
-import static com.extendedfeatures.init.contents.misc.UniversalCircuits.UNIVERSAL_CIRCUITS;
-import static com.gregtechceu.gtceu.api.GTValues.IV;
 
 public class CreativeTabs {
 
@@ -42,7 +41,7 @@ public class CreativeTabs {
                             .title(ExtendedFeaturesRegister.addLang(
                                     "itemGroup", ExtendedFeaturesCore.id("creative_tab_2"),
                                     "Ext. Features: Universal Circuits"))
-                            .icon(() -> UNIVERSAL_CIRCUITS[IV].asStack())
+                            .icon(GTItems.CRYSTAL_ASSEMBLY_LuV::asStack)
                             .build()
             )
             .register();
@@ -58,7 +57,7 @@ public class CreativeTabs {
                                     "itemGroup", ExtendedFeaturesCore.id("creative_tab_3"),
                                     "Ext. Features: Machines")
                             )
-                            .icon(UV_DATA_ACCESS_HATCH::asStack)
+                            .icon(GTResearchMachines.ADVANCED_DATA_ACCESS_HATCH::asStack)
                             .build()
             )
             .register();
