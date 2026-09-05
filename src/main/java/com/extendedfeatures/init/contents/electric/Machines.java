@@ -2,10 +2,10 @@ package com.extendedfeatures.init.contents.electric;
 
 import com.extendedfeatures.CreativeTabs;
 import com.extendedfeatures.client.internal.ConfigClass;
-import com.extendedfeatures.init.contents.misc.ExtendedAbilities;
 import com.extendedfeatures.client.internal.logic.machine.ConfigurableCleanroomHatch;
 import com.extendedfeatures.client.internal.logic.machine.ExpandedDataAccessHatch;
 import com.extendedfeatures.client.internal.logic.machine.WirelessOpticalHatch;
+import com.extendedfeatures.init.contents.misc.ExtendedAbilities;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.RotationState;
