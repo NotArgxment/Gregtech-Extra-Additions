@@ -258,6 +258,7 @@ public class Multiblocks {
                             GTRecipeModifiers.PARALLEL_HATCH,
                             GTRecipeModifiers.OC_NON_PERFECT)
                     .appearanceBlock(CASING_STEEL_SOLID)
+                    // RIGHT, UP and BACK are required to allow terminal to build the multiblock in the correct way
                     .pattern(definition -> FactoryBlockPattern.start(RelativeDirection.RIGHT, RelativeDirection.UP, RelativeDirection.BACK)
                             .aisle("EE@EE", "RLKLR", "HHEHH")
                             .aisle("EEDEE", "RLKLR", "HHEHH").setRepeatable(4, 16)
