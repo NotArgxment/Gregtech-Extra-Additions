@@ -1,14 +1,14 @@
 package com.extendedfeatures;
 
 import com.gregtechceu.gtceu.common.data.GTCreativeModeTabs;
+import com.gregtechceu.gtceu.common.data.machines.GCYMMachines;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.world.item.CreativeModeTab;
 
 import static com.extendedfeatures.ExtendedFeaturesCore.ExtendedFeaturesRegister;
-import static com.extendedfeatures.init.contents.electric.Machines.*;
-import static com.extendedfeatures.init.contents.electric.Multiblocks.*;
-import static com.extendedfeatures.init.contents.misc.UniversalCircuits.*;
-import static com.gregtechceu.gtceu.api.GTValues.*;
+import static com.extendedfeatures.init.contents.electric.Machines.UV_DATA_ACCESS_HATCH;
+import static com.extendedfeatures.init.contents.misc.UniversalCircuits.UNIVERSAL_CIRCUITS;
+import static com.gregtechceu.gtceu.api.GTValues.IV;
 
 public class CreativeTabs {
 
@@ -26,7 +26,7 @@ public class CreativeTabs {
                                     "itemGroup", ExtendedFeaturesCore.id("creative_tab_1"),
                                     "Ext. Features: Multiblocks")
                             )
-                            .icon(DISASSEMBLER::asStack)
+                            .icon(GCYMMachines.LARGE_ASSEMBLER::asStack)
                             .build()
             )
             .register();
