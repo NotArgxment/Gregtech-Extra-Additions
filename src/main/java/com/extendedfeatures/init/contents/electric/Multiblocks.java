@@ -12,7 +12,6 @@ import com.extendedfeatures.client.internal.logic.multiblock.MatrixDataRelayMach
 import com.extendedfeatures.init.contents.behavior.CoilWorkableMultiblockLaser;
 import com.extendedfeatures.init.contents.misc.EFShapeInfosHelper;
 import com.extendedfeatures.init.contents.misc.ExtendedAbilities;
-
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
@@ -27,14 +26,15 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
 import static com.extendedfeatures.ExtendedFeaturesCore.ExtendedFeaturesRegister;
-import static com.extendedfeatures.client.EFRecipeTypes.*;
-import static com.extendedfeatures.init.contents.modifiers.CustomRecipeModifiers.MACHINE_PARALLEL;
-import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
+import static com.extendedfeatures.client.EFRecipeTypes.GREENHOUSE_CROPS;
+import static com.extendedfeatures.client.EFRecipeTypes.GREENHOUSE_WOOD;
+import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.dustTiny;
 import static com.gregtechceu.gtceu.api.pattern.Predicates.*;
-import static com.gregtechceu.gtceu.common.data.GTBlocks.*;
+import static com.gregtechceu.gtceu.common.data.GTBlocks.CASING_STEEL_SOLID;
 import static com.gregtechceu.gtceu.common.data.GTMaterialItems.MATERIAL_ITEMS;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.Ash;
-import static com.gregtechceu.gtceu.common.data.GTRecipeModifiers.*;
+import static com.gregtechceu.gtceu.common.data.GTRecipeModifiers.OC_NON_PERFECT;
+import static com.gregtechceu.gtceu.common.data.GTRecipeModifiers.PARALLEL_HATCH;
 
 public class Multiblocks {
 
@@ -64,9 +64,7 @@ public class Multiblocks {
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(GCYMRecipeTypes.ALLOY_BLAST_RECIPES)
                     .recipeModifiers(
-                            GTRecipeModifiers.PARALLEL_HATCH,
-                            GTRecipeModifiers.OC_NON_PERFECT,
-                            GTRecipeModifiers.BATCH_MODE,
+                            GTRecipeModifiers.OC_PERFECT,
                             GTRecipeModifiers::ebfOverclock)
                     .appearanceBlock(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST)
                     .pattern(definition -> FactoryBlockPattern.start()
@@ -251,12 +249,13 @@ public class Multiblocks {
     static {
         if (ConfigClass.INSTANCE.Multiblocks.ExpandedAssemblyLine || GTCEu.isDataGen()) {
             EXPANDED_ASSEMBLY_LINE = ExtendedFeaturesRegister
-                    .multiblock("compact_assembly_line", ExpandedAssemblyLineMachine::new)
+                    .multiblock("expanded_assembly_line", ExpandedAssemblyLineMachine::new)
                     .rotationState(RotationState.NON_Y_AXIS)
+                    .tooltips(EFTooltipHelper.EALTooltip)
                     .recipeType(GTRecipeTypes.ASSEMBLY_LINE_RECIPES)
                     .recipeModifiers(
-                            GTRecipeModifiers.PARALLEL_HATCH,
-                            GTRecipeModifiers.OC_NON_PERFECT)
+                            GTRecipeModifiers.OC_PERFECT,
+                            GTRecipeModifiers.BATCH_MODE)
                     .appearanceBlock(CASING_STEEL_SOLID)
                     // RIGHT, UP and BACK are required to allow terminal to build the multiblock in the correct way
                     .pattern(definition -> FactoryBlockPattern.start(RelativeDirection.RIGHT, RelativeDirection.UP, RelativeDirection.BACK)
@@ -268,8 +267,7 @@ public class Multiblocks {
                                     .or(Predicates.abilities(PartAbility.INPUT_ENERGY))
                                     .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS, PartAbility.IMPORT_FLUIDS_4X))
                                     .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1))
-                                    .or(Predicates.abilities(PartAbility.PARALLEL_HATCH).setMaxGlobalLimited(1))
-                                    .or(dataHatchPredicate(blocks(GTBlocks.CASING_STEEL_SOLID.get())))
+                                    .or(Predicates.abilities(ExtendedAbilities.WIRELESS_OPTICAL_RECEPTOR).setExactLimit(1))
                             )
                             .where('L', blocks(GTBlocks.CASING_ASSEMBLY_CONTROL.get()))
                             .where('K', blocks(GTBlocks.CASING_ASSEMBLY_LINE.get()))
@@ -346,8 +344,7 @@ public class Multiblocks {
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeTypes(GREENHOUSE_CROPS, GREENHOUSE_WOOD)
                     .recipeModifiers(
-                            MACHINE_PARALLEL(8),
-                            GTRecipeModifiers.OC_NON_PERFECT,
+                            GTRecipeModifiers.OC_PERFECT,
                             GTRecipeModifiers.BATCH_MODE)
                     .appearanceBlock(CASING_STEEL_SOLID)
                     .pattern(definition -> FactoryBlockPattern.start()
@@ -509,39 +506,6 @@ public class Multiblocks {
                     .register();
         }
     }
-
-    /*
-    static {
-        if (ConfigClass.INSTANCE.Multiblocks.ExpandedDatabank || GTCEu.isDataGen()) {
-            EXPANDED_DATABANK = ExtendedFeaturesRegister
-                    .multiblock("expanded_databank", DataBankMachine::new)
-                    .rotationState(RotationState.NON_Y_AXIS)
-                    .recipeType(DUMMY_RECIPES)
-                    .appearanceBlock(ADVANCED_COMPUTER_CASING)
-                    .pattern(definition -> FactoryBlockPattern.start()
-                            .aisle("   BBBBB   ", "   B   B   ", "   B   B   ", "   B   B   ", "   B   B   ", "   BBBBB   ")
-                            .aisle(" BBBDBDBBB ", "           ", "           ", "           ", "           ", " BBBDBDBBB ")
-                            .aisle("BBDDDBDDDBB", "B         B", "B         B", "B         B", "B         B", "BBDDDBDDDBB")
-                            .aisle("BDBBBBBBBDB", "  E E E E  ", "  E E E E  ", "  E E E E  ", "  E E E E  ", "BDBBBBBBBDB")
-                            .aisle("BBDDDBDDDBB", "B         B", "B         B", "B         B", "B         B", "BBDDDBDDDBB")
-                            .aisle(" BBBDBDBBB ", "           ", "           ", "           ", "           ", " BBBDBDBBB ")
-                            .aisle("   BB@BB   ", "   B   B   ", "   B   B   ", "   B   B   ", "   B   B   ", "   BBBBB   ")
-                            .where('@', controller(blocks(definition.get())))
-                            .where(' ', any())
-                            .where('D', blocks(COMPUTER_CASING.get()))
-                            .where('B', blocks(ADVANCED_COMPUTER_CASING.get())
-                                    .or(abilities(PartAbility.MAINTENANCE).setExactLimit(1))
-                                    .or(abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
-                                    .or(abilities(PartAbility.DATA_ACCESS).setMinGlobalLimited(1).setMaxGlobalLimited(6)))
-                            .where('E', abilities(PartAbility.OPTICAL_DATA_TRANSMISSION).setMaxGlobalLimited(16))
-                            .build())
-                    .workableCasingModel(
-                            GTCEu.id("block/casings/hpca/advanced_computer_casing/top"),
-                            GTCEu.id("block/multiblock/data_bank"))
-                    .register();
-        }
-    }
-     */
 
     static {
         if (ConfigClass.INSTANCE.Multiblocks.MatrixDataRelay || GTCEu.isDataGen()) {
